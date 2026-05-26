@@ -56,9 +56,9 @@ export const activitiesByCity: Record<string, Activity[]> = {
       url: "https://www.visitlisboa.com/en/places/tram-28",
     },
     {
-      title: "Pasteis de Belem",
+      title: "Pastéis de Belém",
       kind: "Food",
-      description: "Perfekt als kurzer Stopp nach Mosteiro dos Jeronimos und Torre de Belem.",
+      description: "Perfekt als kurzer Stopp nach Mosteiro dos Jerónimos und Torre de Belém.",
       priceHint: "ab 2 EUR",
       image: "https://images.unsplash.com/photo-1577805947697-89e18249d767?auto=format&fit=crop&w=900&q=80",
       url: "https://pasteisdebelem.pt/en/",
