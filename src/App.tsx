@@ -140,7 +140,7 @@ export default function App() {
                 <Plane size={22} />
               </span>
               <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">Reise Deal Finder</p>
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200">Jorge's Reise-Deal-Finder</p>
                 <h1 className="text-xl font-semibold text-white sm:text-3xl">{selectedCity.name} Deals live vergleichen</h1>
               </div>
             </div>

@@ -1,4 +1,4 @@
-# Reise Deal Finder
+# Jorge's Reise-Deal-Finder
 
 Deutsche React-Web-App zum Finden von Reise-Deals für Lissabon und weitere Städte. Die App ist für GitHub Pages vorbereitet und nutzt eine Agenten-Architektur für Frontend, Flugpreise, Hotels und tägliche Preisalarme.
 

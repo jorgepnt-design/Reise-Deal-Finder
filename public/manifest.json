@@ -1,6 +1,6 @@
 {
-  "name": "Reise Deal Finder",
-  "short_name": "Deals",
+  "name": "Jorge's Reise-Deal-Finder",
+  "short_name": "Jorge Deals",
   "description": "Deutsche Web-App zum Finden von Reise-Deals für Lissabon und weitere Städte.",
   "start_url": "/Reise-Deal-Finder/",
   "display": "standalone",
