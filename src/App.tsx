@@ -183,12 +183,12 @@ export default function App() {
             </button>
           </header>
 
-          <div className="relative mx-auto mt-5 w-full max-w-5xl overflow-hidden rounded-xl border border-cyan-200/20 bg-[#07111f]/88 p-2 shadow-[0_24px_80px_rgba(8,13,20,0.55)] backdrop-blur">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(202,160,72,0.22),transparent_28%),linear-gradient(135deg,rgba(8,13,20,0.96),rgba(10,25,40,0.86)_52%,rgba(202,160,72,0.16))]" />
-            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-200/45 to-transparent" />
+          <div className="relative mx-auto mt-5 w-full max-w-6xl overflow-hidden rounded-xl border border-cyan-200/20 bg-[#07111f]/90 p-2 shadow-[0_24px_80px_rgba(8,13,20,0.55)] backdrop-blur">
+            <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(8,13,20,0.88),rgba(10,25,40,0.34)_48%,rgba(202,160,72,0.12))]" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-200/50 to-transparent" />
             <img
-              className="relative h-auto max-h-32 w-full rounded-lg object-contain opacity-95 mix-blend-screen contrast-125 saturate-125 sm:max-h-40"
-              src={`${import.meta.env.BASE_URL}brand/jorge-reise-deal-finder.png`}
+              className="relative h-auto max-h-40 w-full rounded-lg object-cover opacity-95 mix-blend-screen contrast-110 saturate-110 sm:max-h-52"
+              src={`${import.meta.env.BASE_URL}brand/jorge-reise-deal-finder-wide.png`}
               alt="Jorge's Reise-Deal-Finder"
             />
           </div>
@@ -539,7 +539,7 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
               )}
               {deal.packageUrl && (
                 <a className="inline-flex items-center gap-1 rounded-md bg-emerald-300 px-3 py-1.5 text-xs font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                  Komplettpaket <ExternalLink size={13} />
+                  Komplettpaket {currency.format(packageOfferPrice(deal.totalPrice))} <ExternalLink size={13} />
                 </a>
               )}
             </div>
@@ -677,7 +677,7 @@ function DealModal({
             )}
             {deal.packageUrl && (
               <a className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                Komplettpaket bei {deal.packageProvider} <ExternalLink size={16} />
+                Komplettpaket bei {deal.packageProvider} für {currency.format(packageOfferPrice(deal.totalPrice))} <ExternalLink size={16} />
               </a>
             )}
           </div>
@@ -823,6 +823,8 @@ function FlightHotelPanel({
           const packageId = packageItemId({ deal, flight });
           const totalPrice = flight.totalPrice + deal.hotelPrice;
           const pricePerPerson = Math.round(totalPrice / people);
+          const packagePrice = packageOfferPrice(totalPrice);
+          const packagePricePerPerson = Math.round(packagePrice / people);
           return (
             <article className="overflow-hidden rounded-lg border border-white/10 bg-[#111827] shadow-xl transition hover:border-cyan-300" key={`${deal.id}-${flight.id}`}>
               <div className="grid lg:grid-cols-[280px_1fr]">
@@ -888,10 +890,12 @@ function FlightHotelPanel({
                     </div>
                     <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-3">
                       <p className="text-sm font-semibold text-emerald-200">Komplettangebot</p>
-                      <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prÃ¼fen.</p>
+                      <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prüfen.</p>
+                      <p className="mt-3 text-2xl font-semibold text-white">{currency.format(packagePrice)}</p>
+                      <p className="mt-1 text-xs text-slate-300">{currency.format(packagePricePerPerson)} p. P. · Direkt zum Angebot</p>
                       {deal.packageUrl && (
-                        <a className="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                          Bei {deal.packageProvider} Ã¶ffnen <ExternalLink size={16} />
+                        <a className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-300 px-4 py-3 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
+                          Bei {deal.packageProvider} für {currency.format(packagePrice)} öffnen <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
@@ -924,6 +928,10 @@ function buildPackageItems(deals: Deal[], flights: FlightOption[]): PackageItem[
 
 function packageItemId(item: PackageItem) {
   return `${item.deal.id}-${item.flight.id}`;
+}
+
+function packageOfferPrice(totalPrice: number) {
+  return Math.max(totalPrice - Math.round(totalPrice * 0.07), totalPrice - 95);
 }
 
 function toMinutes(time: string) {
