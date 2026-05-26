@@ -1,7 +1,7 @@
 {
   "name": "reise-deal-finder",
   "version": "1.0.0",
-  "description": "Deutsche Web-App zum Finden und Ueberwachen von Reise-Deals fuer Lissabon und weitere Staedte.",
+  "description": "Deutsche Web-App zum Finden und Überwachen von Reise-Deals für Lissabon und weitere Städte.",
   "private": true,
   "scripts": {
     "dev": "vite",

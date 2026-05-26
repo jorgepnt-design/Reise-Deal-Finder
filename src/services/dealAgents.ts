@@ -5,7 +5,7 @@ export const originAirports = [
   { code: "FRA", name: "Frankfurt" },
   { code: "HHN", name: "Frankfurt-Hahn" },
   { code: "STR", name: "Stuttgart" },
-  { code: "CGN", name: "Koeln/Bonn" },
+  { code: "CGN", name: "Köln/Bonn" },
 ];
 
 const dealImages: Record<string, string[]> = {
@@ -69,7 +69,7 @@ export const agentStatus = [
     name: "Agent 2",
     title: "Flug-Crawler per Browser",
     state: "Adapter bereit",
-    description: "Sucht Deutschland nach Zielstadt, normalisiert Preise pro Datum und speichert die guenstigsten Treffer.",
+    description: "Sucht Deutschland nach Zielstadt, normalisiert Preise pro Datum und speichert die günstigsten Treffer.",
     sources: [
       { name: "Skyscanner", url: "https://www.skyscanner.de/" },
       { name: "Google Flights", url: "https://www.google.com/travel/flights" },
@@ -79,7 +79,7 @@ export const agentStatus = [
     name: "Agent 3",
     title: "Hotel-Crawler per Browser",
     state: "Adapter bereit",
-    description: "Vergleicht Booking und HRS nach Preis-Leistung, Bewertung, Lage und Stornierungsflexibilitaet.",
+    description: "Vergleicht Booking und HRS nach Preis-Leistung, Bewertung, Lage und Stornierungsflexibilität.",
     sources: [
       { name: "Booking", url: "https://www.booking.com/" },
       { name: "HRS", url: "https://www.hrs.de/" },
@@ -89,7 +89,7 @@ export const agentStatus = [
     name: "Agent 4",
     title: "Scheduled Task und Push",
     state: "07:00 geplant",
-    description: "Vergleicht den heutigen Preis-Snapshot mit gestern und meldet neue Deals oder Preisfaelle ab 10 Prozent.",
+    description: "Vergleicht den heutigen Preis-Snapshot mit gestern und meldet neue Deals oder Preisfälle ab 10 Prozent.",
     sources: [{ name: "Web Notifications", url: "https://developer.mozilla.org/docs/Web/API/Notifications_API" }],
   },
 ];
@@ -136,7 +136,7 @@ export function buildDeals(search: SearchState): Deal[] {
       notes: [
         `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
         search.tripMode === "flight" ? "Nur Flug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
-        `${priceDropPercent}% guenstiger als der letzte Snapshot`,
+        `${priceDropPercent}% günstiger als der letzte Snapshot`,
       ],
     };
   });
@@ -176,7 +176,7 @@ export function runDailyPriceCheck(deals: Deal[]) {
       ? "1 neuer Preisalarm"
       : relevantDeals.length > 1
         ? `${relevantDeals.length} neue Preisalarme`
-        : "Keine starken Preisfaelle";
+        : "Keine starken Preisfälle";
 
   return {
     headline,

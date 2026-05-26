@@ -50,7 +50,7 @@ export const activitiesByCity: Record<string, Activity[]> = {
     {
       title: "Tram 28 und Alfama",
       kind: "Klassiker",
-      description: "Frueh starten, dann ist die historische Strecke durch Alfama deutlich entspannter.",
+      description: "Früh starten, dann ist die historische Strecke durch Alfama deutlich entspannter.",
       priceHint: "ab 3 EUR",
       image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
     },
@@ -78,9 +78,9 @@ export const activitiesByCity: Record<string, Activity[]> = {
   ],
   porto: [
     {
-      title: "Ribeira und Dom-Luis-Bruecke",
+      title: "Ribeira und Dom-Luis-Brücke",
       kind: "Spaziergang",
-      description: "Beste Route am spaeten Nachmittag mit Blick auf Vila Nova de Gaia.",
+      description: "Beste Route am späten Nachmittag mit Blick auf Vila Nova de Gaia.",
       priceHint: "kostenlos",
       image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
     },
@@ -126,7 +126,7 @@ export const activitiesByCity: Record<string, Activity[]> = {
     {
       title: "Vomero und Castel Sant'Elmo",
       kind: "Ausblick",
-      description: "Mit der Funicolare hochfahren und den Blick ueber Golf, Altstadt und Vesuv mitnehmen.",
+      description: "Mit der Funicolare hochfahren und den Blick über Golf, Altstadt und Vesuv mitnehmen.",
       priceHint: "ab 2 EUR",
       image: "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=900&q=80",
     },

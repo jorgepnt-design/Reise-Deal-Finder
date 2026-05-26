@@ -1,7 +1,7 @@
 {
   "name": "Reise Deal Finder",
   "short_name": "Deals",
-  "description": "Deutsche Web-App zum Finden von Reise-Deals fuer Lissabon und weitere Staedte.",
+  "description": "Deutsche Web-App zum Finden von Reise-Deals für Lissabon und weitere Städte.",
   "start_url": "/Reise-Deal-Finder/",
   "display": "standalone",
   "background_color": "#090d14",

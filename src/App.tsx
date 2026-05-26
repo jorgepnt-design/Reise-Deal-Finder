@@ -110,7 +110,7 @@ export default function App() {
               </p>
               <h2 className="text-5xl font-semibold leading-[1.02] text-white sm:text-7xl">{selectedCity.name} unter Budget finden</h2>
               <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-200">
-                Vier Agenten durchsuchen Fluege, Hotels, Preis-Historie und Aktivitaeten. Die besten Kombi-Deals werden nach
+                Vier Agenten durchsuchen Flüge, Hotels, Preis-Historie und Aktivitäten. Die besten Kombi-Deals werden nach
                 Preis, Bewertung, Datum und Preisfall sortiert.
               </p>
               {featuredDeal && (
@@ -133,7 +133,7 @@ export default function App() {
             {[
               ["deals", "Deals"],
               ["agents", "Agenten"],
-              ["activities", "Aktivitaeten"],
+              ["activities", "Aktivitäten"],
             ].map(([id, label]) => (
               <button
                 className={`rounded-md px-4 py-2 text-sm font-semibold transition ${activeTab === id ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`}
@@ -190,12 +190,12 @@ export default function App() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
                   <p className="text-sm text-cyan-100">Scheduled Task</p>
-                  <h3 className="mt-1 text-xl font-semibold text-white">Taeglich um 07:00 Uhr vergleichen</h3>
+                  <h3 className="mt-1 text-xl font-semibold text-white">Täglich um 07:00 Uhr vergleichen</h3>
                 </div>
                 <span className="rounded-md bg-white px-3 py-1 text-sm font-bold text-slate-950">Letzter Lauf: {lastRun}</span>
               </div>
               <p className="mt-4 text-sm leading-6 text-slate-200">
-                Push wird ausgelost, wenn ein Preis um mehr als 10 Prozent faellt oder ein neuer Deal auftaucht. In der App kann
+                Push wird ausgelost, wenn ein Preis um mehr als 10 Prozent fällt oder ein neuer Deal auftaucht. In der App kann
                 der Schalter oben rechts jederzeit deaktiviert werden.
               </p>
             </article>
@@ -282,7 +282,7 @@ function SearchPanel({ search, onChange }: SearchPanelProps) {
         <Field icon={<Users size={16} />} label="Personen" min={1} max={6} type="number" value={String(search.people)} onChange={(value) => onChange("people", Number(value))} />
       </div>
       <div className="mt-5 rounded-md border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-300">
-        Abflug ab Frankfurt, Hahn, Stuttgart oder Koeln. Sortierung: Preis, Datum, Preisfall und Bewertung.
+        Abflug ab Frankfurt, Hahn, Stuttgart oder Köln. Sortierung: Preis, Datum, Preisfall und Bewertung.
       </div>
     </form>
   );
@@ -296,7 +296,7 @@ function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; 
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
-            <CalendarCheck size={18} /> Guenstigste Reisedaten
+            <CalendarCheck size={18} /> Günstigste Reisedaten
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">
             {best ? `${formatShortDate(best.startDate)} bis ${formatShortDate(best.endDate)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}
@@ -304,7 +304,7 @@ function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; 
         </div>
         {best && (
           <button className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onApply(best)} type="button">
-            Empfehlung uebernehmen
+            Empfehlung übernehmen
           </button>
         )}
       </div>
@@ -313,7 +313,7 @@ function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; 
           <button className="rounded-lg border border-white/10 bg-black/20 p-4 text-left transition hover:border-emerald-300 hover:bg-black/30" key={item.id} onClick={() => onApply(item)} type="button">
             <p className="text-sm font-semibold text-white">{formatShortDate(item.startDate)} - {formatShortDate(item.endDate)}</p>
             <p className="mt-2 text-xl font-semibold text-emerald-200">{currency.format(item.totalPrice)}</p>
-            <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% guenstiger</p>
+            <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% günstiger</p>
           </button>
         ))}
       </div>
@@ -366,7 +366,7 @@ function DealCard({ deal, onOpen }: { deal: Deal; onOpen: (deal: Deal) => void }
             <h3 className="mt-1 text-xl font-semibold text-white">{deal.title}</h3>
           </div>
           <span className={`rounded-md px-2.5 py-1 text-xs font-bold ${overBudget ? "bg-amber-300 text-amber-950" : "bg-emerald-300 text-emerald-950"}`}>
-            {overBudget ? "ueber Budget" : "im Budget"}
+            {overBudget ? "über Budget" : "im Budget"}
           </span>
         </div>
         <div className="mt-5 grid grid-cols-3 gap-3 text-sm">
@@ -381,7 +381,7 @@ function DealCard({ deal, onOpen }: { deal: Deal; onOpen: (deal: Deal) => void }
           </div>
           <div className="text-right">
             <p className="text-sm font-semibold text-emerald-200">{deal.priceDropPercent}% gefallen</p>
-            <p className="mt-1 text-xs text-slate-400">Klicken fuer Details</p>
+            <p className="mt-1 text-xs text-slate-400">Klicken für Details</p>
           </div>
         </div>
       </div>
@@ -409,7 +409,7 @@ function DealModal({ deal, onClose }: { deal: Deal; onClose: () => void }) {
               <p className="text-sm font-semibold text-cyan-200">{deal.originName} ({deal.originAirport}) nach {deal.destinationAirport}</p>
               <h2 className="mt-1 text-2xl font-semibold text-white">{deal.title}</h2>
             </div>
-            <button className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10" onClick={onClose} type="button" aria-label="Schliessen">
+            <button className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10" onClick={onClose} type="button" aria-label="Schließen">
               x
             </button>
           </div>

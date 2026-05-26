@@ -18,7 +18,7 @@ const origins = [
   { code: "FRA", name: "Frankfurt", factor: 1 },
   { code: "HHN", name: "Frankfurt-Hahn", factor: 0.82 },
   { code: "STR", name: "Stuttgart", factor: 1.08 },
-  { code: "CGN", name: "Koeln/Bonn", factor: 0.96 },
+  { code: "CGN", name: "Köln/Bonn", factor: 0.96 },
 ];
 
 const sources = {
