@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" role="img" aria-label="Jorge´s WM-Planer 2026 Icon">
+  <rect width="192" height="192" rx="42" fill="#081633"/>
+  <circle cx="96" cy="92" r="48" fill="#f6f8fb"/>
+  <path d="M96 44l16 31-16 17-16-17 16-31zM50 93l34-5 12 20-17 26-29-41zM142 93l-34-5-12 20 17 26 29-41z" fill="#d6a84f"/>
+  <path d="M58 146h76" stroke="#c9413d" stroke-width="12" stroke-linecap="round"/>
+</svg>
