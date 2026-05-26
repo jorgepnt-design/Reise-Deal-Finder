@@ -71,7 +71,7 @@ function scoreLabel(score: number) {
 
 export default function App() {
   const [search, setSearch] = useState<SearchState>(defaultSearch);
-  const [activeTab, setActiveTab] = useState<"deals" | "flights" | "wishlist" | "agents" | "activities">("deals");
+  const [activeTab, setActiveTab] = useState<"deals" | "flights" | "packages" | "wishlist" | "agents" | "activities">("deals");
   const [lastRun, setLastRun] = useState("Heute 07:00");
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
@@ -85,6 +85,9 @@ export default function App() {
   const deals = useMemo(() => (liveDeals.length > 0 ? liveDeals : fallbackDeals).sort((a, b) => b.score - a.score), [fallbackDeals, liveDeals]);
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
   const flights = useMemo(() => sortFlights(buildFlights(search), flightSort), [flightSort, search]);
+  const packageSearch = useMemo<SearchState>(() => ({ ...search, tripMode: "package", flightType: "roundTrip" }), [search]);
+  const packageFlights = useMemo(() => sortFlights(buildFlights(packageSearch), flightSort), [flightSort, packageSearch]);
+  const packageDeals = useMemo(() => buildDeals(packageSearch).sort((a, b) => a.totalPrice - b.totalPrice), [packageSearch]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
@@ -198,10 +201,11 @@ export default function App() {
 
       <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="inline-flex rounded-lg border border-white/10 bg-white/[0.04] p-1">
+          <div className="flex flex-wrap rounded-lg border border-white/10 bg-white/[0.04] p-1">
             {[
               ["deals", "Deals"],
               ["flights", "Flüge"],
+              ["packages", "Flug + Hotel"],
               ["wishlist", "Merkliste"],
               ["agents", "Agenten"],
               ["activities", "Aktivitäten"],
@@ -233,6 +237,8 @@ export default function App() {
         )}
 
         {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} sort={flightSort} onSortChange={setFlightSort} />}
+
+        {activeTab === "packages" && <FlightHotelPanel deals={packageDeals} flights={packageFlights} people={search.people} sort={flightSort} onSortChange={setFlightSort} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7">
@@ -654,6 +660,105 @@ function FlightsPanel({ flights, people, sort, onSortChange }: { flights: Flight
             </div>
           </article>
         ))}
+      </div>
+    </div>
+  );
+}
+
+function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deals: Deal[]; flights: FlightOption[]; people: number; sort: FlightSort; onSortChange: (sort: FlightSort) => void }) {
+  const packages = deals
+    .filter((deal) => deal.tripMode === "package")
+    .map((deal, index) => ({ deal, flight: flights[index % Math.max(1, flights.length)] }))
+    .filter((item): item is { deal: Deal; flight: FlightOption } => Boolean(item.flight));
+
+  if (packages.length === 0) {
+    return <EmptyPanel title="Keine Flug + Hotel-Angebote" text="Wähle Hin- und Rückflug, lockere Filter oder erhöhe das Budget, um Kombi-Angebote zu sehen." />;
+  }
+
+  return (
+    <div className="mt-7 space-y-4">
+      <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
+        <div>
+          <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
+            <Hotel size={18} /> Flug + Hotel
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{packages.length} Kombi-Angebote inklusive Hotel</h2>
+          <p className="mt-2 text-sm text-slate-400">Alle Preise enthalten Flug und Hotel für {people} Personen.</p>
+        </div>
+        <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="package-sort">
+          Flug-Sortierung
+          <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="package-sort" value={sort} onChange={(event) => onSortChange(event.target.value as FlightSort)}>
+            <option value="priceAsc">Günstigstes Flugangebot zuerst</option>
+            <option value="priceDesc">Teuerstes Flugangebot zuerst</option>
+            <option value="departureAsc">Früheste Abflugzeit zuerst</option>
+            <option value="directFirst">Direktflüge zuerst</option>
+          </select>
+        </label>
+      </div>
+
+      <div className="grid gap-5">
+        {packages.map(({ deal, flight }) => {
+          const totalPrice = flight.totalPrice + deal.hotelPrice;
+          const pricePerPerson = Math.round(totalPrice / people);
+          return (
+            <article className="overflow-hidden rounded-lg border border-white/10 bg-[#111827] shadow-xl transition hover:border-cyan-300" key={`${deal.id}-${flight.id}`}>
+              <div className="grid lg:grid-cols-[280px_1fr]">
+                <img className="h-56 w-full object-cover lg:h-full" src={deal.image} alt={deal.title} />
+                <div className="p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-semibold text-cyan-200">{deal.flightSource} + {deal.hotelSource}</p>
+                      <h3 className="mt-1 text-2xl font-semibold text-white">{deal.title}</h3>
+                      <p className="mt-2 text-sm text-slate-400">
+                        {formatDateRange(deal)} · {deal.durationNights} Nächte · {deal.hotelRefundable ? "Hotel stornierbar" : "nicht stornierbar"}
+                      </p>
+                    </div>
+                    <div className="text-left sm:text-right">
+                      <p className="text-3xl font-semibold text-white">{currency.format(pricePerPerson)} p. P.</p>
+                      <p className="mt-1 text-sm text-slate-400">{currency.format(totalPrice)} gesamt</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+                    <Info icon={<Plane size={16} />} label="Hinflug" value={`${flight.originAirport} → ${flight.destinationAirport}, ${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
+                    <Info icon={<Timer size={16} />} label="Rückflug" value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"} />
+                    <Info icon={<ShieldCheck size={16} />} label="Flug/Gepäck" value={`${flight.directFlight ? "Direktflug" : "mit Umstieg"}, ${flight.includesCheckedBag ? "Aufgabegepäck" : flight.includesCarryOn ? "Handgepäck" : "Personal Item"}`} />
+                    <Info icon={<Wallet size={16} />} label="Preisdetails" value={`${currency.format(flight.totalPrice)} Flug, ${currency.format(deal.hotelPrice)} Hotel`} />
+                  </div>
+
+                  <div className="mt-5 rounded-lg border border-white/10 bg-black/20 p-4">
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                      <div>
+                        <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
+                          <Hotel size={16} /> {deal.hotelName}
+                        </p>
+                        <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
+                        <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
+                        <p className="mt-2 text-sm text-slate-400">Bewertung {deal.hotelRating.toFixed(1)} · {deal.hotelSource}</p>
+                      </div>
+                      {deal.hotelMapsUrl && (
+                        <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelMapsUrl} rel="noreferrer" target="_blank">
+                          In Google Maps öffnen <ExternalLink size={16} />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-3 border-t border-white/10 pt-4">
+                    <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
+                      Flug suchen <ExternalLink size={16} />
+                    </a>
+                    {deal.hotelUrl && (
+                      <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
+                        Hotel suchen <ExternalLink size={16} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </div>
   );

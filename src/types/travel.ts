@@ -43,6 +43,10 @@ export type Deal = {
   budget: number;
   flightPrice: number;
   hotelPrice: number;
+  hotelName?: string;
+  hotelDistrict?: string;
+  hotelAddress?: string;
+  hotelMapsUrl?: string;
   totalPrice: number;
   hotelRating: number;
   score: number;

@@ -57,6 +57,45 @@ const originPriceFactor: Record<string, number> = {
   CGN: 0.96,
 };
 
+const hotelCatalog: Record<string, Array<{ name: string; district: string; address: string }>> = {
+  lisbon: [
+    { name: "Hotel Lisboa Plaza", district: "Avenida da Liberdade", address: "Tv. Salitre 7, 1269-066 Lissabon, Portugal" },
+    { name: "My Story Hotel Tejo", district: "Baixa", address: "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal" },
+    { name: "Hotel Convento do Salvador", district: "Alfama", address: "Rua do Salvador 2B, 1100-465 Lissabon, Portugal" },
+    { name: "Moxy Lisboa Oriente", district: "Parque das Nações", address: "Avenida Aquilino Ribeiro Machado 10, 1800-399 Lissabon, Portugal" },
+  ],
+  porto: [
+    { name: "Moov Hotel Porto Centro", district: "Centro", address: "Praça da Batalha 32, 4000-101 Porto, Portugal" },
+    { name: "The Editory House Ribeira", district: "Ribeira", address: "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal" },
+    { name: "Hotel da Música", district: "Boavista", address: "Mercado do Bom Sucesso, 4150-323 Porto, Portugal" },
+    { name: "PortoBay Teatro", district: "Baixa", address: "Rua Sá da Bandeira 84, 4000-427 Porto, Portugal" },
+  ],
+  barcelona: [
+    { name: "Hotel Jazz", district: "Eixample", address: "Carrer de Pelai 3, 08001 Barcelona, Spanien" },
+    { name: "H10 Madison", district: "Gotisches Viertel", address: "Carrer del Dr. Joaquim Pou 2-4-6, 08002 Barcelona, Spanien" },
+    { name: "Acta Voraport", district: "Poblenou", address: "Carrer de Ramon Turró 169, 08005 Barcelona, Spanien" },
+    { name: "Occidental Atenea Mar", district: "Diagonal Mar", address: "Passeig de Garcia Fària 37-47, 08019 Barcelona, Spanien" },
+  ],
+  rome: [
+    { name: "Hotel Artemide", district: "Repubblica", address: "Via Nazionale 22, 00184 Rom, Italien" },
+    { name: "The Hive Hotel", district: "Termini", address: "Via Torino 6, 00184 Rom, Italien" },
+    { name: "Hotel Smeraldo", district: "Campo de' Fiori", address: "Via dei Chiavari 20, 00186 Rom, Italien" },
+    { name: "Hotel Lancelot", district: "Colosseo", address: "Via Capo d'Africa 47, 00184 Rom, Italien" },
+  ],
+  naples: [
+    { name: "Decumani Hotel De Charme", district: "Centro Storico", address: "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien" },
+    { name: "Renaissance Naples Hotel Mediterraneo", district: "Quartieri Spagnoli", address: "Via Ponte di Tappia 25, 80133 Neapel, Italien" },
+    { name: "Hotel Piazza Bellini", district: "Dante", address: "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien" },
+    { name: "Grand Hotel Oriente", district: "Toledo", address: "Via Armando Diaz 44, 80134 Neapel, Italien" },
+  ],
+  paris: [
+    { name: "Hotel Malte Astotel", district: "Opéra", address: "63 Rue de Richelieu, 75002 Paris, Frankreich" },
+    { name: "Hôtel Le Compostelle", district: "Le Marais", address: "31 Rue du Roi de Sicile, 75004 Paris, Frankreich" },
+    { name: "Hotel Eiffel Turenne", district: "Invalides", address: "20 Avenue de Tourville, 75007 Paris, Frankreich" },
+    { name: "Hotel Joke Astotel", district: "Pigalle", address: "69 Rue Blanche, 75009 Paris, Frankreich" },
+  ],
+};
+
 export const agentStatus = [
   {
     name: "Agent 1",
@@ -118,6 +157,7 @@ export function buildDeals(search: SearchState): Deal[] {
     const includesCarryOn = index !== 3;
     const includesCheckedBag = index === 1;
     const hotelRefundable = index !== 0;
+    const hotel = hotelCatalog[city.id]?.[index % 4] ?? hotelCatalog.lisbon[index % 4];
     const rawScore = Math.round(100 - index * 6 - Math.max(0, totalPrice - search.budget) / 50 + priceDropPercent / 2);
     const score = Math.max(0, Math.min(100, rawScore));
     const priceHistory = buildPriceHistory(totalPrice, priceDropPercent, index);
@@ -138,6 +178,10 @@ export function buildDeals(search: SearchState): Deal[] {
       budget: search.budget,
       flightPrice,
       hotelPrice,
+      hotelName: effectiveTripMode === "package" ? hotel.name : undefined,
+      hotelDistrict: effectiveTripMode === "package" ? hotel.district : undefined,
+      hotelAddress: effectiveTripMode === "package" ? hotel.address : undefined,
+      hotelMapsUrl: effectiveTripMode === "package" ? buildMapsUrl(hotel.name, hotel.address) : undefined,
       totalPrice,
       hotelRating,
       score,
@@ -380,6 +424,10 @@ function buildFlightUrl(origin: string, destination: string, startDate: string, 
   const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${endDate} Hin und zurück`;
   const query = encodeURIComponent(`${route} ${people} Personen`);
   return `https://www.google.com/travel/flights?q=${query}`;
+}
+
+function buildMapsUrl(name: string, address: string) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
 }
 
 function buildHotelUrl(cityName: string, startDate: string, endDate: string, people: number) {
