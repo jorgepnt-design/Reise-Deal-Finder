@@ -150,7 +150,15 @@ export default function App() {
             </button>
           </header>
 
-          <div className="grid flex-1 items-end gap-7 pb-6 pt-10 sm:pt-16 lg:grid-cols-[1fr_460px]">
+          <div className="mx-auto mt-5 w-full max-w-5xl overflow-hidden rounded-xl border border-cyan-200/25 bg-white p-1 shadow-[0_24px_80px_rgba(8,13,20,0.45)]">
+            <img
+              className="h-auto max-h-36 w-full rounded-lg object-contain sm:max-h-44"
+              src={`${import.meta.env.BASE_URL}brand/jorge-reise-deal-finder.png`}
+              alt="Jorge's Reise-Deal-Finder"
+            />
+          </div>
+
+          <div className="grid flex-1 items-end gap-7 pb-6 pt-8 sm:pt-12 lg:grid-cols-[1fr_460px]">
             <div className="max-w-3xl">
               <p className="mb-4 inline-flex items-center gap-2 rounded-md bg-emerald-300 px-3 py-1 text-sm font-semibold text-emerald-950">
                 <Sparkles size={16} /> {alertSummary.headline}
