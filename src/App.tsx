@@ -29,6 +29,7 @@ import { agentStatus, buildDeals, buildFlights, loadLiveDeals, originAirports, r
 import type { DateRecommendation, Deal, FlightOption, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
+type FlightSort = "priceAsc" | "priceDesc" | "departureAsc" | "directFirst";
 
 const defaultSearch: SearchState = {
   cityId: "lisbon",
@@ -75,6 +76,7 @@ export default function App() {
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
+  const [flightSort, setFlightSort] = useState<FlightSort>("priceAsc");
   const [savedDealIds, setSavedDealIds] = useStoredList("reise-deal-finder-saved-deals");
   const [favoriteCityIds, setFavoriteCityIds] = useStoredList("reise-deal-finder-favorite-cities");
 
@@ -82,7 +84,7 @@ export default function App() {
   const fallbackDeals = useMemo(() => buildDeals(search).sort((a, b) => b.score - a.score), [search]);
   const deals = useMemo(() => (liveDeals.length > 0 ? liveDeals : fallbackDeals).sort((a, b) => b.score - a.score), [fallbackDeals, liveDeals]);
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
-  const flights = useMemo(() => buildFlights(search), [search]);
+  const flights = useMemo(() => sortFlights(buildFlights(search), flightSort), [flightSort, search]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
@@ -230,7 +232,7 @@ export default function App() {
           </>
         )}
 
-        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} />}
+        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} sort={flightSort} onSortChange={setFlightSort} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7">
@@ -588,19 +590,30 @@ function DealModal({
   );
 }
 
-function FlightsPanel({ flights, people }: { flights: FlightOption[]; people: number }) {
+function FlightsPanel({ flights, people, sort, onSortChange }: { flights: FlightOption[]; people: number; sort: FlightSort; onSortChange: (sort: FlightSort) => void }) {
   if (flights.length === 0) {
     return <EmptyPanel title="Keine Flüge für diese Filter" text="Lockere Datumstoleranz, Uhrzeitfenster, Direktflug oder Gepäck, um wieder Flugoptionen zu sehen." />;
   }
 
   return (
     <div className="mt-7 space-y-4">
-      <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
-        <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
-          <Plane size={18} /> Flüge nach Preis sortiert
-        </p>
-        <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-        <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis für {people} angegeben.</p>
+      <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
+        <div>
+          <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
+            <Plane size={18} /> Flüge
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
+          <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis für {people} angegeben.</p>
+        </div>
+        <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
+          Sortierung
+          <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="flight-sort" value={sort} onChange={(event) => onSortChange(event.target.value as FlightSort)}>
+            <option value="priceAsc">Günstigstes Angebot zuerst</option>
+            <option value="priceDesc">Teuerstes Angebot zuerst</option>
+            <option value="departureAsc">Früheste Abflugzeit zuerst</option>
+            <option value="directFirst">Direktflüge zuerst</option>
+          </select>
+        </label>
       </div>
 
       <div className="grid gap-4">
@@ -644,6 +657,20 @@ function FlightsPanel({ flights, people }: { flights: FlightOption[]; people: nu
       </div>
     </div>
   );
+}
+
+function sortFlights(flights: FlightOption[], sort: FlightSort) {
+  return [...flights].sort((a, b) => {
+    if (sort === "priceDesc") return b.pricePerPerson - a.pricePerPerson;
+    if (sort === "departureAsc") return toMinutes(a.outboundDeparture) - toMinutes(b.outboundDeparture);
+    if (sort === "directFirst") return Number(b.directFlight) - Number(a.directFlight) || a.pricePerPerson - b.pricePerPerson;
+    return a.pricePerPerson - b.pricePerPerson;
+  });
+}
+
+function toMinutes(time: string) {
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
 }
 
 function AgentsPanel({ lastRun }: { lastRun: string }) {

@@ -10,9 +10,9 @@ export const originAirports = [
 
 const dealImages: Record<string, string[]> = {
   lisbon: [
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Tram%20in%20Lisbon%20%28Unsplash%29.jpg?width=900",
+    "https://commons.wikimedia.org/wiki/Special:FilePath/Lisbon%20%28praca%20do%20comercio%29%20-%20Flickr%20-%20Stavrarg%20%281%29.jpg?width=900",
     "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?auto=format&fit=crop&w=900&q=80",
-    "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=900&q=80",
-    "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
   ],
   porto: [
     "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
@@ -124,7 +124,7 @@ export function buildDeals(search: SearchState): Deal[] {
 
     return {
       id: `${city.id}-${index}`,
-      title: `${city.name} ${search.tripMode === "flight" ? "Flug" : "Paket"} ${index === 0 ? "City Sprint" : index === 1 ? "Design Hotel" : "Flex Weekend"}`,
+      title: buildDealTitle(city.name, effectiveTripMode, index),
       cityId: city.id,
       destinationAirport: city.airportCode,
       originAirport: origin.code,
@@ -344,6 +344,23 @@ function isWeekendTrip(startDate: string, endDate: string) {
 function buildPriceHistory(totalPrice: number, priceDropPercent: number, index: number) {
   const peak = Math.round(totalPrice / (1 - priceDropPercent / 100));
   return [peak + 18 + index * 9, peak + 6, peak - 14, peak - 4, totalPrice + 21, totalPrice + 8, totalPrice];
+}
+
+function buildDealTitle(cityName: string, tripMode: SearchState["tripMode"], index: number) {
+  const packageTitles = [
+    "Flug & Hotel: günstiger Kurztrip",
+    "Flug & Hotel: zentrales Hotel mit guter Bewertung",
+    "Flug & Hotel: flexibles Wochenendangebot",
+    "Flug & Hotel: Budget-Alternative",
+  ];
+  const flightTitles = [
+    "Flug: günstigste Verbindung",
+    "Flug: gutes Preis-Zeit-Verhältnis",
+    "Flug: flexible Datumsoption",
+    "Flug: einfache Budget-Alternative",
+  ];
+  const titles = tripMode === "flight" ? flightTitles : packageTitles;
+  return `${cityName} ${titles[index] ?? titles[0]}`;
 }
 
 function buildDateOffsets(flexDays: SearchState["dateFlexDays"]) {

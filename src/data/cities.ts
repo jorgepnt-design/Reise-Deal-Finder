@@ -6,7 +6,7 @@ export const cities: City[] = [
     name: "Lissabon",
     country: "Portugal",
     airportCode: "LIS",
-    heroImage: "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?auto=format&fit=crop&w=1800&q=85",
+    heroImage: "https://commons.wikimedia.org/wiki/Special:FilePath/Lisbon%20%28praca%20do%20comercio%29%20-%20Flickr%20-%20Stavrarg%20%281%29.jpg?width=1800",
   },
   {
     id: "porto",
@@ -52,7 +52,7 @@ export const activitiesByCity: Record<string, Activity[]> = {
       kind: "Klassiker",
       description: "Früh starten, dann ist die historische Strecke durch Alfama deutlich entspannter.",
       priceHint: "ab 3 EUR",
-      image: "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Tram%20in%20Lisbon%20%28Unsplash%29.jpg?width=900",
       url: "https://www.visitlisboa.com/en/places/tram-28",
     },
     {
@@ -68,7 +68,7 @@ export const activitiesByCity: Record<string, Activity[]> = {
       kind: "Ausblick",
       description: "Sonnenuntergang mit weitem Blick über die Stadt und den Tejo.",
       priceHint: "kostenlos",
-      image: "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=900&q=80",
+      image: "https://commons.wikimedia.org/wiki/Special:FilePath/Lisbon%20%28praca%20do%20comercio%29%20-%20Flickr%20-%20Stavrarg%20%281%29.jpg?width=900",
       url: "https://www.visitlisboa.com/en/places/miradouro-da-senhora-do-monte",
     },
     {
