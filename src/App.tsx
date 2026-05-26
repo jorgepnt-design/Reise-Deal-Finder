@@ -54,6 +54,10 @@ function formatDateRange(deal: Deal) {
   return `${formatShortDate(deal.startDate)} - ${new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(deal.endDate))}`;
 }
 
+function formatDealPriceLabel(deal: Deal) {
+  return `${currency.format(deal.totalPrice)} gesamt (${currency.format(Math.round(deal.totalPrice / deal.people))} p. P.)`;
+}
+
 function scoreLabel(score: number) {
   if (score >= 92) return "Top-Deal";
   if (score >= 86) return "Sehr stark";
@@ -173,7 +177,7 @@ export default function App() {
               </p>
               {featuredDeal && (
                 <div className="mt-7 grid max-w-2xl grid-cols-3 gap-3">
-                  <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Preis"} value={currency.format(featuredDeal.totalPrice)} />
+                  <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Preis"} value={formatDealPriceLabel(featuredDeal)} />
                   <Metric label={search.flightType === "oneWay" ? "Hinflug" : "Datum"} value={formatDateRange(featuredDeal)} />
                   <Metric label="Abflug" value={featuredDeal.originAirport} />
                 </div>
@@ -238,21 +242,32 @@ export default function App() {
 
         {activeTab === "activities" && (
           <div className="mt-7 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-            {activities.map((activity) => (
-              <article className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]" key={activity.title}>
+              {activities.map((activity) => (
+              <a className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] transition hover:-translate-y-1 hover:border-cyan-300" href={activity.url} key={activity.title} rel="noreferrer" target="_blank">
                 <img className="h-40 w-full object-cover" src={activity.image} alt={activity.title} />
                 <div className="p-4">
                   <p className="text-xs font-semibold uppercase tracking-[0.18em] text-cyan-200">{activity.kind}</p>
                   <h3 className="mt-2 text-lg font-semibold text-white">{activity.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-slate-300">{activity.description}</p>
-                  <p className="mt-4 text-sm font-semibold text-emerald-200">{activity.priceHint}</p>
+                  <p className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-emerald-200">{activity.priceHint} <ExternalLink size={14} /></p>
                 </div>
-              </article>
+              </a>
             ))}
           </div>
         )}
       </section>
-      {selectedDeal && <DealModal deal={selectedDeal} isSaved={savedDealIds.includes(selectedDeal.id)} onClose={() => setSelectedDeal(null)} onToggleSave={toggleSavedDeal} />}
+      {selectedDeal && (
+        <DealModal
+          deal={selectedDeal}
+          isSaved={savedDealIds.includes(selectedDeal.id)}
+          onApply={(changes) => {
+            setSearch((current) => ({ ...current, ...changes }));
+            setSelectedDeal(null);
+          }}
+          onClose={() => setSelectedDeal(null)}
+          onToggleSave={toggleSavedDeal}
+        />
+      )}
     </main>
   );
 }
@@ -456,7 +471,23 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
   );
 }
 
-function DealModal({ deal, isSaved, onClose, onToggleSave }: { deal: Deal; isSaved: boolean; onClose: () => void; onToggleSave: (dealId: string) => void }) {
+function DealModal({
+  deal,
+  isSaved,
+  onApply,
+  onClose,
+  onToggleSave,
+}: {
+  deal: Deal;
+  isSaved: boolean;
+  onApply: (changes: Partial<SearchState>) => void;
+  onClose: () => void;
+  onToggleSave: (dealId: string) => void;
+}) {
+  const [modalStartDate, setModalStartDate] = useState(deal.startDate);
+  const [modalEndDate, setModalEndDate] = useState(deal.endDate);
+  const [modalOrigin, setModalOrigin] = useState(deal.originAirport);
+
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true">
       <article className="max-h-[92vh] w-full max-w-2xl overflow-auto rounded-lg border border-white/15 bg-[#111827] shadow-2xl">
@@ -479,7 +510,42 @@ function DealModal({ deal, isSaved, onClose, onToggleSave }: { deal: Deal; isSav
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <Info icon={<CalendarDays size={16} />} label="Datum" value={formatDateRange(deal)} />
             <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
-            <Info icon={<Wallet size={16} />} label="Gesamt" value={currency.format(deal.totalPrice)} />
+            <Info icon={<Wallet size={16} />} label="Preis" value={formatDealPriceLabel(deal)} />
+          </div>
+          <div className="mt-5 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
+            <p className="mb-3 text-sm font-semibold text-cyan-100">Deal anpassen</p>
+            <div className="grid gap-3 sm:grid-cols-3">
+              <label className="text-sm text-slate-300">
+                Hinflug
+                <input className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" type="date" value={modalStartDate} onChange={(event) => setModalStartDate(event.target.value)} />
+              </label>
+              {deal.flightType === "roundTrip" ? (
+                <label className="text-sm text-slate-300">
+                  Rückflug
+                  <input className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" type="date" value={modalEndDate} onChange={(event) => setModalEndDate(event.target.value)} />
+                </label>
+              ) : (
+                <div className="rounded-md border border-white/10 bg-black/20 p-3 text-sm text-slate-300">
+                  Rückflug
+                  <p className="mt-2 font-semibold text-white">nicht benötigt</p>
+                </div>
+              )}
+              <label className="text-sm text-slate-300">
+                Abflughafen
+                <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={modalOrigin} onChange={(event) => setModalOrigin(event.target.value)}>
+                  {originAirports.map((airport) => (
+                    <option key={airport.code} value={airport.code}>{airport.name} ({airport.code})</option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <button
+              className="mt-4 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200"
+              onClick={() => onApply({ startDate: modalStartDate, endDate: modalEndDate, originAirport: modalOrigin })}
+              type="button"
+            >
+              Auswahl übernehmen
+            </button>
           </div>
           <PriceSparkline values={deal.priceHistory} large />
           <div className="mt-5 grid gap-3 sm:grid-cols-2">

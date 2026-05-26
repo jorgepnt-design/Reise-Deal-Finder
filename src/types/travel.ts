@@ -75,4 +75,5 @@ export type Activity = {
   description: string;
   priceHint: string;
   image: string;
+  url: string;
 };
