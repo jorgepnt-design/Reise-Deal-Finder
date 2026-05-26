@@ -14,6 +14,7 @@ export type SearchState = {
   people: number;
   alertsEnabled: boolean;
   tripMode: "package" | "flight";
+  flightType: "roundTrip" | "oneWay";
   originAirport: string;
   directOnly: boolean;
   durationFilter: "any" | "short" | "medium" | "long";
@@ -31,6 +32,7 @@ export type Deal = {
   originAirport: string;
   originName: string;
   tripMode: "package" | "flight";
+  flightType: "roundTrip" | "oneWay";
   image: string;
   startDate: string;
   endDate: string;

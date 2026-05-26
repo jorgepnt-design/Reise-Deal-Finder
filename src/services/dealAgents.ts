@@ -106,9 +106,11 @@ export function buildDeals(search: SearchState): Deal[] {
     const startDate = chooseStartDate(search, index);
     const durationNights = chooseDuration(search, index);
     const endDate = addDays(startDate, durationNights);
-    const flightPrice = Math.round((base * originFactor + dateFactor * 7 + index * 34) * search.people);
+    const roundTripFactor = search.flightType === "oneWay" ? 0.58 : 1;
+    const flightPrice = Math.round((base * originFactor + dateFactor * 7 + index * 34) * search.people * roundTripFactor);
     const hotelNightly = base + 42 + index * 28;
-    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round(hotelNightly * durationNights);
+    const effectiveTripMode = search.flightType === "oneWay" ? "flight" : search.tripMode;
+    const hotelPrice = effectiveTripMode === "flight" ? 0 : Math.round(hotelNightly * durationNights);
     const totalPrice = flightPrice + hotelPrice;
     const hotelRating = Number((9.2 - index * 0.35).toFixed(1));
     const priceDropPercent = [14, 11, 7, 5][index];
@@ -127,7 +129,8 @@ export function buildDeals(search: SearchState): Deal[] {
       destinationAirport: city.airportCode,
       originAirport: origin.code,
       originName: origin.name,
-      tripMode: search.tripMode,
+      tripMode: effectiveTripMode,
+      flightType: search.flightType,
       image: images[index % images.length],
       startDate,
       endDate,
@@ -139,11 +142,11 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelRating,
       score,
       priceDropPercent,
-      bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people),
-      hotelUrl: search.tripMode === "package" ? buildHotelUrl(city.name, startDate, endDate, search.people) : undefined,
+      bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people, search.flightType),
+      hotelUrl: effectiveTripMode === "package" ? buildHotelUrl(city.name, startDate, endDate, search.people) : undefined,
       notes: [
         `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
-        search.tripMode === "flight" ? "Nur Flug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
+        search.flightType === "oneWay" ? "Nur Hinflug, ohne Rückflug und Hotelkosten" : effectiveTripMode === "flight" ? "Hin- und Rückflug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
         `${priceDropPercent}% günstiger als der letzte Snapshot`,
         directFlight ? "Direktflug" : "Umstieg einkalkuliert",
         includesCheckedBag ? "Aufgabegepäck inklusive" : includesCarryOn ? "Handgepäck inklusive" : "Nur Personal Item inklusive",
@@ -154,7 +157,7 @@ export function buildDeals(search: SearchState): Deal[] {
       includesCheckedBag,
       hotelRefundable,
       flightSource: index % 2 === 0 ? "Google Flights" : "Skyscanner",
-      hotelSource: search.tripMode === "package" ? (index % 2 === 0 ? "Booking" : "HRS") : undefined,
+      hotelSource: effectiveTripMode === "package" ? (index % 2 === 0 ? "Booking" : "HRS") : undefined,
       lastCheckedAt: new Date().toISOString(),
       priceHistory,
       isLive: false,
@@ -175,6 +178,7 @@ export async function loadLiveDeals(search: SearchState): Promise<Deal[]> {
     endDate: search.endDate,
     people: String(search.people),
     mode: search.tripMode,
+    flightType: search.flightType,
   });
 
   const response = await fetch(`${endpoint}?${params.toString()}`);
@@ -194,8 +198,9 @@ export function recommendTravelDates(search: SearchState): DateRecommendation[] 
     const endDate = addDays(startDate, nights);
     const weekdayFactor = new Date(startDate).getDay() === 2 || new Date(startDate).getDay() === 3 ? 0.86 : 1;
     const originFactor = originPriceFactor[origin.code] ?? 1;
-    const flightPrice = Math.round(base * originFactor * weekdayFactor * search.people);
-    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round((base + 34 + index * 8) * nights);
+    const roundTripFactor = search.flightType === "oneWay" ? 0.58 : 1;
+    const flightPrice = Math.round(base * originFactor * weekdayFactor * search.people * roundTripFactor);
+    const hotelPrice = search.tripMode === "flight" || search.flightType === "oneWay" ? 0 : Math.round((base + 34 + index * 8) * nights);
     const totalPrice = flightPrice + hotelPrice;
 
     return {
@@ -284,8 +289,9 @@ function buildPriceHistory(totalPrice: number, priceDropPercent: number, index: 
   return [peak + 18 + index * 9, peak + 6, peak - 14, peak - 4, totalPrice + 21, totalPrice + 8, totalPrice];
 }
 
-function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number) {
-  const query = encodeURIComponent(`${origin} nach ${destination} ${startDate} ${endDate} ${people} Personen`);
+function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number, flightType: SearchState["flightType"]) {
+  const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${endDate} Hin und zurück`;
+  const query = encodeURIComponent(`${route} ${people} Personen`);
   return `https://www.google.com/travel/flights?q=${query}`;
 }
 

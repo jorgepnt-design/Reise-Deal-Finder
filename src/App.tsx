@@ -37,6 +37,7 @@ const defaultSearch: SearchState = {
   people: 2,
   alertsEnabled: true,
   tripMode: "package",
+  flightType: "roundTrip",
   originAirport: "FRA",
   directOnly: false,
   durationFilter: "any",
@@ -47,6 +48,9 @@ const defaultSearch: SearchState = {
 };
 
 function formatDateRange(deal: Deal) {
+  if (deal.flightType === "oneWay") {
+    return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(deal.startDate));
+  }
   return `${formatShortDate(deal.startDate)} - ${new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short", year: "numeric" }).format(new Date(deal.endDate))}`;
 }
 
@@ -102,7 +106,7 @@ export default function App() {
     setSearch((current) => ({
       ...current,
       startDate: recommendation.startDate,
-      endDate: recommendation.endDate,
+      endDate: current.flightType === "oneWay" ? current.endDate : recommendation.endDate,
       originAirport: recommendation.originAirport,
     }));
   }
@@ -170,7 +174,7 @@ export default function App() {
               {featuredDeal && (
                 <div className="mt-7 grid max-w-2xl grid-cols-3 gap-3">
                   <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Preis"} value={currency.format(featuredDeal.totalPrice)} />
-                  <Metric label="Datum" value={formatDateRange(featuredDeal)} />
+                  <Metric label={search.flightType === "oneWay" ? "Hinflug" : "Datum"} value={formatDateRange(featuredDeal)} />
                   <Metric label="Abflug" value={featuredDeal.originAirport} />
                 </div>
               )}
@@ -203,7 +207,7 @@ export default function App() {
         {activeTab === "deals" && (
           <>
             <LiveStatusBadge status={liveStatus} />
-            <DateRecommendations items={dateRecommendations} onApply={applyDateRecommendation} />
+            <DateRecommendations flightType={search.flightType} items={dateRecommendations} onApply={applyDateRecommendation} />
             {deals.length === 0 ? (
               <EmptyPanel title="Keine Deals für diese Filter" text="Lockere Direktflug, Gepäck, Budget oder Reisedauer, um wieder Angebote zu sehen." />
             ) : (
@@ -288,7 +292,34 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
           ["package", "Flug + Hotel"],
           ["flight", "Nur Flug"],
         ].map(([value, label]) => (
-          <button className={`h-10 rounded-md text-sm font-semibold transition ${search.tripMode === value ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`} key={value} onClick={() => onChange("tripMode", value as SearchState["tripMode"])} type="button">
+          <button
+            className={`h-10 rounded-md text-sm font-semibold transition ${search.tripMode === value ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`}
+            key={value}
+            onClick={() => {
+              onChange("tripMode", value as SearchState["tripMode"]);
+              if (value === "package") onChange("flightType", "roundTrip");
+            }}
+            type="button"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-white/10 bg-black/20 p-1">
+        {[
+          ["roundTrip", "Hin & zurück"],
+          ["oneWay", "nur Hinflug"],
+        ].map(([value, label]) => (
+          <button
+            className={`h-10 rounded-md text-sm font-semibold transition ${search.flightType === value ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`}
+            key={value}
+            onClick={() => {
+              onChange("flightType", value as SearchState["flightType"]);
+              if (value === "oneWay") onChange("tripMode", "flight");
+            }}
+            type="button"
+          >
             {label}
           </button>
         ))}
@@ -307,7 +338,14 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
 
       <div className="mt-4 grid grid-cols-2 gap-3">
         <Field icon={<CalendarDays size={16} />} label="Von" type="date" value={search.startDate} onChange={(value) => onChange("startDate", value)} />
-        <Field icon={<CalendarDays size={16} />} label="Bis" type="date" value={search.endDate} onChange={(value) => onChange("endDate", value)} />
+        {search.flightType === "roundTrip" ? (
+          <Field icon={<CalendarDays size={16} />} label="Bis" type="date" value={search.endDate} onChange={(value) => onChange("endDate", value)} />
+        ) : (
+          <div className="rounded-md border border-white/10 bg-black/20 p-3 text-sm text-slate-300">
+            <span className="mb-2 flex items-center gap-2"><CalendarDays size={16} /> Rückflug</span>
+            nicht benötigt
+          </div>
+        )}
       </div>
       <div className="mt-4 grid grid-cols-2 gap-3">
         <Field icon={<Wallet size={16} />} label="Budget" min={250} step={25} type="number" value={String(search.budget)} onChange={(value) => onChange("budget", Number(value))} />
@@ -342,8 +380,11 @@ function LiveStatusBadge({ status }: { status: "fallback" | "loading" | "live" |
   );
 }
 
-function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; onApply: (recommendation: DateRecommendation) => void }) {
+function DateRecommendations({ flightType, items, onApply }: { flightType: SearchState["flightType"]; items: DateRecommendation[]; onApply: (recommendation: DateRecommendation) => void }) {
   const best = items[0];
+  const formatRecommendation = (item: DateRecommendation) =>
+    flightType === "oneWay" ? formatShortDate(item.startDate) : `${formatShortDate(item.startDate)} - ${formatShortDate(item.endDate)}`;
+
   return (
     <section className="mt-5 rounded-lg border border-emerald-300/25 bg-emerald-300/10 p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -351,7 +392,7 @@ function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; 
           <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
             <CalendarCheck size={18} /> Günstigste Reisedaten
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">{best ? `${formatShortDate(best.startDate)} bis ${formatShortDate(best.endDate)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{best ? `${formatRecommendation(best)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}</h2>
         </div>
         {best && (
           <button className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onApply(best)} type="button">
@@ -362,7 +403,7 @@ function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; 
       <div className="mt-4 grid gap-3 md:grid-cols-4">
         {items.map((item) => (
           <button className="rounded-lg border border-white/10 bg-black/20 p-4 text-left transition hover:border-emerald-300 hover:bg-black/30" key={item.id} onClick={() => onApply(item)} type="button">
-            <p className="text-sm font-semibold text-white">{formatShortDate(item.startDate)} - {formatShortDate(item.endDate)}</p>
+            <p className="text-sm font-semibold text-white">{formatRecommendation(item)}</p>
             <p className="mt-2 text-xl font-semibold text-emerald-200">{currency.format(item.totalPrice)}</p>
             <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% günstiger</p>
           </button>
@@ -444,7 +485,7 @@ function DealModal({ deal, isSaved, onClose, onToggleSave }: { deal: Deal; isSav
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <Info icon={<LineChart size={16} />} label="Flugpreisquelle" value={deal.flightSource} />
             <Info icon={<RefreshCw size={16} />} label="Zuletzt geprüft" value={new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(deal.lastCheckedAt))} />
-            <Info icon={<ShieldCheck size={16} />} label="Flugart" value={deal.directFlight ? "Direktflug" : "mit Umstieg"} />
+            <Info icon={<ShieldCheck size={16} />} label="Flugart" value={`${deal.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurück"}, ${deal.directFlight ? "Direktflug" : "mit Umstieg"}`} />
             <Info icon={<Hotel size={16} />} label="Hotel" value={deal.tripMode === "flight" ? "nicht enthalten" : `${deal.hotelSource}, ${deal.hotelRefundable ? "stornierbar" : "nicht stornierbar"}`} />
           </div>
           <ul className="mt-5 space-y-2 text-sm leading-6 text-slate-300">

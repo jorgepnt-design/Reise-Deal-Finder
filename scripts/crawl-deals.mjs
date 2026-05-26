@@ -40,23 +40,30 @@ if (previous.length > 0) {
 }
 
 const today = new Date();
+const flightTypes = [
+  { id: "roundTrip", label: "Hin und zurück", factor: 1 },
+  { id: "oneWay", label: "nur Hinflug", factor: 0.58 },
+];
+
 const deals = cities.flatMap((city, cityIndex) => {
-  return [0, 1, 2].flatMap((variant) => origins.map((origin) => {
+  return [0, 1, 2].flatMap((variant) => origins.flatMap((origin) => flightTypes.map((flightType) => {
     const startDate = addDays(today, 35 + variant * 7 + cityIndex);
     const endDate = addDays(startDate, 4);
-    const flightPrice = Math.round((city.base + variant * 31 + cityIndex * 9) * origin.factor);
-    const hotelPrice = (city.base + 44 + variant * 22) * 4;
+    const flightPrice = Math.round((city.base + variant * 31 + cityIndex * 9) * origin.factor * flightType.factor);
+    const hotelPrice = flightType.id === "oneWay" ? 0 : (city.base + 44 + variant * 22) * 4;
     const totalPrice = flightPrice * 2 + hotelPrice;
     const previousPrice = Math.round(totalPrice * (1 + (variant === 0 ? 0.14 : 0.06)));
     const priceDropPercent = Math.round(((previousPrice - totalPrice) / previousPrice) * 100);
 
     return {
-      id: `${city.id}-${origin.code}-${variant}`,
+      id: `${city.id}-${origin.code}-${flightType.id}-${variant}`,
       cityId: city.id,
       cityName: city.name,
       originAirport: origin.code,
       originName: origin.name,
       airport: city.airport,
+      flightType: flightType.id,
+      flightTypeLabel: flightType.label,
       startDate: toDate(startDate),
       endDate: toDate(endDate),
       people: 2,
@@ -69,7 +76,7 @@ const deals = cities.flatMap((city, cityIndex) => {
       crawledAt: today.toISOString(),
       sources,
     };
-  }));
+  })));
 });
 
 await writeFile(snapshotFile, JSON.stringify(deals, null, 2));
