@@ -168,9 +168,11 @@ export default function App() {
             </button>
           </header>
 
-          <div className="mx-auto mt-5 w-full max-w-5xl overflow-hidden rounded-xl border border-cyan-200/25 bg-white p-1 shadow-[0_24px_80px_rgba(8,13,20,0.45)]">
+          <div className="relative mx-auto mt-5 w-full max-w-5xl overflow-hidden rounded-xl border border-cyan-200/20 bg-[#07111f]/88 p-2 shadow-[0_24px_80px_rgba(8,13,20,0.55)] backdrop-blur">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(202,160,72,0.22),transparent_28%),linear-gradient(135deg,rgba(8,13,20,0.96),rgba(10,25,40,0.86)_52%,rgba(202,160,72,0.16))]" />
+            <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-cyan-200/45 to-transparent" />
             <img
-              className="h-auto max-h-36 w-full rounded-lg object-contain sm:max-h-44"
+              className="relative h-auto max-h-32 w-full rounded-lg object-contain opacity-95 mix-blend-screen contrast-125 saturate-125 sm:max-h-40"
               src={`${import.meta.env.BASE_URL}brand/jorge-reise-deal-finder.png`}
               alt="Jorge's Reise-Deal-Finder"
             />
