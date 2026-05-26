@@ -1,8 +1,10 @@
 [
   {
-    "id": "lisbon-0",
+    "id": "lisbon-FRA-0",
     "cityId": "lisbon",
     "cityName": "Lissabon",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "LIS",
     "startDate": "2026-06-30",
     "endDate": "2026-07-04",
@@ -13,7 +15,7 @@
     "previousPrice": 1350,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -26,9 +28,95 @@
     }
   },
   {
-    "id": "lisbon-1",
+    "id": "lisbon-HHN-0",
     "cityId": "lisbon",
     "cityName": "Lissabon",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "LIS",
+    "startDate": "2026-06-30",
+    "endDate": "2026-07-04",
+    "people": 2,
+    "flightPrice": 138,
+    "hotelPrice": 848,
+    "totalPrice": 1124,
+    "previousPrice": 1281,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-STR-0",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "LIS",
+    "startDate": "2026-06-30",
+    "endDate": "2026-07-04",
+    "people": 2,
+    "flightPrice": 181,
+    "hotelPrice": 848,
+    "totalPrice": 1210,
+    "previousPrice": 1379,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-CGN-0",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "LIS",
+    "startDate": "2026-06-30",
+    "endDate": "2026-07-04",
+    "people": 2,
+    "flightPrice": 161,
+    "hotelPrice": 848,
+    "totalPrice": 1170,
+    "previousPrice": 1334,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-FRA-1",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "LIS",
     "startDate": "2026-07-07",
     "endDate": "2026-07-11",
@@ -39,7 +127,7 @@
     "previousPrice": 1414,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -52,9 +140,95 @@
     }
   },
   {
-    "id": "lisbon-2",
+    "id": "lisbon-HHN-1",
     "cityId": "lisbon",
     "cityName": "Lissabon",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "LIS",
+    "startDate": "2026-07-07",
+    "endDate": "2026-07-11",
+    "people": 2,
+    "flightPrice": 163,
+    "hotelPrice": 936,
+    "totalPrice": 1262,
+    "previousPrice": 1338,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-STR-1",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "LIS",
+    "startDate": "2026-07-07",
+    "endDate": "2026-07-11",
+    "people": 2,
+    "flightPrice": 215,
+    "hotelPrice": 936,
+    "totalPrice": 1366,
+    "previousPrice": 1448,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-CGN-1",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "LIS",
+    "startDate": "2026-07-07",
+    "endDate": "2026-07-11",
+    "people": 2,
+    "flightPrice": 191,
+    "hotelPrice": 936,
+    "totalPrice": 1318,
+    "previousPrice": 1397,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-FRA-2",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "LIS",
     "startDate": "2026-07-14",
     "endDate": "2026-07-18",
@@ -65,7 +239,7 @@
     "previousPrice": 1573,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -78,9 +252,95 @@
     }
   },
   {
-    "id": "porto-0",
+    "id": "lisbon-HHN-2",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "LIS",
+    "startDate": "2026-07-14",
+    "endDate": "2026-07-18",
+    "people": 2,
+    "flightPrice": 189,
+    "hotelPrice": 1024,
+    "totalPrice": 1402,
+    "previousPrice": 1486,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-STR-2",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "LIS",
+    "startDate": "2026-07-14",
+    "endDate": "2026-07-18",
+    "people": 2,
+    "flightPrice": 248,
+    "hotelPrice": 1024,
+    "totalPrice": 1520,
+    "previousPrice": 1611,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "lisbon-CGN-2",
+    "cityId": "lisbon",
+    "cityName": "Lissabon",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "LIS",
+    "startDate": "2026-07-14",
+    "endDate": "2026-07-18",
+    "people": 2,
+    "flightPrice": 221,
+    "hotelPrice": 1024,
+    "totalPrice": 1466,
+    "previousPrice": 1554,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-FRA-0",
     "cityId": "porto",
     "cityName": "Porto",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "OPO",
     "startDate": "2026-07-01",
     "endDate": "2026-07-05",
@@ -91,7 +351,7 @@
     "previousPrice": 1220,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -104,9 +364,95 @@
     }
   },
   {
-    "id": "porto-1",
+    "id": "porto-HHN-0",
     "cityId": "porto",
     "cityName": "Porto",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "OPO",
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-05",
+    "people": 2,
+    "flightPrice": 127,
+    "hotelPrice": 760,
+    "totalPrice": 1014,
+    "previousPrice": 1156,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-STR-0",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "OPO",
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-05",
+    "people": 2,
+    "flightPrice": 167,
+    "hotelPrice": 760,
+    "totalPrice": 1094,
+    "previousPrice": 1247,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-CGN-0",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "OPO",
+    "startDate": "2026-07-01",
+    "endDate": "2026-07-05",
+    "people": 2,
+    "flightPrice": 149,
+    "hotelPrice": 760,
+    "totalPrice": 1058,
+    "previousPrice": 1206,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-FRA-1",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "OPO",
     "startDate": "2026-07-08",
     "endDate": "2026-07-12",
@@ -117,7 +463,7 @@
     "previousPrice": 1293,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -130,9 +476,95 @@
     }
   },
   {
-    "id": "porto-2",
+    "id": "porto-HHN-1",
     "cityId": "porto",
     "cityName": "Porto",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "OPO",
+    "startDate": "2026-07-08",
+    "endDate": "2026-07-12",
+    "people": 2,
+    "flightPrice": 153,
+    "hotelPrice": 848,
+    "totalPrice": 1154,
+    "previousPrice": 1223,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-STR-1",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "OPO",
+    "startDate": "2026-07-08",
+    "endDate": "2026-07-12",
+    "people": 2,
+    "flightPrice": 201,
+    "hotelPrice": 848,
+    "totalPrice": 1250,
+    "previousPrice": 1325,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-CGN-1",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "OPO",
+    "startDate": "2026-07-08",
+    "endDate": "2026-07-12",
+    "people": 2,
+    "flightPrice": 179,
+    "hotelPrice": 848,
+    "totalPrice": 1206,
+    "previousPrice": 1278,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-FRA-2",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "OPO",
     "startDate": "2026-07-15",
     "endDate": "2026-07-19",
@@ -143,7 +575,7 @@
     "previousPrice": 1452,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -156,9 +588,95 @@
     }
   },
   {
-    "id": "barcelona-0",
+    "id": "porto-HHN-2",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "OPO",
+    "startDate": "2026-07-15",
+    "endDate": "2026-07-19",
+    "people": 2,
+    "flightPrice": 178,
+    "hotelPrice": 936,
+    "totalPrice": 1292,
+    "previousPrice": 1370,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-STR-2",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "OPO",
+    "startDate": "2026-07-15",
+    "endDate": "2026-07-19",
+    "people": 2,
+    "flightPrice": 234,
+    "hotelPrice": 936,
+    "totalPrice": 1404,
+    "previousPrice": 1488,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "porto-CGN-2",
+    "cityId": "porto",
+    "cityName": "Porto",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "OPO",
+    "startDate": "2026-07-15",
+    "endDate": "2026-07-19",
+    "people": 2,
+    "flightPrice": 208,
+    "hotelPrice": 936,
+    "totalPrice": 1352,
+    "previousPrice": 1433,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-FRA-0",
     "cityId": "barcelona",
     "cityName": "Barcelona",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "BCN",
     "startDate": "2026-07-02",
     "endDate": "2026-07-06",
@@ -169,7 +687,7 @@
     "previousPrice": 1145,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -182,9 +700,95 @@
     }
   },
   {
-    "id": "barcelona-1",
+    "id": "barcelona-HHN-0",
     "cityId": "barcelona",
     "cityName": "Barcelona",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "BCN",
+    "startDate": "2026-07-02",
+    "endDate": "2026-07-06",
+    "people": 2,
+    "flightPrice": 123,
+    "hotelPrice": 704,
+    "totalPrice": 950,
+    "previousPrice": 1083,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-STR-0",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "BCN",
+    "startDate": "2026-07-02",
+    "endDate": "2026-07-06",
+    "people": 2,
+    "flightPrice": 162,
+    "hotelPrice": 704,
+    "totalPrice": 1028,
+    "previousPrice": 1172,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-CGN-0",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "BCN",
+    "startDate": "2026-07-02",
+    "endDate": "2026-07-06",
+    "people": 2,
+    "flightPrice": 144,
+    "hotelPrice": 704,
+    "totalPrice": 992,
+    "previousPrice": 1131,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-FRA-1",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "BCN",
     "startDate": "2026-07-09",
     "endDate": "2026-07-13",
@@ -195,7 +799,7 @@
     "previousPrice": 1223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -208,9 +812,95 @@
     }
   },
   {
-    "id": "barcelona-2",
+    "id": "barcelona-HHN-1",
     "cityId": "barcelona",
     "cityName": "Barcelona",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "BCN",
+    "startDate": "2026-07-09",
+    "endDate": "2026-07-13",
+    "people": 2,
+    "flightPrice": 148,
+    "hotelPrice": 792,
+    "totalPrice": 1088,
+    "previousPrice": 1153,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-STR-1",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "BCN",
+    "startDate": "2026-07-09",
+    "endDate": "2026-07-13",
+    "people": 2,
+    "flightPrice": 195,
+    "hotelPrice": 792,
+    "totalPrice": 1182,
+    "previousPrice": 1253,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-CGN-1",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "BCN",
+    "startDate": "2026-07-09",
+    "endDate": "2026-07-13",
+    "people": 2,
+    "flightPrice": 174,
+    "hotelPrice": 792,
+    "totalPrice": 1140,
+    "previousPrice": 1208,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-FRA-2",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "BCN",
     "startDate": "2026-07-16",
     "endDate": "2026-07-20",
@@ -221,7 +911,7 @@
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -234,9 +924,95 @@
     }
   },
   {
-    "id": "rome-0",
+    "id": "barcelona-HHN-2",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "BCN",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-20",
+    "people": 2,
+    "flightPrice": 174,
+    "hotelPrice": 880,
+    "totalPrice": 1228,
+    "previousPrice": 1302,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-STR-2",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "BCN",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-20",
+    "people": 2,
+    "flightPrice": 229,
+    "hotelPrice": 880,
+    "totalPrice": 1338,
+    "previousPrice": 1418,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "barcelona-CGN-2",
+    "cityId": "barcelona",
+    "cityName": "Barcelona",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "BCN",
+    "startDate": "2026-07-16",
+    "endDate": "2026-07-20",
+    "people": 2,
+    "flightPrice": 204,
+    "hotelPrice": 880,
+    "totalPrice": 1288,
+    "previousPrice": 1365,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-FRA-0",
     "cityId": "rome",
     "cityName": "Rom",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "FCO",
     "startDate": "2026-07-03",
     "endDate": "2026-07-07",
@@ -247,7 +1023,7 @@
     "previousPrice": 1316,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -260,9 +1036,95 @@
     }
   },
   {
-    "id": "rome-1",
+    "id": "rome-HHN-0",
     "cityId": "rome",
     "cityName": "Rom",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "FCO",
+    "startDate": "2026-07-03",
+    "endDate": "2026-07-07",
+    "people": 2,
+    "flightPrice": 148,
+    "hotelPrice": 792,
+    "totalPrice": 1088,
+    "previousPrice": 1240,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-STR-0",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "FCO",
+    "startDate": "2026-07-03",
+    "endDate": "2026-07-07",
+    "people": 2,
+    "flightPrice": 195,
+    "hotelPrice": 792,
+    "totalPrice": 1182,
+    "previousPrice": 1347,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-CGN-0",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "FCO",
+    "startDate": "2026-07-03",
+    "endDate": "2026-07-07",
+    "people": 2,
+    "flightPrice": 174,
+    "hotelPrice": 792,
+    "totalPrice": 1140,
+    "previousPrice": 1300,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-FRA-1",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "FCO",
     "startDate": "2026-07-10",
     "endDate": "2026-07-14",
@@ -273,7 +1135,7 @@
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -286,9 +1148,95 @@
     }
   },
   {
-    "id": "rome-2",
+    "id": "rome-HHN-1",
     "cityId": "rome",
     "cityName": "Rom",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "FCO",
+    "startDate": "2026-07-10",
+    "endDate": "2026-07-14",
+    "people": 2,
+    "flightPrice": 174,
+    "hotelPrice": 880,
+    "totalPrice": 1228,
+    "previousPrice": 1302,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-STR-1",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "FCO",
+    "startDate": "2026-07-10",
+    "endDate": "2026-07-14",
+    "people": 2,
+    "flightPrice": 229,
+    "hotelPrice": 880,
+    "totalPrice": 1338,
+    "previousPrice": 1418,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-CGN-1",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "FCO",
+    "startDate": "2026-07-10",
+    "endDate": "2026-07-14",
+    "people": 2,
+    "flightPrice": 204,
+    "hotelPrice": 880,
+    "totalPrice": 1288,
+    "previousPrice": 1365,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-FRA-2",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
     "airport": "FCO",
     "startDate": "2026-07-17",
     "endDate": "2026-07-21",
@@ -299,7 +1247,7 @@
     "previousPrice": 1541,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -312,20 +1260,106 @@
     }
   },
   {
-    "id": "paris-0",
-    "cityId": "paris",
-    "cityName": "Paris",
-    "airport": "CDG",
+    "id": "rome-HHN-2",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "FCO",
+    "startDate": "2026-07-17",
+    "endDate": "2026-07-21",
+    "people": 2,
+    "flightPrice": 199,
+    "hotelPrice": 968,
+    "totalPrice": 1366,
+    "previousPrice": 1448,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-STR-2",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "FCO",
+    "startDate": "2026-07-17",
+    "endDate": "2026-07-21",
+    "people": 2,
+    "flightPrice": 262,
+    "hotelPrice": 968,
+    "totalPrice": 1492,
+    "previousPrice": 1582,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "rome-CGN-2",
+    "cityId": "rome",
+    "cityName": "Rom",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "FCO",
+    "startDate": "2026-07-17",
+    "endDate": "2026-07-21",
+    "people": 2,
+    "flightPrice": 233,
+    "hotelPrice": 968,
+    "totalPrice": 1434,
+    "previousPrice": 1520,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-FRA-0",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "NAP",
     "startDate": "2026-07-04",
     "endDate": "2026-07-08",
     "people": 2,
-    "flightPrice": 154,
-    "hotelPrice": 648,
-    "totalPrice": 956,
-    "previousPrice": 1090,
+    "flightPrice": 178,
+    "hotelPrice": 744,
+    "totalPrice": 1100,
+    "previousPrice": 1254,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -338,20 +1372,106 @@
     }
   },
   {
-    "id": "paris-1",
-    "cityId": "paris",
-    "cityName": "Paris",
-    "airport": "CDG",
+    "id": "naples-HHN-0",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "NAP",
+    "startDate": "2026-07-04",
+    "endDate": "2026-07-08",
+    "people": 2,
+    "flightPrice": 146,
+    "hotelPrice": 744,
+    "totalPrice": 1036,
+    "previousPrice": 1181,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-STR-0",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "NAP",
+    "startDate": "2026-07-04",
+    "endDate": "2026-07-08",
+    "people": 2,
+    "flightPrice": 192,
+    "hotelPrice": 744,
+    "totalPrice": 1128,
+    "previousPrice": 1286,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-CGN-0",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "NAP",
+    "startDate": "2026-07-04",
+    "endDate": "2026-07-08",
+    "people": 2,
+    "flightPrice": 171,
+    "hotelPrice": 744,
+    "totalPrice": 1086,
+    "previousPrice": 1238,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-FRA-1",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "NAP",
     "startDate": "2026-07-11",
     "endDate": "2026-07-15",
     "people": 2,
-    "flightPrice": 185,
-    "hotelPrice": 736,
-    "totalPrice": 1106,
-    "previousPrice": 1172,
+    "flightPrice": 209,
+    "hotelPrice": 832,
+    "totalPrice": 1250,
+    "previousPrice": 1325,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -364,12 +1484,518 @@
     }
   },
   {
-    "id": "paris-2",
-    "cityId": "paris",
-    "cityName": "Paris",
-    "airport": "CDG",
+    "id": "naples-HHN-1",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "NAP",
+    "startDate": "2026-07-11",
+    "endDate": "2026-07-15",
+    "people": 2,
+    "flightPrice": 171,
+    "hotelPrice": 832,
+    "totalPrice": 1174,
+    "previousPrice": 1244,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-STR-1",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "NAP",
+    "startDate": "2026-07-11",
+    "endDate": "2026-07-15",
+    "people": 2,
+    "flightPrice": 226,
+    "hotelPrice": 832,
+    "totalPrice": 1284,
+    "previousPrice": 1361,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-CGN-1",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "NAP",
+    "startDate": "2026-07-11",
+    "endDate": "2026-07-15",
+    "people": 2,
+    "flightPrice": 201,
+    "hotelPrice": 832,
+    "totalPrice": 1234,
+    "previousPrice": 1308,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-FRA-2",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "NAP",
     "startDate": "2026-07-18",
     "endDate": "2026-07-22",
+    "people": 2,
+    "flightPrice": 240,
+    "hotelPrice": 920,
+    "totalPrice": 1400,
+    "previousPrice": 1484,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-HHN-2",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "NAP",
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-22",
+    "people": 2,
+    "flightPrice": 197,
+    "hotelPrice": 920,
+    "totalPrice": 1314,
+    "previousPrice": 1393,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-STR-2",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "NAP",
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-22",
+    "people": 2,
+    "flightPrice": 259,
+    "hotelPrice": 920,
+    "totalPrice": 1438,
+    "previousPrice": 1524,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "naples-CGN-2",
+    "cityId": "naples",
+    "cityName": "Neapel",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "NAP",
+    "startDate": "2026-07-18",
+    "endDate": "2026-07-22",
+    "people": 2,
+    "flightPrice": 230,
+    "hotelPrice": 920,
+    "totalPrice": 1380,
+    "previousPrice": 1463,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-FRA-0",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "CDG",
+    "startDate": "2026-07-05",
+    "endDate": "2026-07-09",
+    "people": 2,
+    "flightPrice": 163,
+    "hotelPrice": 648,
+    "totalPrice": 974,
+    "previousPrice": 1110,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-HHN-0",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "CDG",
+    "startDate": "2026-07-05",
+    "endDate": "2026-07-09",
+    "people": 2,
+    "flightPrice": 134,
+    "hotelPrice": 648,
+    "totalPrice": 916,
+    "previousPrice": 1044,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-STR-0",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "CDG",
+    "startDate": "2026-07-05",
+    "endDate": "2026-07-09",
+    "people": 2,
+    "flightPrice": 176,
+    "hotelPrice": 648,
+    "totalPrice": 1000,
+    "previousPrice": 1140,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-CGN-0",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "CDG",
+    "startDate": "2026-07-05",
+    "endDate": "2026-07-09",
+    "people": 2,
+    "flightPrice": 156,
+    "hotelPrice": 648,
+    "totalPrice": 960,
+    "previousPrice": 1094,
+    "priceDropPercent": 12,
+    "shouldNotify": true,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-FRA-1",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "CDG",
+    "startDate": "2026-07-12",
+    "endDate": "2026-07-16",
+    "people": 2,
+    "flightPrice": 194,
+    "hotelPrice": 736,
+    "totalPrice": 1124,
+    "previousPrice": 1191,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-HHN-1",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "CDG",
+    "startDate": "2026-07-12",
+    "endDate": "2026-07-16",
+    "people": 2,
+    "flightPrice": 159,
+    "hotelPrice": 736,
+    "totalPrice": 1054,
+    "previousPrice": 1117,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-STR-1",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "CDG",
+    "startDate": "2026-07-12",
+    "endDate": "2026-07-16",
+    "people": 2,
+    "flightPrice": 210,
+    "hotelPrice": 736,
+    "totalPrice": 1156,
+    "previousPrice": 1225,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-CGN-1",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "CDG",
+    "startDate": "2026-07-12",
+    "endDate": "2026-07-16",
+    "people": 2,
+    "flightPrice": 186,
+    "hotelPrice": 736,
+    "totalPrice": 1108,
+    "previousPrice": 1174,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-FRA-2",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "FRA",
+    "originName": "Frankfurt",
+    "airport": "CDG",
+    "startDate": "2026-07-19",
+    "endDate": "2026-07-23",
+    "people": 2,
+    "flightPrice": 225,
+    "hotelPrice": 824,
+    "totalPrice": 1274,
+    "previousPrice": 1350,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-HHN-2",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "HHN",
+    "originName": "Frankfurt-Hahn",
+    "airport": "CDG",
+    "startDate": "2026-07-19",
+    "endDate": "2026-07-23",
+    "people": 2,
+    "flightPrice": 185,
+    "hotelPrice": 824,
+    "totalPrice": 1194,
+    "previousPrice": 1266,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-STR-2",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "STR",
+    "originName": "Stuttgart",
+    "airport": "CDG",
+    "startDate": "2026-07-19",
+    "endDate": "2026-07-23",
+    "people": 2,
+    "flightPrice": 243,
+    "hotelPrice": 824,
+    "totalPrice": 1310,
+    "previousPrice": 1389,
+    "priceDropPercent": 6,
+    "shouldNotify": false,
+    "crawledAt": "2026-05-26T19:31:44.658Z",
+    "sources": {
+      "flights": [
+        "https://www.skyscanner.de/",
+        "https://www.google.com/travel/flights"
+      ],
+      "hotels": [
+        "https://www.booking.com/",
+        "https://www.hrs.de/"
+      ]
+    }
+  },
+  {
+    "id": "paris-CGN-2",
+    "cityId": "paris",
+    "cityName": "Paris",
+    "originAirport": "CGN",
+    "originName": "Koeln/Bonn",
+    "airport": "CDG",
+    "startDate": "2026-07-19",
+    "endDate": "2026-07-23",
     "people": 2,
     "flightPrice": 216,
     "hotelPrice": 824,
@@ -377,7 +2003,7 @@
     "previousPrice": 1331,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T19:08:15.574Z",
+    "crawledAt": "2026-05-26T19:31:44.658Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",

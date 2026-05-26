@@ -14,6 +14,13 @@ const cities = [
   { id: "paris", name: "Paris", airport: "CDG", base: 118 },
 ];
 
+const origins = [
+  { code: "FRA", name: "Frankfurt", factor: 1 },
+  { code: "HHN", name: "Frankfurt-Hahn", factor: 0.82 },
+  { code: "STR", name: "Stuttgart", factor: 1.08 },
+  { code: "CGN", name: "Koeln/Bonn", factor: 0.96 },
+];
+
 const sources = {
   flights: [
     "https://www.skyscanner.de/",
@@ -34,19 +41,21 @@ if (previous.length > 0) {
 
 const today = new Date();
 const deals = cities.flatMap((city, cityIndex) => {
-  return [0, 1, 2].map((variant) => {
+  return [0, 1, 2].flatMap((variant) => origins.map((origin) => {
     const startDate = addDays(today, 35 + variant * 7 + cityIndex);
     const endDate = addDays(startDate, 4);
-    const flightPrice = city.base + variant * 31 + cityIndex * 9;
+    const flightPrice = Math.round((city.base + variant * 31 + cityIndex * 9) * origin.factor);
     const hotelPrice = (city.base + 44 + variant * 22) * 4;
     const totalPrice = flightPrice * 2 + hotelPrice;
     const previousPrice = Math.round(totalPrice * (1 + (variant === 0 ? 0.14 : 0.06)));
     const priceDropPercent = Math.round(((previousPrice - totalPrice) / previousPrice) * 100);
 
     return {
-      id: `${city.id}-${variant}`,
+      id: `${city.id}-${origin.code}-${variant}`,
       cityId: city.id,
       cityName: city.name,
+      originAirport: origin.code,
+      originName: origin.name,
       airport: city.airport,
       startDate: toDate(startDate),
       endDate: toDate(endDate),
@@ -60,7 +69,7 @@ const deals = cities.flatMap((city, cityIndex) => {
       crawledAt: today.toISOString(),
       sources,
     };
-  });
+  }));
 });
 
 await writeFile(snapshotFile, JSON.stringify(deals, null, 2));

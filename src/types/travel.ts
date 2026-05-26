@@ -13,12 +13,18 @@ export type SearchState = {
   budget: number;
   people: number;
   alertsEnabled: boolean;
+  tripMode: "package" | "flight";
+  originAirport: string;
 };
 
 export type Deal = {
   id: string;
   title: string;
   cityId: string;
+  destinationAirport: string;
+  originAirport: string;
+  originName: string;
+  tripMode: "package" | "flight";
   image: string;
   startDate: string;
   endDate: string;
@@ -30,6 +36,19 @@ export type Deal = {
   hotelRating: number;
   score: number;
   priceDropPercent: number;
+  bookingUrl: string;
+  hotelUrl?: string;
+  notes: string[];
+};
+
+export type DateRecommendation = {
+  id: string;
+  startDate: string;
+  endDate: string;
+  totalPrice: number;
+  savingPercent: number;
+  originAirport: string;
+  originName: string;
 };
 
 export type Activity = {

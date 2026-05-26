@@ -1,8 +1,11 @@
 import {
   Bell,
   BellOff,
+  CalendarCheck,
   CalendarDays,
+  ExternalLink,
   Hotel,
+  MapPin,
   Plane,
   RefreshCw,
   Search,
@@ -14,8 +17,8 @@ import {
 import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 import { activitiesByCity, cities } from "./data/cities";
-import { agentStatus, buildDeals, runDailyPriceCheck } from "./services/dealAgents";
-import type { Deal, SearchState } from "./types/travel";
+import { agentStatus, buildDeals, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
+import type { DateRecommendation, Deal, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 
@@ -26,6 +29,8 @@ const defaultSearch: SearchState = {
   budget: 1400,
   people: 2,
   alertsEnabled: true,
+  tripMode: "package",
+  originAirport: "FRA",
 };
 
 function formatDateRange(deal: Deal) {
@@ -46,9 +51,11 @@ export default function App() {
   const [search, setSearch] = useState<SearchState>(defaultSearch);
   const [activeTab, setActiveTab] = useState<"deals" | "agents" | "activities">("deals");
   const [lastRun, setLastRun] = useState("Heute 07:00");
+  const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
 
   const selectedCity = cities.find((city) => city.id === search.cityId) ?? cities[0];
   const deals = useMemo(() => buildDeals(search).sort((a, b) => b.score - a.score), [search]);
+  const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
@@ -59,6 +66,15 @@ export default function App() {
 
   function refreshAgents() {
     setLastRun(new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
+  }
+
+  function applyDateRecommendation(recommendation: DateRecommendation) {
+    setSearch((current) => ({
+      ...current,
+      startDate: recommendation.startDate,
+      endDate: recommendation.endDate,
+      originAirport: recommendation.originAirport,
+    }));
   }
 
   return (
@@ -99,9 +115,9 @@ export default function App() {
               </p>
               {featuredDeal && (
                 <div className="mt-8 grid max-w-2xl grid-cols-3 gap-3">
-                  <Metric label="Bester Preis" value={currency.format(featuredDeal.totalPrice)} />
+                  <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Preis"} value={currency.format(featuredDeal.totalPrice)} />
                   <Metric label="Datum" value={formatDateRange(featuredDeal)} />
-                  <Metric label="Score" value={`${featuredDeal.score}/100`} />
+                  <Metric label="Abflug" value={featuredDeal.originAirport} />
                 </div>
               )}
             </div>
@@ -139,11 +155,14 @@ export default function App() {
         </div>
 
         {activeTab === "deals" && (
-          <div className="mt-7 grid gap-5 lg:grid-cols-3">
-            {deals.map((deal) => (
-              <DealCard deal={deal} key={deal.id} />
-            ))}
-          </div>
+          <>
+            <DateRecommendations items={dateRecommendations} onApply={applyDateRecommendation} />
+            <div className="mt-7 grid gap-5 lg:grid-cols-3">
+              {deals.map((deal) => (
+                <DealCard deal={deal} key={deal.id} onOpen={setSelectedDeal} />
+              ))}
+            </div>
+          </>
         )}
 
         {activeTab === "agents" && (
@@ -199,6 +218,7 @@ export default function App() {
           </div>
         )}
       </section>
+      {selectedDeal && <DealModal deal={selectedDeal} onClose={() => setSelectedDeal(null)} />}
     </main>
   );
 }
@@ -226,6 +246,33 @@ function SearchPanel({ search, onChange }: SearchPanelProps) {
         ))}
       </select>
 
+      <div className="mt-4 grid grid-cols-2 gap-2 rounded-lg border border-white/10 bg-black/20 p-1">
+        {[
+          ["package", "Flug + Hotel"],
+          ["flight", "Nur Flug"],
+        ].map(([value, label]) => (
+          <button
+            className={`h-10 rounded-md text-sm font-semibold transition ${search.tripMode === value ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`}
+            key={value}
+            onClick={() => onChange("tripMode", value as SearchState["tripMode"])}
+            type="button"
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <label className="mt-4 block text-sm font-medium text-slate-300" htmlFor="origin">
+        Abflughafen
+      </label>
+      <select className="mt-2 h-12 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="origin" value={search.originAirport} onChange={(event) => onChange("originAirport", event.target.value)}>
+        {originAirports.map((airport) => (
+          <option key={airport.code} value={airport.code}>
+            {airport.name} ({airport.code})
+          </option>
+        ))}
+      </select>
+
       <div className="mt-4 grid grid-cols-2 gap-3">
         <Field icon={<CalendarDays size={16} />} label="Von" type="date" value={search.startDate} onChange={(value) => onChange("startDate", value)} />
         <Field icon={<CalendarDays size={16} />} label="Bis" type="date" value={search.endDate} onChange={(value) => onChange("endDate", value)} />
@@ -235,9 +282,42 @@ function SearchPanel({ search, onChange }: SearchPanelProps) {
         <Field icon={<Users size={16} />} label="Personen" min={1} max={6} type="number" value={String(search.people)} onChange={(value) => onChange("people", Number(value))} />
       </div>
       <div className="mt-5 rounded-md border border-white/10 bg-black/20 p-3 text-sm leading-6 text-slate-300">
-        Start: Deutschland. Sortierung: Preis-Leistung, Preisfall, Datum und Bewertung.
+        Abflug ab Frankfurt, Hahn, Stuttgart oder Koeln. Sortierung: Preis, Datum, Preisfall und Bewertung.
       </div>
     </form>
+  );
+}
+
+function DateRecommendations({ items, onApply }: { items: DateRecommendation[]; onApply: (recommendation: DateRecommendation) => void }) {
+  const best = items[0];
+
+  return (
+    <section className="mt-7 rounded-lg border border-emerald-300/25 bg-emerald-300/10 p-5">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
+            <CalendarCheck size={18} /> Guenstigste Reisedaten
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">
+            {best ? `${formatShortDate(best.startDate)} bis ${formatShortDate(best.endDate)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}
+          </h2>
+        </div>
+        {best && (
+          <button className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onApply(best)} type="button">
+            Empfehlung uebernehmen
+          </button>
+        )}
+      </div>
+      <div className="mt-4 grid gap-3 md:grid-cols-4">
+        {items.map((item) => (
+          <button className="rounded-lg border border-white/10 bg-black/20 p-4 text-left transition hover:border-emerald-300 hover:bg-black/30" key={item.id} onClick={() => onApply(item)} type="button">
+            <p className="text-sm font-semibold text-white">{formatShortDate(item.startDate)} - {formatShortDate(item.endDate)}</p>
+            <p className="mt-2 text-xl font-semibold text-emerald-200">{currency.format(item.totalPrice)}</p>
+            <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% guenstiger</p>
+          </button>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -273,11 +353,11 @@ function Metric({ label, value }: { label: string; value: string }) {
   );
 }
 
-function DealCard({ deal }: { deal: Deal }) {
+function DealCard({ deal, onOpen }: { deal: Deal; onOpen: (deal: Deal) => void }) {
   const overBudget = deal.totalPrice > deal.budget;
 
   return (
-    <article className="overflow-hidden rounded-lg border border-white/10 bg-[#111827] shadow-xl">
+    <button className="overflow-hidden rounded-lg border border-white/10 bg-[#111827] text-left shadow-xl transition hover:-translate-y-1 hover:border-cyan-300 hover:shadow-cyan-950/30" onClick={() => onOpen(deal)} type="button">
       <img className="h-48 w-full object-cover" src={deal.image} alt={deal.title} />
       <div className="p-5">
         <div className="flex items-start justify-between gap-3">
@@ -291,8 +371,8 @@ function DealCard({ deal }: { deal: Deal }) {
         </div>
         <div className="mt-5 grid grid-cols-3 gap-3 text-sm">
           <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
-          <Info icon={<Hotel size={16} />} label="Hotel" value={currency.format(deal.hotelPrice)} />
-          <Info icon={<ShieldCheck size={16} />} label="Rating" value={`${deal.hotelRating}/10`} />
+          <Info icon={<MapPin size={16} />} label="Abflug" value={deal.originAirport} />
+          <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : currency.format(deal.hotelPrice)} />
         </div>
         <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
           <div>
@@ -301,11 +381,11 @@ function DealCard({ deal }: { deal: Deal }) {
           </div>
           <div className="text-right">
             <p className="text-sm font-semibold text-emerald-200">{deal.priceDropPercent}% gefallen</p>
-            <p className="mt-1 text-xs text-slate-400">{deal.people} Personen</p>
+            <p className="mt-1 text-xs text-slate-400">Klicken fuer Details</p>
           </div>
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 
@@ -316,4 +396,49 @@ function Info({ icon, label, value }: { icon: ReactNode; label: string; value: s
       <p className="mt-1 font-semibold text-white">{value}</p>
     </div>
   );
+}
+
+function DealModal({ deal, onClose }: { deal: Deal; onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/70 px-4 py-6 backdrop-blur-sm" role="dialog" aria-modal="true">
+      <article className="max-h-[92vh] w-full max-w-2xl overflow-auto rounded-lg border border-white/15 bg-[#111827] shadow-2xl">
+        <img className="h-56 w-full object-cover" src={deal.image} alt={deal.title} />
+        <div className="p-5 sm:p-6">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-cyan-200">{deal.originName} ({deal.originAirport}) nach {deal.destinationAirport}</p>
+              <h2 className="mt-1 text-2xl font-semibold text-white">{deal.title}</h2>
+            </div>
+            <button className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10" onClick={onClose} type="button" aria-label="Schliessen">
+              x
+            </button>
+          </div>
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
+            <Info icon={<CalendarDays size={16} />} label="Datum" value={formatDateRange(deal)} />
+            <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
+            <Info icon={<Wallet size={16} />} label="Gesamt" value={currency.format(deal.totalPrice)} />
+          </div>
+          <ul className="mt-5 space-y-2 text-sm leading-6 text-slate-300">
+            {deal.notes.map((note) => (
+              <li className="rounded-md bg-white/[0.04] px-3 py-2" key={note}>{note}</li>
+            ))}
+          </ul>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={deal.bookingUrl} rel="noreferrer" target="_blank">
+              Flug suchen <ExternalLink size={16} />
+            </a>
+            {deal.hotelUrl && (
+              <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
+                Hotel suchen <ExternalLink size={16} />
+              </a>
+            )}
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+}
+
+function formatShortDate(date: string) {
+  return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short" }).format(new Date(date));
 }

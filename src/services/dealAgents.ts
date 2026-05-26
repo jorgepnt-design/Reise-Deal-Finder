@@ -1,11 +1,18 @@
 import { cities } from "../data/cities";
-import type { Deal, SearchState } from "../types/travel";
+import type { DateRecommendation, Deal, SearchState } from "../types/travel";
+
+export const originAirports = [
+  { code: "FRA", name: "Frankfurt" },
+  { code: "HHN", name: "Frankfurt-Hahn" },
+  { code: "STR", name: "Stuttgart" },
+  { code: "CGN", name: "Koeln/Bonn" },
+];
 
 const dealImages: Record<string, string[]> = {
   lisbon: [
-    "https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=900&q=80",
-    "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=900&q=80",
     "https://images.unsplash.com/photo-1585208798174-6cedd86e019a?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1513735492246-483525079686?auto=format&fit=crop&w=900&q=80",
+    "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
   ],
   porto: [
     "https://images.unsplash.com/photo-1555881400-74d7acaacd8b?auto=format&fit=crop&w=900&q=80",
@@ -41,6 +48,13 @@ const cityBasePrice: Record<string, number> = {
   rome: 154,
   naples: 142,
   paris: 118,
+};
+
+const originPriceFactor: Record<string, number> = {
+  FRA: 1,
+  HHN: 0.82,
+  STR: 1.08,
+  CGN: 0.96,
 };
 
 export const agentStatus = [
@@ -83,13 +97,15 @@ export const agentStatus = [
 export function buildDeals(search: SearchState): Deal[] {
   const city = cities.find((item) => item.id === search.cityId) ?? cities[0];
   const base = cityBasePrice[city.id] ?? 160;
+  const origin = originAirports.find((airport) => airport.code === search.originAirport) ?? originAirports[0];
+  const originFactor = originPriceFactor[origin.code] ?? 1;
   const dateFactor = Math.max(0, new Date(search.startDate).getDate() % 9);
   const images = dealImages[city.id] ?? dealImages.lisbon;
 
   return [0, 1, 2].map((index) => {
-    const flightPrice = Math.round((base + dateFactor * 7 + index * 34) * search.people);
+    const flightPrice = Math.round((base * originFactor + dateFactor * 7 + index * 34) * search.people);
     const hotelNightly = base + 42 + index * 28;
-    const hotelPrice = Math.round(hotelNightly * nightsBetween(search.startDate, search.endDate));
+    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round(hotelNightly * nightsBetween(search.startDate, search.endDate));
     const totalPrice = flightPrice + hotelPrice;
     const hotelRating = Number((9.2 - index * 0.35).toFixed(1));
     const priceDropPercent = [14, 11, 7][index];
@@ -98,8 +114,12 @@ export function buildDeals(search: SearchState): Deal[] {
 
     return {
       id: `${city.id}-${index}`,
-      title: `${city.name} Paket ${index === 0 ? "City Sprint" : index === 1 ? "Design Hotel" : "Flex Weekend"}`,
+      title: `${city.name} ${search.tripMode === "flight" ? "Flug" : "Paket"} ${index === 0 ? "City Sprint" : index === 1 ? "Design Hotel" : "Flex Weekend"}`,
       cityId: city.id,
+      destinationAirport: city.airportCode,
+      originAirport: origin.code,
+      originName: origin.name,
+      tripMode: search.tripMode,
       image: images[index],
       startDate: addDays(search.startDate, index),
       endDate: addDays(search.endDate, index),
@@ -111,8 +131,42 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelRating,
       score,
       priceDropPercent,
+      bookingUrl: buildFlightUrl(origin.code, city.airportCode, addDays(search.startDate, index), addDays(search.endDate, index), search.people),
+      hotelUrl: search.tripMode === "package" ? buildHotelUrl(city.name, addDays(search.startDate, index), addDays(search.endDate, index), search.people) : undefined,
+      notes: [
+        `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
+        search.tripMode === "flight" ? "Nur Flug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
+        `${priceDropPercent}% guenstiger als der letzte Snapshot`,
+      ],
     };
   });
+}
+
+export function recommendTravelDates(search: SearchState): DateRecommendation[] {
+  const city = cities.find((item) => item.id === search.cityId) ?? cities[0];
+  const base = cityBasePrice[city.id] ?? 160;
+  const nights = nightsBetween(search.startDate, search.endDate);
+
+  return [10, 17, 24, 31].map((offset, index) => {
+    const origin = originAirports[(originAirports.findIndex((airport) => airport.code === search.originAirport) + index) % originAirports.length];
+    const startDate = addDays(search.startDate, offset);
+    const endDate = addDays(startDate, nights);
+    const weekdayFactor = new Date(startDate).getDay() === 2 || new Date(startDate).getDay() === 3 ? 0.86 : 1;
+    const originFactor = originPriceFactor[origin.code] ?? 1;
+    const flightPrice = Math.round(base * originFactor * weekdayFactor * search.people);
+    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round((base + 34 + index * 8) * nights);
+    const totalPrice = flightPrice + hotelPrice;
+
+    return {
+      id: `${city.id}-${origin.code}-${startDate}`,
+      startDate,
+      endDate,
+      totalPrice,
+      savingPercent: Math.max(8, Math.round((1.18 - weekdayFactor * originFactor) * 28)),
+      originAirport: origin.code,
+      originName: origin.name,
+    };
+  }).sort((a, b) => a.totalPrice - b.totalPrice);
 }
 
 export function runDailyPriceCheck(deals: Deal[]) {
@@ -140,4 +194,19 @@ function addDays(date: string, days: number) {
   const next = new Date(date);
   next.setDate(next.getDate() + days);
   return next.toISOString().slice(0, 10);
+}
+
+function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number) {
+  const query = encodeURIComponent(`${origin} nach ${destination} ${startDate} ${endDate} ${people} Personen`);
+  return `https://www.google.com/travel/flights?q=${query}`;
+}
+
+function buildHotelUrl(cityName: string, startDate: string, endDate: string, people: number) {
+  const query = new URLSearchParams({
+    ss: cityName,
+    checkin: startDate,
+    checkout: endDate,
+    group_adults: String(people),
+  });
+  return `https://www.booking.com/searchresults.de.html?${query.toString()}`;
 }
