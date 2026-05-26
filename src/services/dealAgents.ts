@@ -102,15 +102,23 @@ export function buildDeals(search: SearchState): Deal[] {
   const dateFactor = Math.max(0, new Date(search.startDate).getDate() % 9);
   const images = dealImages[city.id] ?? dealImages.lisbon;
 
-  return [0, 1, 2].map((index) => {
+  const deals = [0, 1, 2, 3].map((index) => {
+    const startDate = chooseStartDate(search, index);
+    const durationNights = chooseDuration(search, index);
+    const endDate = addDays(startDate, durationNights);
     const flightPrice = Math.round((base * originFactor + dateFactor * 7 + index * 34) * search.people);
     const hotelNightly = base + 42 + index * 28;
-    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round(hotelNightly * nightsBetween(search.startDate, search.endDate));
+    const hotelPrice = search.tripMode === "flight" ? 0 : Math.round(hotelNightly * durationNights);
     const totalPrice = flightPrice + hotelPrice;
     const hotelRating = Number((9.2 - index * 0.35).toFixed(1));
-    const priceDropPercent = [14, 11, 7][index];
+    const priceDropPercent = [14, 11, 7, 5][index];
+    const directFlight = index !== 2;
+    const includesCarryOn = index !== 3;
+    const includesCheckedBag = index === 1;
+    const hotelRefundable = index !== 0;
     const rawScore = Math.round(100 - index * 6 - Math.max(0, totalPrice - search.budget) / 50 + priceDropPercent / 2);
     const score = Math.max(0, Math.min(100, rawScore));
+    const priceHistory = buildPriceHistory(totalPrice, priceDropPercent, index);
 
     return {
       id: `${city.id}-${index}`,
@@ -120,9 +128,9 @@ export function buildDeals(search: SearchState): Deal[] {
       originAirport: origin.code,
       originName: origin.name,
       tripMode: search.tripMode,
-      image: images[index],
-      startDate: addDays(search.startDate, index),
-      endDate: addDays(search.endDate, index),
+      image: images[index % images.length],
+      startDate,
+      endDate,
       people: search.people,
       budget: search.budget,
       flightPrice,
@@ -131,15 +139,48 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelRating,
       score,
       priceDropPercent,
-      bookingUrl: buildFlightUrl(origin.code, city.airportCode, addDays(search.startDate, index), addDays(search.endDate, index), search.people),
-      hotelUrl: search.tripMode === "package" ? buildHotelUrl(city.name, addDays(search.startDate, index), addDays(search.endDate, index), search.people) : undefined,
+      bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people),
+      hotelUrl: search.tripMode === "package" ? buildHotelUrl(city.name, startDate, endDate, search.people) : undefined,
       notes: [
         `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
         search.tripMode === "flight" ? "Nur Flug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
         `${priceDropPercent}% günstiger als der letzte Snapshot`,
+        directFlight ? "Direktflug" : "Umstieg einkalkuliert",
+        includesCheckedBag ? "Aufgabegepäck inklusive" : includesCarryOn ? "Handgepäck inklusive" : "Nur Personal Item inklusive",
       ],
+      directFlight,
+      durationNights,
+      includesCarryOn,
+      includesCheckedBag,
+      hotelRefundable,
+      flightSource: index % 2 === 0 ? "Google Flights" : "Skyscanner",
+      hotelSource: search.tripMode === "package" ? (index % 2 === 0 ? "Booking" : "HRS") : undefined,
+      lastCheckedAt: new Date().toISOString(),
+      priceHistory,
+      isLive: false,
     };
   });
+
+  return applyDealFilters(deals, search);
+}
+
+export async function loadLiveDeals(search: SearchState): Promise<Deal[]> {
+  const endpoint = import.meta.env.VITE_DEAL_API_URL as string | undefined;
+  if (!endpoint) return [];
+
+  const params = new URLSearchParams({
+    city: search.cityId,
+    origin: search.originAirport,
+    startDate: search.startDate,
+    endDate: search.endDate,
+    people: String(search.people),
+    mode: search.tripMode,
+  });
+
+  const response = await fetch(`${endpoint}?${params.toString()}`);
+  if (!response.ok) throw new Error("Live-Daten konnten nicht geladen werden");
+  const deals = (await response.json()) as Deal[];
+  return applyDealFilters(deals.map((deal) => ({ ...deal, isLive: true })), search);
 }
 
 export function recommendTravelDates(search: SearchState): DateRecommendation[] {
@@ -194,6 +235,53 @@ function addDays(date: string, days: number) {
   const next = new Date(date);
   next.setDate(next.getDate() + days);
   return next.toISOString().slice(0, 10);
+}
+
+function applyDealFilters(deals: Deal[], search: SearchState) {
+  return deals.filter((deal) => {
+    if (search.directOnly && !deal.directFlight) return false;
+    if (search.tripMode === "package" && deal.hotelRating < search.minHotelRating) return false;
+    if (search.weekendOnly && !isWeekendTrip(deal.startDate, deal.endDate)) return false;
+    if (search.baggage === "carryOn" && !deal.includesCarryOn && !deal.includesCheckedBag) return false;
+    if (search.baggage === "checked" && !deal.includesCheckedBag) return false;
+    if (search.durationFilter === "short" && (deal.durationNights < 2 || deal.durationNights > 3)) return false;
+    if (search.durationFilter === "medium" && (deal.durationNights < 4 || deal.durationNights > 5)) return false;
+    if (search.durationFilter === "long" && deal.durationNights < 7) return false;
+    if (search.flexibleSearch === "under500" && deal.totalPrice / deal.people > 500) return false;
+    return true;
+  });
+}
+
+function chooseStartDate(search: SearchState, index: number) {
+  if (search.flexibleSearch === "july") return `2026-07-${String(8 + index * 5).padStart(2, "0")}`;
+  if (search.flexibleSearch === "longWeekend") return addDays(nextFriday(search.startDate), index * 7);
+  return addDays(search.startDate, index);
+}
+
+function chooseDuration(search: SearchState, index: number) {
+  if (search.flexibleSearch === "longWeekend") return 3;
+  if (search.durationFilter === "short") return index % 2 === 0 ? 2 : 3;
+  if (search.durationFilter === "medium") return index % 2 === 0 ? 4 : 5;
+  if (search.durationFilter === "long") return 7 + index;
+  return nightsBetween(search.startDate, search.endDate);
+}
+
+function nextFriday(date: string) {
+  const next = new Date(date);
+  const delta = (5 - next.getDay() + 7) % 7;
+  next.setDate(next.getDate() + delta);
+  return next.toISOString().slice(0, 10);
+}
+
+function isWeekendTrip(startDate: string, endDate: string) {
+  const startDay = new Date(startDate).getDay();
+  const endDay = new Date(endDate).getDay();
+  return startDay === 5 || startDay === 6 || endDay === 0 || endDay === 1;
+}
+
+function buildPriceHistory(totalPrice: number, priceDropPercent: number, index: number) {
+  const peak = Math.round(totalPrice / (1 - priceDropPercent / 100));
+  return [peak + 18 + index * 9, peak + 6, peak - 14, peak - 4, totalPrice + 21, totalPrice + 8, totalPrice];
 }
 
 function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number) {

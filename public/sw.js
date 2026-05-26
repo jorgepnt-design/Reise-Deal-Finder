@@ -44,3 +44,32 @@ self.addEventListener("fetch", (event) => {
     }),
   );
 });
+
+self.addEventListener("push", (event) => {
+  const data = event.data?.json?.() ?? {
+    title: "Neuer Reise-Deal",
+    body: "Ein beobachteter Preis ist gefallen.",
+    url: BASE_PATH,
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title ?? "Neuer Reise-Deal", {
+      body: data.body ?? "Ein beobachteter Preis ist gefallen.",
+      icon: `${BASE_PATH}icons/icon-192.png`,
+      badge: `${BASE_PATH}icons/icon-192.png`,
+      data: { url: data.url ?? BASE_PATH },
+    }),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const targetUrl = event.notification.data?.url ?? BASE_PATH;
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      const existingClient = clients.find((client) => client.url.includes(BASE_PATH));
+      if (existingClient) return existingClient.focus();
+      return self.clients.openWindow(targetUrl);
+    }),
+  );
+});

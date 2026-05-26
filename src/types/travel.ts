@@ -15,6 +15,12 @@ export type SearchState = {
   alertsEnabled: boolean;
   tripMode: "package" | "flight";
   originAirport: string;
+  directOnly: boolean;
+  durationFilter: "any" | "short" | "medium" | "long";
+  weekendOnly: boolean;
+  minHotelRating: number;
+  baggage: "personal" | "carryOn" | "checked";
+  flexibleSearch: "exact" | "july" | "longWeekend" | "under500";
 };
 
 export type Deal = {
@@ -39,6 +45,16 @@ export type Deal = {
   bookingUrl: string;
   hotelUrl?: string;
   notes: string[];
+  directFlight: boolean;
+  durationNights: number;
+  includesCarryOn: boolean;
+  includesCheckedBag: boolean;
+  hotelRefundable: boolean;
+  flightSource: string;
+  hotelSource?: string;
+  lastCheckedAt: string;
+  priceHistory: number[];
+  isLive: boolean;
 };
 
 export type DateRecommendation = {

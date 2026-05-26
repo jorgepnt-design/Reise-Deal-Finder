@@ -6,11 +6,15 @@ Deutsche React-Web-App zum Finden von Reise-Deals für Lissabon und weitere Stä
 
 - Dunkles responsives Frontend mit Stadtauswahl, Reisezeitraum, Budget und Personen
 - Deal-Karten mit Bild, Flugpreis, Hotelpreis, Gesamtpreis, Datum, Hotelbewertung und Preisfall
+- Klickbare Deal-Details mit Preisverlauf, Quellen, Prüfzeitpunkt, Gepäckstatus und Stornierungsinfo
+- Erweiterte Filter für Direktflug, Reisedauer, Wochenende, Hotelbewertung und Gepäck
+- Flexible Suche für Juli, lange Wochenenden und Deals unter 500 Euro pro Person
+- Merkliste für gespeicherte Deals und Favoriten für Zielstädte
 - Bonus-Tab mit Aktivitäten-Empfehlungen für Lissabon und die gewählte Stadt
 - Agenten-Tab mit Quellen für Skyscanner, Google Flights, Booking und HRS
 - Täglicher Scheduled Task um 07:00 Uhr deutscher Zeit via GitHub Actions
 - Preisvergleich gegen Vortag mit Alert-Regel ab mehr als 10 Prozent Preisfall
-- Push-Schalter im UI, damit Alarme per Klick deaktivierbar sind
+- Push-Schalter im UI, Browser-Notifications und Service-Worker-Handler für spätere Web-Push-Backends
 
 ## Agenten
 
@@ -19,7 +23,7 @@ Deutsche React-Web-App zum Finden von Reise-Deals für Lissabon und weitere Stä
 3. Hotel-Agent: Browser-Adapter für Booking und HRS, sortiert nach Preis-Leistung und Bewertung.
 4. Scheduled-Agent: `scripts/crawl-deals.mjs` läuft täglich, erzeugt Snapshots unter `public/data/` und markiert Preisalarme.
 
-Die aktuelle Version bringt robuste Seed-Daten und klare Adapterpunkte mit. Echte Browser-Scraper können in `scripts/crawl-deals.mjs` ergänzt werden, ohne das Frontend umzubauen.
+Die aktuelle Version bringt robuste Seed-Daten und klare Adapterpunkte mit. Echte Browser-Scraper können in `scripts/crawl-deals.mjs` ergänzt werden, ohne das Frontend umzubauen. Für echte Live-Daten kann `VITE_DEAL_API_URL` auf einen eigenen Flug-/Hotelpreis-Endpunkt zeigen; die App fällt automatisch auf Snapshots zurück, wenn kein Endpoint gesetzt ist.
 
 ## Installation
 
