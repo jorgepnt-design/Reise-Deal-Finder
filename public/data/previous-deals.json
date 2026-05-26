@@ -17,7 +17,7 @@
     "previousPrice": 1350,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -47,7 +47,7 @@
     "previousPrice": 221,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -77,7 +77,7 @@
     "previousPrice": 1281,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -107,7 +107,7 @@
     "previousPrice": 182,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -137,7 +137,7 @@
     "previousPrice": 1379,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -167,7 +167,7 @@
     "previousPrice": 239,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -197,7 +197,7 @@
     "previousPrice": 1334,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -227,7 +227,7 @@
     "previousPrice": 214,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -257,7 +257,7 @@
     "previousPrice": 1414,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -287,7 +287,7 @@
     "previousPrice": 244,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -317,7 +317,7 @@
     "previousPrice": 1338,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -347,7 +347,7 @@
     "previousPrice": 201,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -377,7 +377,7 @@
     "previousPrice": 1448,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -407,7 +407,7 @@
     "previousPrice": 265,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -437,7 +437,7 @@
     "previousPrice": 1397,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -467,7 +467,7 @@
     "previousPrice": 235,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -497,7 +497,7 @@
     "previousPrice": 1573,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -527,7 +527,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -557,7 +557,7 @@
     "previousPrice": 1486,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -587,7 +587,7 @@
     "previousPrice": 231,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -617,7 +617,7 @@
     "previousPrice": 1611,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -647,7 +647,7 @@
     "previousPrice": 305,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -677,7 +677,7 @@
     "previousPrice": 1554,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -707,7 +707,7 @@
     "previousPrice": 271,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -737,7 +737,7 @@
     "previousPrice": 1220,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -767,7 +767,7 @@
     "previousPrice": 205,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -797,7 +797,7 @@
     "previousPrice": 1156,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -827,7 +827,7 @@
     "previousPrice": 169,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -857,7 +857,7 @@
     "previousPrice": 1247,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -887,7 +887,7 @@
     "previousPrice": 221,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -917,7 +917,7 @@
     "previousPrice": 1206,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -947,7 +947,7 @@
     "previousPrice": 196,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -977,7 +977,7 @@
     "previousPrice": 1293,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1007,7 +1007,7 @@
     "previousPrice": 229,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1037,7 +1037,7 @@
     "previousPrice": 1223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1067,7 +1067,7 @@
     "previousPrice": 187,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1097,7 +1097,7 @@
     "previousPrice": 1325,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1127,7 +1127,7 @@
     "previousPrice": 248,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1157,7 +1157,7 @@
     "previousPrice": 1278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1187,7 +1187,7 @@
     "previousPrice": 220,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1217,7 +1217,7 @@
     "previousPrice": 1452,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1247,7 +1247,7 @@
     "previousPrice": 267,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1277,7 +1277,7 @@
     "previousPrice": 1370,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1307,7 +1307,7 @@
     "previousPrice": 218,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1337,7 +1337,7 @@
     "previousPrice": 1488,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1367,7 +1367,7 @@
     "previousPrice": 288,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1397,7 +1397,7 @@
     "previousPrice": 1433,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1427,7 +1427,7 @@
     "previousPrice": 257,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1457,7 +1457,7 @@
     "previousPrice": 1145,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1487,7 +1487,7 @@
     "previousPrice": 198,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1517,7 +1517,7 @@
     "previousPrice": 1083,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1547,7 +1547,7 @@
     "previousPrice": 162,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1577,7 +1577,7 @@
     "previousPrice": 1172,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1607,7 +1607,7 @@
     "previousPrice": 214,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1637,7 +1637,7 @@
     "previousPrice": 1131,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1667,7 +1667,7 @@
     "previousPrice": 192,
     "priceDropPercent": 13,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1697,7 +1697,7 @@
     "previousPrice": 1223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1727,7 +1727,7 @@
     "previousPrice": 223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1757,7 +1757,7 @@
     "previousPrice": 1153,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1787,7 +1787,7 @@
     "previousPrice": 182,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1817,7 +1817,7 @@
     "previousPrice": 1253,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1847,7 +1847,7 @@
     "previousPrice": 240,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1877,7 +1877,7 @@
     "previousPrice": 1208,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1907,7 +1907,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1937,7 +1937,7 @@
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1967,7 +1967,7 @@
     "previousPrice": 261,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1997,7 +1997,7 @@
     "previousPrice": 1302,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2027,7 +2027,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2057,7 +2057,7 @@
     "previousPrice": 1418,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2087,7 +2087,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2117,7 +2117,7 @@
     "previousPrice": 1365,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2147,7 +2147,7 @@
     "previousPrice": 250,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2177,7 +2177,7 @@
     "previousPrice": 1316,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2207,7 +2207,7 @@
     "previousPrice": 239,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2237,7 +2237,7 @@
     "previousPrice": 1240,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2267,7 +2267,7 @@
     "previousPrice": 196,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2297,7 +2297,7 @@
     "previousPrice": 1347,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2327,7 +2327,7 @@
     "previousPrice": 258,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2357,7 +2357,7 @@
     "previousPrice": 1300,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2387,7 +2387,7 @@
     "previousPrice": 230,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2417,7 +2417,7 @@
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2447,7 +2447,7 @@
     "previousPrice": 261,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2477,7 +2477,7 @@
     "previousPrice": 1302,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2507,7 +2507,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2537,7 +2537,7 @@
     "previousPrice": 1418,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2567,7 +2567,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2597,7 +2597,7 @@
     "previousPrice": 1365,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2627,7 +2627,7 @@
     "previousPrice": 250,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2657,7 +2657,7 @@
     "previousPrice": 1541,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2687,7 +2687,7 @@
     "previousPrice": 299,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2717,7 +2717,7 @@
     "previousPrice": 1448,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2747,7 +2747,7 @@
     "previousPrice": 246,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2777,7 +2777,7 @@
     "previousPrice": 1582,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2807,7 +2807,7 @@
     "previousPrice": 322,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2837,7 +2837,7 @@
     "previousPrice": 1520,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2867,7 +2867,7 @@
     "previousPrice": 286,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2897,7 +2897,7 @@
     "previousPrice": 1254,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2927,7 +2927,7 @@
     "previousPrice": 235,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2957,7 +2957,7 @@
     "previousPrice": 1181,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2987,7 +2987,7 @@
     "previousPrice": 194,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3017,7 +3017,7 @@
     "previousPrice": 1286,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3047,7 +3047,7 @@
     "previousPrice": 253,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3077,7 +3077,7 @@
     "previousPrice": 1238,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3107,7 +3107,7 @@
     "previousPrice": 226,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3137,7 +3137,7 @@
     "previousPrice": 1325,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3167,7 +3167,7 @@
     "previousPrice": 257,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3197,7 +3197,7 @@
     "previousPrice": 1244,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3227,7 +3227,7 @@
     "previousPrice": 210,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3257,7 +3257,7 @@
     "previousPrice": 1361,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3287,7 +3287,7 @@
     "previousPrice": 278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3317,7 +3317,7 @@
     "previousPrice": 1308,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3347,7 +3347,7 @@
     "previousPrice": 246,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3377,7 +3377,7 @@
     "previousPrice": 1484,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3407,7 +3407,7 @@
     "previousPrice": 295,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3437,7 +3437,7 @@
     "previousPrice": 1393,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3467,7 +3467,7 @@
     "previousPrice": 242,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3497,7 +3497,7 @@
     "previousPrice": 1524,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3527,7 +3527,7 @@
     "previousPrice": 318,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3557,7 +3557,7 @@
     "previousPrice": 1463,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3587,7 +3587,7 @@
     "previousPrice": 284,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3617,7 +3617,7 @@
     "previousPrice": 1110,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3647,7 +3647,7 @@
     "previousPrice": 217,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3677,7 +3677,7 @@
     "previousPrice": 1044,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3707,7 +3707,7 @@
     "previousPrice": 178,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3737,7 +3737,7 @@
     "previousPrice": 1140,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3767,7 +3767,7 @@
     "previousPrice": 233,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3797,7 +3797,7 @@
     "previousPrice": 1094,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3827,7 +3827,7 @@
     "previousPrice": 207,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3857,7 +3857,7 @@
     "previousPrice": 1191,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3887,7 +3887,7 @@
     "previousPrice": 240,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3917,7 +3917,7 @@
     "previousPrice": 1117,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3947,7 +3947,7 @@
     "previousPrice": 195,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3977,7 +3977,7 @@
     "previousPrice": 1225,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4007,7 +4007,7 @@
     "previousPrice": 259,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4037,7 +4037,7 @@
     "previousPrice": 1174,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4067,7 +4067,7 @@
     "previousPrice": 229,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4097,7 +4097,7 @@
     "previousPrice": 1350,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4127,7 +4127,7 @@
     "previousPrice": 278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4157,7 +4157,7 @@
     "previousPrice": 1266,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4187,7 +4187,7 @@
     "previousPrice": 227,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4217,7 +4217,7 @@
     "previousPrice": 1389,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4247,7 +4247,7 @@
     "previousPrice": 299,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4277,7 +4277,7 @@
     "previousPrice": 1331,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4307,7 +4307,7 @@
     "previousPrice": 265,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T20:12:41.640Z",
+    "crawledAt": "2026-05-26T22:20:05.334Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",

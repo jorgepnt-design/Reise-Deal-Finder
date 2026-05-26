@@ -47,6 +47,8 @@ export type Deal = {
   hotelDistrict?: string;
   hotelAddress?: string;
   hotelMapsUrl?: string;
+  packageProvider?: string;
+  packageUrl?: string;
   totalPrice: number;
   hotelRating: number;
   score: number;

@@ -475,7 +475,7 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
           <div className="grid grid-cols-3 gap-3 text-sm">
             <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
             <Info icon={<MapPin size={16} />} label="Abflug" value={deal.originAirport} />
-            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : currency.format(deal.hotelPrice)} />
+            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : deal.hotelName ?? currency.format(deal.hotelPrice)} />
           </div>
           <PriceSparkline values={deal.priceHistory} />
           <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
@@ -489,6 +489,31 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
             </div>
           </div>
         </button>
+        {deal.tripMode === "package" && (
+          <div className="mt-4 rounded-lg border border-white/10 bg-black/20 p-3">
+            <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
+              <Hotel size={16} /> {deal.hotelName}
+            </p>
+            <p className="mt-1 text-sm text-slate-300">{deal.hotelDistrict} · {deal.hotelAddress}</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {deal.hotelUrl && (
+                <a className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
+                  Hotel direkt <ExternalLink size={13} />
+                </a>
+              )}
+              {deal.hotelMapsUrl && (
+                <a className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10" href={deal.hotelMapsUrl} rel="noreferrer" target="_blank">
+                  Google Maps <ExternalLink size={13} />
+                </a>
+              )}
+              {deal.packageUrl && (
+                <a className="inline-flex items-center gap-1 rounded-md bg-emerald-300 px-3 py-1.5 text-xs font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
+                  Komplettpaket <ExternalLink size={13} />
+                </a>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );
@@ -577,6 +602,34 @@ function DealModal({
             <Info icon={<ShieldCheck size={16} />} label="Flugart" value={`${deal.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurück"}, ${deal.directFlight ? "Direktflug" : "mit Umstieg"}`} />
             <Info icon={<Hotel size={16} />} label="Hotel" value={deal.tripMode === "flight" ? "nicht enthalten" : `${deal.hotelSource}, ${deal.hotelRefundable ? "stornierbar" : "nicht stornierbar"}`} />
           </div>
+          {deal.tripMode === "package" && (
+            <div className="mt-5 rounded-lg border border-white/10 bg-black/20 p-4">
+              <div className="flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
+                    <Hotel size={16} /> {deal.hotelName}
+                  </p>
+                  <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
+                  <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
+                  <p className="mt-2 text-sm text-slate-400">
+                    {currency.format(deal.hotelPrice)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {deal.hotelMapsUrl && (
+                    <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelMapsUrl} rel="noreferrer" target="_blank">
+                      Google Maps <ExternalLink size={16} />
+                    </a>
+                  )}
+                  {deal.hotelUrl && (
+                    <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
+                      Hotel direkt <ExternalLink size={16} />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
           <ul className="mt-5 space-y-2 text-sm leading-6 text-slate-300">
             {deal.notes.map((note) => (
               <li className="rounded-md bg-white/[0.04] px-3 py-2" key={note}>{note}</li>
@@ -589,6 +642,11 @@ function DealModal({
             {deal.hotelUrl && (
               <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
                 Hotel suchen <ExternalLink size={16} />
+              </a>
+            )}
+            {deal.packageUrl && (
+              <a className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
+                Komplettpaket bei {deal.packageProvider} <ExternalLink size={16} />
               </a>
             )}
           </div>
@@ -685,7 +743,7 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
             <Hotel size={18} /> Flug + Hotel
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{packages.length} Kombi-Angebote inklusive Hotel</h2>
-          <p className="mt-2 text-sm text-slate-400">Alle Preise enthalten Flug und Hotel für {people} Personen.</p>
+          <p className="mt-2 text-sm text-slate-400">Vergleiche getrennte Flug-/Hotelsuche mit einem Komplettangebot aus einer Hand.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="package-sort">
           Flug-Sortierung
@@ -746,15 +804,30 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
                     </div>
                   </div>
 
-                  <div className="mt-5 flex flex-wrap gap-3 border-t border-white/10 pt-4">
-                    <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
-                      Flug suchen <ExternalLink size={16} />
-                    </a>
-                    {deal.hotelUrl && (
-                      <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
-                        Hotel suchen <ExternalLink size={16} />
-                      </a>
-                    )}
+                  <div className="mt-5 grid gap-3 border-t border-white/10 pt-4 md:grid-cols-2">
+                    <div className="rounded-lg border border-white/10 bg-black/20 p-3">
+                      <p className="text-sm font-semibold text-cyan-200">Getrennt suchen</p>
+                      <p className="mt-1 text-xs text-slate-400">Flug und Hotel separat vergleichen.</p>
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
+                          Flug suchen <ExternalLink size={16} />
+                        </a>
+                        {deal.hotelUrl && (
+                          <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
+                            Hotel suchen <ExternalLink size={16} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                    <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-3">
+                      <p className="text-sm font-semibold text-emerald-200">Komplettangebot</p>
+                      <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prüfen.</p>
+                      {deal.packageUrl && (
+                        <a className="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
+                          Bei {deal.packageProvider} öffnen <ExternalLink size={16} />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

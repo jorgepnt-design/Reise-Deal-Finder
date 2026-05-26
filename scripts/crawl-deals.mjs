@@ -32,6 +32,24 @@ const sources = {
   ],
 };
 
+const hotelCatalog = {
+  lisbon: [
+    { name: "Hotel Lisboa Plaza", district: "Avenida da Liberdade", address: "Tv. Salitre 7, 1269-066 Lissabon, Portugal" },
+    { name: "My Story Hotel Tejo", district: "Baixa", address: "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal" },
+    { name: "Hotel Convento do Salvador", district: "Alfama", address: "Rua do Salvador 2B, 1100-465 Lissabon, Portugal" },
+  ],
+  porto: [
+    { name: "Moov Hotel Porto Centro", district: "Centro", address: "Praça da Batalha 32, 4000-101 Porto, Portugal" },
+    { name: "The Editory House Ribeira", district: "Ribeira", address: "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal" },
+    { name: "Hotel da Música", district: "Boavista", address: "Mercado do Bom Sucesso, 4150-323 Porto, Portugal" },
+  ],
+  naples: [
+    { name: "Decumani Hotel De Charme", district: "Centro Storico", address: "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien" },
+    { name: "Renaissance Naples Hotel Mediterraneo", district: "Quartieri Spagnoli", address: "Via Ponte di Tappia 25, 80133 Neapel, Italien" },
+    { name: "Hotel Piazza Bellini", district: "Dante", address: "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien" },
+  ],
+};
+
 await mkdir(outputDir, { recursive: true });
 
 const previous = await readJson(snapshotFile).catch(() => []);
@@ -51,6 +69,7 @@ const deals = cities.flatMap((city, cityIndex) => {
     const endDate = addDays(startDate, 4);
     const flightPrice = Math.round((city.base + variant * 31 + cityIndex * 9) * origin.factor * flightType.factor);
     const hotelPrice = flightType.id === "oneWay" ? 0 : (city.base + 44 + variant * 22) * 4;
+    const hotel = (hotelCatalog[city.id] ?? hotelCatalog.lisbon)[variant % 3];
     const totalPrice = flightPrice * 2 + hotelPrice;
     const previousPrice = Math.round(totalPrice * (1 + (variant === 0 ? 0.14 : 0.06)));
     const priceDropPercent = Math.round(((previousPrice - totalPrice) / previousPrice) * 100);
@@ -69,6 +88,12 @@ const deals = cities.flatMap((city, cityIndex) => {
       people: 2,
       flightPrice,
       hotelPrice,
+      hotelName: flightType.id === "oneWay" ? undefined : hotel.name,
+      hotelDistrict: flightType.id === "oneWay" ? undefined : hotel.district,
+      hotelAddress: flightType.id === "oneWay" ? undefined : hotel.address,
+      hotelMapsUrl: flightType.id === "oneWay" ? undefined : buildMapsUrl(hotel.name, hotel.address),
+      packageProvider: flightType.id === "oneWay" ? undefined : "Booking.com Komplettpaket",
+      packageUrl: flightType.id === "oneWay" ? undefined : buildPackageUrl(city.name, origin.code, city.airport, toDate(startDate), toDate(endDate), 2),
       totalPrice,
       previousPrice,
       priceDropPercent,
@@ -97,4 +122,21 @@ function addDays(date, days) {
 
 function toDate(date) {
   return date.toISOString().slice(0, 10);
+}
+
+function buildMapsUrl(name, address) {
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
+}
+
+function buildPackageUrl(cityName, origin, destination, startDate, endDate, people) {
+  const params = new URLSearchParams({
+    locale: "de-de",
+    origin,
+    destination,
+    destinationName: cityName,
+    startDate,
+    endDate,
+    adults: String(people),
+  });
+  return `https://packages.booking.com/vacationpackages/?${params.toString()}`;
 }

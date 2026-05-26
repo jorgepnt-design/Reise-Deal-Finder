@@ -13,11 +13,17 @@
     "people": 2,
     "flightPrice": 168,
     "hotelPrice": 848,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=LIS&destinationName=Lissabon&startDate=2026-06-30&endDate=2026-07-04&adults=2",
     "totalPrice": 1184,
     "previousPrice": 1350,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -47,7 +53,7 @@
     "previousPrice": 221,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -73,11 +79,17 @@
     "people": 2,
     "flightPrice": 138,
     "hotelPrice": 848,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=LIS&destinationName=Lissabon&startDate=2026-06-30&endDate=2026-07-04&adults=2",
     "totalPrice": 1124,
     "previousPrice": 1281,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -107,7 +119,7 @@
     "previousPrice": 182,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -133,11 +145,17 @@
     "people": 2,
     "flightPrice": 181,
     "hotelPrice": 848,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=LIS&destinationName=Lissabon&startDate=2026-06-30&endDate=2026-07-04&adults=2",
     "totalPrice": 1210,
     "previousPrice": 1379,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -167,7 +185,7 @@
     "previousPrice": 239,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -193,11 +211,17 @@
     "people": 2,
     "flightPrice": 161,
     "hotelPrice": 848,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=LIS&destinationName=Lissabon&startDate=2026-06-30&endDate=2026-07-04&adults=2",
     "totalPrice": 1170,
     "previousPrice": 1334,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -227,7 +251,7 @@
     "previousPrice": 214,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -253,11 +277,17 @@
     "people": 2,
     "flightPrice": 199,
     "hotelPrice": 936,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=LIS&destinationName=Lissabon&startDate=2026-07-07&endDate=2026-07-11&adults=2",
     "totalPrice": 1334,
     "previousPrice": 1414,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -287,7 +317,7 @@
     "previousPrice": 244,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -313,11 +343,17 @@
     "people": 2,
     "flightPrice": 163,
     "hotelPrice": 936,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=LIS&destinationName=Lissabon&startDate=2026-07-07&endDate=2026-07-11&adults=2",
     "totalPrice": 1262,
     "previousPrice": 1338,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -347,7 +383,7 @@
     "previousPrice": 201,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -373,11 +409,17 @@
     "people": 2,
     "flightPrice": 215,
     "hotelPrice": 936,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=LIS&destinationName=Lissabon&startDate=2026-07-07&endDate=2026-07-11&adults=2",
     "totalPrice": 1366,
     "previousPrice": 1448,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -407,7 +449,7 @@
     "previousPrice": 265,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -433,11 +475,17 @@
     "people": 2,
     "flightPrice": 191,
     "hotelPrice": 936,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=LIS&destinationName=Lissabon&startDate=2026-07-07&endDate=2026-07-11&adults=2",
     "totalPrice": 1318,
     "previousPrice": 1397,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -467,7 +515,7 @@
     "previousPrice": 235,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -493,11 +541,17 @@
     "people": 2,
     "flightPrice": 230,
     "hotelPrice": 1024,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=LIS&destinationName=Lissabon&startDate=2026-07-14&endDate=2026-07-18&adults=2",
     "totalPrice": 1484,
     "previousPrice": 1573,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -527,7 +581,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -553,11 +607,17 @@
     "people": 2,
     "flightPrice": 189,
     "hotelPrice": 1024,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=LIS&destinationName=Lissabon&startDate=2026-07-14&endDate=2026-07-18&adults=2",
     "totalPrice": 1402,
     "previousPrice": 1486,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -587,7 +647,7 @@
     "previousPrice": 231,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -613,11 +673,17 @@
     "people": 2,
     "flightPrice": 248,
     "hotelPrice": 1024,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=LIS&destinationName=Lissabon&startDate=2026-07-14&endDate=2026-07-18&adults=2",
     "totalPrice": 1520,
     "previousPrice": 1611,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -647,7 +713,7 @@
     "previousPrice": 305,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -673,11 +739,17 @@
     "people": 2,
     "flightPrice": 221,
     "hotelPrice": 1024,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=LIS&destinationName=Lissabon&startDate=2026-07-14&endDate=2026-07-18&adults=2",
     "totalPrice": 1466,
     "previousPrice": 1554,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -707,7 +779,7 @@
     "previousPrice": 271,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -733,11 +805,17 @@
     "people": 2,
     "flightPrice": 155,
     "hotelPrice": 760,
+    "hotelName": "Moov Hotel Porto Centro",
+    "hotelDistrict": "Centro",
+    "hotelAddress": "Praça da Batalha 32, 4000-101 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Moov%20Hotel%20Porto%20Centro%2C%20Pra%C3%A7a%20da%20Batalha%2032%2C%204000-101%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=OPO&destinationName=Porto&startDate=2026-07-01&endDate=2026-07-05&adults=2",
     "totalPrice": 1070,
     "previousPrice": 1220,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -767,7 +845,7 @@
     "previousPrice": 205,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -793,11 +871,17 @@
     "people": 2,
     "flightPrice": 127,
     "hotelPrice": 760,
+    "hotelName": "Moov Hotel Porto Centro",
+    "hotelDistrict": "Centro",
+    "hotelAddress": "Praça da Batalha 32, 4000-101 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Moov%20Hotel%20Porto%20Centro%2C%20Pra%C3%A7a%20da%20Batalha%2032%2C%204000-101%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=OPO&destinationName=Porto&startDate=2026-07-01&endDate=2026-07-05&adults=2",
     "totalPrice": 1014,
     "previousPrice": 1156,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -827,7 +911,7 @@
     "previousPrice": 169,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -853,11 +937,17 @@
     "people": 2,
     "flightPrice": 167,
     "hotelPrice": 760,
+    "hotelName": "Moov Hotel Porto Centro",
+    "hotelDistrict": "Centro",
+    "hotelAddress": "Praça da Batalha 32, 4000-101 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Moov%20Hotel%20Porto%20Centro%2C%20Pra%C3%A7a%20da%20Batalha%2032%2C%204000-101%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=OPO&destinationName=Porto&startDate=2026-07-01&endDate=2026-07-05&adults=2",
     "totalPrice": 1094,
     "previousPrice": 1247,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -887,7 +977,7 @@
     "previousPrice": 221,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -913,11 +1003,17 @@
     "people": 2,
     "flightPrice": 149,
     "hotelPrice": 760,
+    "hotelName": "Moov Hotel Porto Centro",
+    "hotelDistrict": "Centro",
+    "hotelAddress": "Praça da Batalha 32, 4000-101 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Moov%20Hotel%20Porto%20Centro%2C%20Pra%C3%A7a%20da%20Batalha%2032%2C%204000-101%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=OPO&destinationName=Porto&startDate=2026-07-01&endDate=2026-07-05&adults=2",
     "totalPrice": 1058,
     "previousPrice": 1206,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -947,7 +1043,7 @@
     "previousPrice": 196,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -973,11 +1069,17 @@
     "people": 2,
     "flightPrice": 186,
     "hotelPrice": 848,
+    "hotelName": "The Editory House Ribeira",
+    "hotelDistrict": "Ribeira",
+    "hotelAddress": "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Editory%20House%20Ribeira%2C%20Rua%20Infante%20Dom%20Henrique%2026%2C%204050-296%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=OPO&destinationName=Porto&startDate=2026-07-08&endDate=2026-07-12&adults=2",
     "totalPrice": 1220,
     "previousPrice": 1293,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1007,7 +1109,7 @@
     "previousPrice": 229,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1033,11 +1135,17 @@
     "people": 2,
     "flightPrice": 153,
     "hotelPrice": 848,
+    "hotelName": "The Editory House Ribeira",
+    "hotelDistrict": "Ribeira",
+    "hotelAddress": "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Editory%20House%20Ribeira%2C%20Rua%20Infante%20Dom%20Henrique%2026%2C%204050-296%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=OPO&destinationName=Porto&startDate=2026-07-08&endDate=2026-07-12&adults=2",
     "totalPrice": 1154,
     "previousPrice": 1223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1067,7 +1175,7 @@
     "previousPrice": 187,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1093,11 +1201,17 @@
     "people": 2,
     "flightPrice": 201,
     "hotelPrice": 848,
+    "hotelName": "The Editory House Ribeira",
+    "hotelDistrict": "Ribeira",
+    "hotelAddress": "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Editory%20House%20Ribeira%2C%20Rua%20Infante%20Dom%20Henrique%2026%2C%204050-296%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=OPO&destinationName=Porto&startDate=2026-07-08&endDate=2026-07-12&adults=2",
     "totalPrice": 1250,
     "previousPrice": 1325,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1127,7 +1241,7 @@
     "previousPrice": 248,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1153,11 +1267,17 @@
     "people": 2,
     "flightPrice": 179,
     "hotelPrice": 848,
+    "hotelName": "The Editory House Ribeira",
+    "hotelDistrict": "Ribeira",
+    "hotelAddress": "Rua Infante Dom Henrique 26, 4050-296 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=The%20Editory%20House%20Ribeira%2C%20Rua%20Infante%20Dom%20Henrique%2026%2C%204050-296%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=OPO&destinationName=Porto&startDate=2026-07-08&endDate=2026-07-12&adults=2",
     "totalPrice": 1206,
     "previousPrice": 1278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1187,7 +1307,7 @@
     "previousPrice": 220,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1213,11 +1333,17 @@
     "people": 2,
     "flightPrice": 217,
     "hotelPrice": 936,
+    "hotelName": "Hotel da Música",
+    "hotelDistrict": "Boavista",
+    "hotelAddress": "Mercado do Bom Sucesso, 4150-323 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20da%20M%C3%BAsica%2C%20Mercado%20do%20Bom%20Sucesso%2C%204150-323%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=OPO&destinationName=Porto&startDate=2026-07-15&endDate=2026-07-19&adults=2",
     "totalPrice": 1370,
     "previousPrice": 1452,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1247,7 +1373,7 @@
     "previousPrice": 267,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1273,11 +1399,17 @@
     "people": 2,
     "flightPrice": 178,
     "hotelPrice": 936,
+    "hotelName": "Hotel da Música",
+    "hotelDistrict": "Boavista",
+    "hotelAddress": "Mercado do Bom Sucesso, 4150-323 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20da%20M%C3%BAsica%2C%20Mercado%20do%20Bom%20Sucesso%2C%204150-323%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=OPO&destinationName=Porto&startDate=2026-07-15&endDate=2026-07-19&adults=2",
     "totalPrice": 1292,
     "previousPrice": 1370,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1307,7 +1439,7 @@
     "previousPrice": 218,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1333,11 +1465,17 @@
     "people": 2,
     "flightPrice": 234,
     "hotelPrice": 936,
+    "hotelName": "Hotel da Música",
+    "hotelDistrict": "Boavista",
+    "hotelAddress": "Mercado do Bom Sucesso, 4150-323 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20da%20M%C3%BAsica%2C%20Mercado%20do%20Bom%20Sucesso%2C%204150-323%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=OPO&destinationName=Porto&startDate=2026-07-15&endDate=2026-07-19&adults=2",
     "totalPrice": 1404,
     "previousPrice": 1488,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1367,7 +1505,7 @@
     "previousPrice": 288,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1393,11 +1531,17 @@
     "people": 2,
     "flightPrice": 208,
     "hotelPrice": 936,
+    "hotelName": "Hotel da Música",
+    "hotelDistrict": "Boavista",
+    "hotelAddress": "Mercado do Bom Sucesso, 4150-323 Porto, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20da%20M%C3%BAsica%2C%20Mercado%20do%20Bom%20Sucesso%2C%204150-323%20Porto%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=OPO&destinationName=Porto&startDate=2026-07-15&endDate=2026-07-19&adults=2",
     "totalPrice": 1352,
     "previousPrice": 1433,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1427,7 +1571,7 @@
     "previousPrice": 257,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1453,11 +1597,17 @@
     "people": 2,
     "flightPrice": 150,
     "hotelPrice": 704,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=BCN&destinationName=Barcelona&startDate=2026-07-02&endDate=2026-07-06&adults=2",
     "totalPrice": 1004,
     "previousPrice": 1145,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1487,7 +1637,7 @@
     "previousPrice": 198,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1513,11 +1663,17 @@
     "people": 2,
     "flightPrice": 123,
     "hotelPrice": 704,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=BCN&destinationName=Barcelona&startDate=2026-07-02&endDate=2026-07-06&adults=2",
     "totalPrice": 950,
     "previousPrice": 1083,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1547,7 +1703,7 @@
     "previousPrice": 162,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1573,11 +1729,17 @@
     "people": 2,
     "flightPrice": 162,
     "hotelPrice": 704,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=BCN&destinationName=Barcelona&startDate=2026-07-02&endDate=2026-07-06&adults=2",
     "totalPrice": 1028,
     "previousPrice": 1172,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1607,7 +1769,7 @@
     "previousPrice": 214,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1633,11 +1795,17 @@
     "people": 2,
     "flightPrice": 144,
     "hotelPrice": 704,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=BCN&destinationName=Barcelona&startDate=2026-07-02&endDate=2026-07-06&adults=2",
     "totalPrice": 992,
     "previousPrice": 1131,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1667,7 +1835,7 @@
     "previousPrice": 192,
     "priceDropPercent": 13,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1693,11 +1861,17 @@
     "people": 2,
     "flightPrice": 181,
     "hotelPrice": 792,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=BCN&destinationName=Barcelona&startDate=2026-07-09&endDate=2026-07-13&adults=2",
     "totalPrice": 1154,
     "previousPrice": 1223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1727,7 +1901,7 @@
     "previousPrice": 223,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1753,11 +1927,17 @@
     "people": 2,
     "flightPrice": 148,
     "hotelPrice": 792,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=BCN&destinationName=Barcelona&startDate=2026-07-09&endDate=2026-07-13&adults=2",
     "totalPrice": 1088,
     "previousPrice": 1153,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1787,7 +1967,7 @@
     "previousPrice": 182,
     "priceDropPercent": 5,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1813,11 +1993,17 @@
     "people": 2,
     "flightPrice": 195,
     "hotelPrice": 792,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=BCN&destinationName=Barcelona&startDate=2026-07-09&endDate=2026-07-13&adults=2",
     "totalPrice": 1182,
     "previousPrice": 1253,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1847,7 +2033,7 @@
     "previousPrice": 240,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1873,11 +2059,17 @@
     "people": 2,
     "flightPrice": 174,
     "hotelPrice": 792,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=BCN&destinationName=Barcelona&startDate=2026-07-09&endDate=2026-07-13&adults=2",
     "totalPrice": 1140,
     "previousPrice": 1208,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1907,7 +2099,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1933,11 +2125,17 @@
     "people": 2,
     "flightPrice": 212,
     "hotelPrice": 880,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=BCN&destinationName=Barcelona&startDate=2026-07-16&endDate=2026-07-20&adults=2",
     "totalPrice": 1304,
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1967,7 +2165,7 @@
     "previousPrice": 261,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -1993,11 +2191,17 @@
     "people": 2,
     "flightPrice": 174,
     "hotelPrice": 880,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=BCN&destinationName=Barcelona&startDate=2026-07-16&endDate=2026-07-20&adults=2",
     "totalPrice": 1228,
     "previousPrice": 1302,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2027,7 +2231,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2053,11 +2257,17 @@
     "people": 2,
     "flightPrice": 229,
     "hotelPrice": 880,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=BCN&destinationName=Barcelona&startDate=2026-07-16&endDate=2026-07-20&adults=2",
     "totalPrice": 1338,
     "previousPrice": 1418,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2087,7 +2297,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2113,11 +2323,17 @@
     "people": 2,
     "flightPrice": 204,
     "hotelPrice": 880,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=BCN&destinationName=Barcelona&startDate=2026-07-16&endDate=2026-07-20&adults=2",
     "totalPrice": 1288,
     "previousPrice": 1365,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2147,7 +2363,7 @@
     "previousPrice": 250,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2173,11 +2389,17 @@
     "people": 2,
     "flightPrice": 181,
     "hotelPrice": 792,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=FCO&destinationName=Rom&startDate=2026-07-03&endDate=2026-07-07&adults=2",
     "totalPrice": 1154,
     "previousPrice": 1316,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2207,7 +2429,7 @@
     "previousPrice": 239,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2233,11 +2455,17 @@
     "people": 2,
     "flightPrice": 148,
     "hotelPrice": 792,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=FCO&destinationName=Rom&startDate=2026-07-03&endDate=2026-07-07&adults=2",
     "totalPrice": 1088,
     "previousPrice": 1240,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2267,7 +2495,7 @@
     "previousPrice": 196,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2293,11 +2521,17 @@
     "people": 2,
     "flightPrice": 195,
     "hotelPrice": 792,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=FCO&destinationName=Rom&startDate=2026-07-03&endDate=2026-07-07&adults=2",
     "totalPrice": 1182,
     "previousPrice": 1347,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2327,7 +2561,7 @@
     "previousPrice": 258,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2353,11 +2587,17 @@
     "people": 2,
     "flightPrice": 174,
     "hotelPrice": 792,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=FCO&destinationName=Rom&startDate=2026-07-03&endDate=2026-07-07&adults=2",
     "totalPrice": 1140,
     "previousPrice": 1300,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2387,7 +2627,7 @@
     "previousPrice": 230,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2413,11 +2653,17 @@
     "people": 2,
     "flightPrice": 212,
     "hotelPrice": 880,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=FCO&destinationName=Rom&startDate=2026-07-10&endDate=2026-07-14&adults=2",
     "totalPrice": 1304,
     "previousPrice": 1382,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2447,7 +2693,7 @@
     "previousPrice": 261,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2473,11 +2719,17 @@
     "people": 2,
     "flightPrice": 174,
     "hotelPrice": 880,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=FCO&destinationName=Rom&startDate=2026-07-10&endDate=2026-07-14&adults=2",
     "totalPrice": 1228,
     "previousPrice": 1302,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2507,7 +2759,7 @@
     "previousPrice": 214,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2533,11 +2785,17 @@
     "people": 2,
     "flightPrice": 229,
     "hotelPrice": 880,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=FCO&destinationName=Rom&startDate=2026-07-10&endDate=2026-07-14&adults=2",
     "totalPrice": 1338,
     "previousPrice": 1418,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2567,7 +2825,7 @@
     "previousPrice": 282,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2593,11 +2851,17 @@
     "people": 2,
     "flightPrice": 204,
     "hotelPrice": 880,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=FCO&destinationName=Rom&startDate=2026-07-10&endDate=2026-07-14&adults=2",
     "totalPrice": 1288,
     "previousPrice": 1365,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2627,7 +2891,7 @@
     "previousPrice": 250,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2653,11 +2917,17 @@
     "people": 2,
     "flightPrice": 243,
     "hotelPrice": 968,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=FCO&destinationName=Rom&startDate=2026-07-17&endDate=2026-07-21&adults=2",
     "totalPrice": 1454,
     "previousPrice": 1541,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2687,7 +2957,7 @@
     "previousPrice": 299,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2713,11 +2983,17 @@
     "people": 2,
     "flightPrice": 199,
     "hotelPrice": 968,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=FCO&destinationName=Rom&startDate=2026-07-17&endDate=2026-07-21&adults=2",
     "totalPrice": 1366,
     "previousPrice": 1448,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2747,7 +3023,7 @@
     "previousPrice": 246,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2773,11 +3049,17 @@
     "people": 2,
     "flightPrice": 262,
     "hotelPrice": 968,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=FCO&destinationName=Rom&startDate=2026-07-17&endDate=2026-07-21&adults=2",
     "totalPrice": 1492,
     "previousPrice": 1582,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2807,7 +3089,7 @@
     "previousPrice": 322,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2833,11 +3115,17 @@
     "people": 2,
     "flightPrice": 233,
     "hotelPrice": 968,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=FCO&destinationName=Rom&startDate=2026-07-17&endDate=2026-07-21&adults=2",
     "totalPrice": 1434,
     "previousPrice": 1520,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2867,7 +3155,7 @@
     "previousPrice": 286,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2893,11 +3181,17 @@
     "people": 2,
     "flightPrice": 178,
     "hotelPrice": 744,
+    "hotelName": "Decumani Hotel De Charme",
+    "hotelDistrict": "Centro Storico",
+    "hotelAddress": "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Decumani%20Hotel%20De%20Charme%2C%20Via%20San%20Giovanni%20Maggiore%20Pignatelli%2015%2C%2080134%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=NAP&destinationName=Neapel&startDate=2026-07-04&endDate=2026-07-08&adults=2",
     "totalPrice": 1100,
     "previousPrice": 1254,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2927,7 +3221,7 @@
     "previousPrice": 235,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2953,11 +3247,17 @@
     "people": 2,
     "flightPrice": 146,
     "hotelPrice": 744,
+    "hotelName": "Decumani Hotel De Charme",
+    "hotelDistrict": "Centro Storico",
+    "hotelAddress": "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Decumani%20Hotel%20De%20Charme%2C%20Via%20San%20Giovanni%20Maggiore%20Pignatelli%2015%2C%2080134%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=NAP&destinationName=Neapel&startDate=2026-07-04&endDate=2026-07-08&adults=2",
     "totalPrice": 1036,
     "previousPrice": 1181,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -2987,7 +3287,7 @@
     "previousPrice": 194,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3013,11 +3313,17 @@
     "people": 2,
     "flightPrice": 192,
     "hotelPrice": 744,
+    "hotelName": "Decumani Hotel De Charme",
+    "hotelDistrict": "Centro Storico",
+    "hotelAddress": "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Decumani%20Hotel%20De%20Charme%2C%20Via%20San%20Giovanni%20Maggiore%20Pignatelli%2015%2C%2080134%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=NAP&destinationName=Neapel&startDate=2026-07-04&endDate=2026-07-08&adults=2",
     "totalPrice": 1128,
     "previousPrice": 1286,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3047,7 +3353,7 @@
     "previousPrice": 253,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3073,11 +3379,17 @@
     "people": 2,
     "flightPrice": 171,
     "hotelPrice": 744,
+    "hotelName": "Decumani Hotel De Charme",
+    "hotelDistrict": "Centro Storico",
+    "hotelAddress": "Via San Giovanni Maggiore Pignatelli 15, 80134 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Decumani%20Hotel%20De%20Charme%2C%20Via%20San%20Giovanni%20Maggiore%20Pignatelli%2015%2C%2080134%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=NAP&destinationName=Neapel&startDate=2026-07-04&endDate=2026-07-08&adults=2",
     "totalPrice": 1086,
     "previousPrice": 1238,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3107,7 +3419,7 @@
     "previousPrice": 226,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3133,11 +3445,17 @@
     "people": 2,
     "flightPrice": 209,
     "hotelPrice": 832,
+    "hotelName": "Renaissance Naples Hotel Mediterraneo",
+    "hotelDistrict": "Quartieri Spagnoli",
+    "hotelAddress": "Via Ponte di Tappia 25, 80133 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Renaissance%20Naples%20Hotel%20Mediterraneo%2C%20Via%20Ponte%20di%20Tappia%2025%2C%2080133%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=NAP&destinationName=Neapel&startDate=2026-07-11&endDate=2026-07-15&adults=2",
     "totalPrice": 1250,
     "previousPrice": 1325,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3167,7 +3485,7 @@
     "previousPrice": 257,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3193,11 +3511,17 @@
     "people": 2,
     "flightPrice": 171,
     "hotelPrice": 832,
+    "hotelName": "Renaissance Naples Hotel Mediterraneo",
+    "hotelDistrict": "Quartieri Spagnoli",
+    "hotelAddress": "Via Ponte di Tappia 25, 80133 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Renaissance%20Naples%20Hotel%20Mediterraneo%2C%20Via%20Ponte%20di%20Tappia%2025%2C%2080133%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=NAP&destinationName=Neapel&startDate=2026-07-11&endDate=2026-07-15&adults=2",
     "totalPrice": 1174,
     "previousPrice": 1244,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3227,7 +3551,7 @@
     "previousPrice": 210,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3253,11 +3577,17 @@
     "people": 2,
     "flightPrice": 226,
     "hotelPrice": 832,
+    "hotelName": "Renaissance Naples Hotel Mediterraneo",
+    "hotelDistrict": "Quartieri Spagnoli",
+    "hotelAddress": "Via Ponte di Tappia 25, 80133 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Renaissance%20Naples%20Hotel%20Mediterraneo%2C%20Via%20Ponte%20di%20Tappia%2025%2C%2080133%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=NAP&destinationName=Neapel&startDate=2026-07-11&endDate=2026-07-15&adults=2",
     "totalPrice": 1284,
     "previousPrice": 1361,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3287,7 +3617,7 @@
     "previousPrice": 278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3313,11 +3643,17 @@
     "people": 2,
     "flightPrice": 201,
     "hotelPrice": 832,
+    "hotelName": "Renaissance Naples Hotel Mediterraneo",
+    "hotelDistrict": "Quartieri Spagnoli",
+    "hotelAddress": "Via Ponte di Tappia 25, 80133 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Renaissance%20Naples%20Hotel%20Mediterraneo%2C%20Via%20Ponte%20di%20Tappia%2025%2C%2080133%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=NAP&destinationName=Neapel&startDate=2026-07-11&endDate=2026-07-15&adults=2",
     "totalPrice": 1234,
     "previousPrice": 1308,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3347,7 +3683,7 @@
     "previousPrice": 246,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3373,11 +3709,17 @@
     "people": 2,
     "flightPrice": 240,
     "hotelPrice": 920,
+    "hotelName": "Hotel Piazza Bellini",
+    "hotelDistrict": "Dante",
+    "hotelAddress": "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Piazza%20Bellini%2C%20Via%20Santa%20Maria%20di%20Costantinopoli%20101%2C%2080138%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=NAP&destinationName=Neapel&startDate=2026-07-18&endDate=2026-07-22&adults=2",
     "totalPrice": 1400,
     "previousPrice": 1484,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3407,7 +3749,7 @@
     "previousPrice": 295,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3433,11 +3775,17 @@
     "people": 2,
     "flightPrice": 197,
     "hotelPrice": 920,
+    "hotelName": "Hotel Piazza Bellini",
+    "hotelDistrict": "Dante",
+    "hotelAddress": "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Piazza%20Bellini%2C%20Via%20Santa%20Maria%20di%20Costantinopoli%20101%2C%2080138%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=NAP&destinationName=Neapel&startDate=2026-07-18&endDate=2026-07-22&adults=2",
     "totalPrice": 1314,
     "previousPrice": 1393,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3467,7 +3815,7 @@
     "previousPrice": 242,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3493,11 +3841,17 @@
     "people": 2,
     "flightPrice": 259,
     "hotelPrice": 920,
+    "hotelName": "Hotel Piazza Bellini",
+    "hotelDistrict": "Dante",
+    "hotelAddress": "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Piazza%20Bellini%2C%20Via%20Santa%20Maria%20di%20Costantinopoli%20101%2C%2080138%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=NAP&destinationName=Neapel&startDate=2026-07-18&endDate=2026-07-22&adults=2",
     "totalPrice": 1438,
     "previousPrice": 1524,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3527,7 +3881,7 @@
     "previousPrice": 318,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3553,11 +3907,17 @@
     "people": 2,
     "flightPrice": 230,
     "hotelPrice": 920,
+    "hotelName": "Hotel Piazza Bellini",
+    "hotelDistrict": "Dante",
+    "hotelAddress": "Via Santa Maria di Costantinopoli 101, 80138 Neapel, Italien",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Piazza%20Bellini%2C%20Via%20Santa%20Maria%20di%20Costantinopoli%20101%2C%2080138%20Neapel%2C%20Italien",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=NAP&destinationName=Neapel&startDate=2026-07-18&endDate=2026-07-22&adults=2",
     "totalPrice": 1380,
     "previousPrice": 1463,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3587,7 +3947,7 @@
     "previousPrice": 284,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3613,11 +3973,17 @@
     "people": 2,
     "flightPrice": 163,
     "hotelPrice": 648,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=CDG&destinationName=Paris&startDate=2026-07-05&endDate=2026-07-09&adults=2",
     "totalPrice": 974,
     "previousPrice": 1110,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3647,7 +4013,7 @@
     "previousPrice": 217,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3673,11 +4039,17 @@
     "people": 2,
     "flightPrice": 134,
     "hotelPrice": 648,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=CDG&destinationName=Paris&startDate=2026-07-05&endDate=2026-07-09&adults=2",
     "totalPrice": 916,
     "previousPrice": 1044,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3707,7 +4079,7 @@
     "previousPrice": 178,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3733,11 +4105,17 @@
     "people": 2,
     "flightPrice": 176,
     "hotelPrice": 648,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=CDG&destinationName=Paris&startDate=2026-07-05&endDate=2026-07-09&adults=2",
     "totalPrice": 1000,
     "previousPrice": 1140,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3767,7 +4145,7 @@
     "previousPrice": 233,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3793,11 +4171,17 @@
     "people": 2,
     "flightPrice": 156,
     "hotelPrice": 648,
+    "hotelName": "Hotel Lisboa Plaza",
+    "hotelDistrict": "Avenida da Liberdade",
+    "hotelAddress": "Tv. Salitre 7, 1269-066 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Lisboa%20Plaza%2C%20Tv.%20Salitre%207%2C%201269-066%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=CDG&destinationName=Paris&startDate=2026-07-05&endDate=2026-07-09&adults=2",
     "totalPrice": 960,
     "previousPrice": 1094,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3827,7 +4211,7 @@
     "previousPrice": 207,
     "priceDropPercent": 12,
     "shouldNotify": true,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3853,11 +4237,17 @@
     "people": 2,
     "flightPrice": 194,
     "hotelPrice": 736,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=CDG&destinationName=Paris&startDate=2026-07-12&endDate=2026-07-16&adults=2",
     "totalPrice": 1124,
     "previousPrice": 1191,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3887,7 +4277,7 @@
     "previousPrice": 240,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3913,11 +4303,17 @@
     "people": 2,
     "flightPrice": 159,
     "hotelPrice": 736,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=CDG&destinationName=Paris&startDate=2026-07-12&endDate=2026-07-16&adults=2",
     "totalPrice": 1054,
     "previousPrice": 1117,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3947,7 +4343,7 @@
     "previousPrice": 195,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -3973,11 +4369,17 @@
     "people": 2,
     "flightPrice": 210,
     "hotelPrice": 736,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=CDG&destinationName=Paris&startDate=2026-07-12&endDate=2026-07-16&adults=2",
     "totalPrice": 1156,
     "previousPrice": 1225,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4007,7 +4409,7 @@
     "previousPrice": 259,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4033,11 +4435,17 @@
     "people": 2,
     "flightPrice": 186,
     "hotelPrice": 736,
+    "hotelName": "My Story Hotel Tejo",
+    "hotelDistrict": "Baixa",
+    "hotelAddress": "Rua dos Condes de Monsanto 2, 1100-159 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=My%20Story%20Hotel%20Tejo%2C%20Rua%20dos%20Condes%20de%20Monsanto%202%2C%201100-159%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=CDG&destinationName=Paris&startDate=2026-07-12&endDate=2026-07-16&adults=2",
     "totalPrice": 1108,
     "previousPrice": 1174,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4067,7 +4475,7 @@
     "previousPrice": 229,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4093,11 +4501,17 @@
     "people": 2,
     "flightPrice": 225,
     "hotelPrice": 824,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=FRA&destination=CDG&destinationName=Paris&startDate=2026-07-19&endDate=2026-07-23&adults=2",
     "totalPrice": 1274,
     "previousPrice": 1350,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4127,7 +4541,7 @@
     "previousPrice": 278,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4153,11 +4567,17 @@
     "people": 2,
     "flightPrice": 185,
     "hotelPrice": 824,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=HHN&destination=CDG&destinationName=Paris&startDate=2026-07-19&endDate=2026-07-23&adults=2",
     "totalPrice": 1194,
     "previousPrice": 1266,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4187,7 +4607,7 @@
     "previousPrice": 227,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4213,11 +4633,17 @@
     "people": 2,
     "flightPrice": 243,
     "hotelPrice": 824,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=STR&destination=CDG&destinationName=Paris&startDate=2026-07-19&endDate=2026-07-23&adults=2",
     "totalPrice": 1310,
     "previousPrice": 1389,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4247,7 +4673,7 @@
     "previousPrice": 299,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4273,11 +4699,17 @@
     "people": 2,
     "flightPrice": 216,
     "hotelPrice": 824,
+    "hotelName": "Hotel Convento do Salvador",
+    "hotelDistrict": "Alfama",
+    "hotelAddress": "Rua do Salvador 2B, 1100-465 Lissabon, Portugal",
+    "hotelMapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel%20Convento%20do%20Salvador%2C%20Rua%20do%20Salvador%202B%2C%201100-465%20Lissabon%2C%20Portugal",
+    "packageProvider": "Booking.com Komplettpaket",
+    "packageUrl": "https://packages.booking.com/vacationpackages/?locale=de-de&origin=CGN&destination=CDG&destinationName=Paris&startDate=2026-07-19&endDate=2026-07-23&adults=2",
     "totalPrice": 1256,
     "previousPrice": 1331,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",
@@ -4307,7 +4739,7 @@
     "previousPrice": 265,
     "priceDropPercent": 6,
     "shouldNotify": false,
-    "crawledAt": "2026-05-26T22:20:05.334Z",
+    "crawledAt": "2026-05-26T22:47:32.179Z",
     "sources": {
       "flights": [
         "https://www.skyscanner.de/",

@@ -182,6 +182,8 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelDistrict: effectiveTripMode === "package" ? hotel.district : undefined,
       hotelAddress: effectiveTripMode === "package" ? hotel.address : undefined,
       hotelMapsUrl: effectiveTripMode === "package" ? buildMapsUrl(hotel.name, hotel.address) : undefined,
+      packageProvider: effectiveTripMode === "package" ? "Booking.com Komplettpaket" : undefined,
+      packageUrl: effectiveTripMode === "package" ? buildPackageUrl(city.name, origin.code, city.airportCode, startDate, endDate, search.people) : undefined,
       totalPrice,
       hotelRating,
       score,
@@ -428,6 +430,19 @@ function buildFlightUrl(origin: string, destination: string, startDate: string, 
 
 function buildMapsUrl(name: string, address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
+}
+
+function buildPackageUrl(cityName: string, origin: string, destination: string, startDate: string, endDate: string, people: number) {
+  const params = new URLSearchParams({
+    locale: "de-de",
+    origin,
+    destination,
+    destinationName: cityName,
+    startDate,
+    endDate,
+    adults: String(people),
+  });
+  return `https://packages.booking.com/vacationpackages/?${params.toString()}`;
 }
 
 function buildHotelUrl(cityName: string, startDate: string, endDate: string, people: number) {
