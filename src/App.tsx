@@ -1,4 +1,4 @@
-import {
+﻿import {
   Bell,
   BellOff,
   Bookmark,
@@ -30,6 +30,7 @@ import type { DateRecommendation, Deal, FlightOption, SearchState } from "./type
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 type FlightSort = "priceAsc" | "priceDesc" | "departureAsc" | "directFirst";
+type PackageItem = { deal: Deal; flight: FlightOption };
 
 const defaultSearch: SearchState = {
   cityId: "lisbon",
@@ -78,6 +79,8 @@ export default function App() {
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
   const [flightSort, setFlightSort] = useState<FlightSort>("priceAsc");
   const [savedDealIds, setSavedDealIds] = useStoredList("reise-deal-finder-saved-deals");
+  const [savedFlightIds, setSavedFlightIds] = useStoredList("reise-deal-finder-saved-flights");
+  const [savedPackageIds, setSavedPackageIds] = useStoredList("reise-deal-finder-saved-packages");
   const [favoriteCityIds, setFavoriteCityIds] = useStoredList("reise-deal-finder-favorite-cities");
 
   const selectedCity = cities.find((city) => city.id === search.cityId) ?? cities[0];
@@ -88,10 +91,14 @@ export default function App() {
   const packageSearch = useMemo<SearchState>(() => ({ ...search, tripMode: "package", flightType: "roundTrip" }), [search]);
   const packageFlights = useMemo(() => sortFlights(buildFlights(packageSearch), flightSort), [flightSort, packageSearch]);
   const packageDeals = useMemo(() => buildDeals(packageSearch).sort((a, b) => a.totalPrice - b.totalPrice), [packageSearch]);
+  const packages = useMemo(() => buildPackageItems(packageDeals, packageFlights), [packageDeals, packageFlights]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
   const savedDeals = deals.filter((deal) => savedDealIds.includes(deal.id));
+  const savedFlights = flights.filter((flight) => savedFlightIds.includes(flight.id));
+  const savedPackages = packages.filter((item) => savedPackageIds.includes(packageItemId(item)));
+  const hasSavedItems = savedDeals.length > 0 || savedFlights.length > 0 || savedPackages.length > 0;
 
   useEffect(() => {
     let cancelled = false;
@@ -134,12 +141,20 @@ export default function App() {
   function refreshAgents() {
     setLastRun(new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
     if (search.alertsEnabled && alertSummary.shouldPush) {
-      sendBrowserNotification(alertSummary.headline, featuredDeal ? `${featuredDeal.title} ab ${currency.format(featuredDeal.totalPrice)}` : "Neue Reise-Deals verfügbar");
+      sendBrowserNotification(alertSummary.headline, featuredDeal ? `${featuredDeal.title} ab ${currency.format(featuredDeal.totalPrice)}` : "Neue Reise-Deals verfÃ¼gbar");
     }
   }
 
   function toggleSavedDeal(dealId: string) {
     setSavedDealIds((current) => toggleListValue(current, dealId));
+  }
+
+  function toggleSavedFlight(flightId: string) {
+    setSavedFlightIds((current) => toggleListValue(current, flightId));
+  }
+
+  function toggleSavedPackage(packageId: string) {
+    setSavedPackageIds((current) => toggleListValue(current, packageId));
   }
 
   function toggleFavoriteCity(cityId: string) {
@@ -185,7 +200,7 @@ export default function App() {
               </p>
               <h2 className="text-4xl font-semibold leading-[1.02] text-white sm:text-7xl">{selectedCity.name} unter Budget finden</h2>
               <p className="mt-5 max-w-2xl text-base leading-7 text-slate-200 sm:text-lg sm:leading-8">
-                Live-Adapter, Preisverlauf, flexible Reisedaten, Gepäckfilter und Merkliste helfen dir, Deals schneller zu bewerten.
+                Live-Adapter, Preisverlauf, flexible Reisedaten, GepÃ¤ckfilter und Merkliste helfen dir, Deals schneller zu bewerten.
               </p>
               {featuredDeal && (
                 <div className="mt-7 grid max-w-2xl grid-cols-3 gap-3">
@@ -206,11 +221,11 @@ export default function App() {
           <div className="flex flex-wrap rounded-lg border border-white/10 bg-white/[0.04] p-1">
             {[
               ["deals", "Deals"],
-              ["flights", "Flüge"],
+              ["flights", "FlÃ¼ge"],
               ["packages", "Flug + Hotel"],
               ["wishlist", "Merkliste"],
               ["agents", "Agenten"],
-              ["activities", "Aktivitäten"],
+              ["activities", "AktivitÃ¤ten"],
             ].map(([id, label]) => (
               <button className={`rounded-md px-4 py-2 text-sm font-semibold transition ${activeTab === id ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`} key={id} onClick={() => setActiveTab(id as typeof activeTab)} type="button">
                 {label}
@@ -227,7 +242,7 @@ export default function App() {
             <LiveStatusBadge status={liveStatus} />
             <DateRecommendations flightType={search.flightType} items={dateRecommendations} onApply={applyDateRecommendation} />
             {deals.length === 0 ? (
-              <EmptyPanel title="Keine Deals für diese Filter" text="Lockere Direktflug, Gepäck, Budget oder Reisedauer, um wieder Angebote zu sehen." />
+              <EmptyPanel title="Keine Deals fÃ¼r diese Filter" text="Lockere Direktflug, GepÃ¤ck, Budget oder Reisedauer, um wieder Angebote zu sehen." />
             ) : (
               <div className="mt-7 grid gap-5 lg:grid-cols-3">
                 {deals.map((deal) => (
@@ -238,20 +253,36 @@ export default function App() {
           </>
         )}
 
-        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} sort={flightSort} onSortChange={setFlightSort} />}
+        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
-        {activeTab === "packages" && <FlightHotelPanel deals={packageDeals} flights={packageFlights} people={search.people} sort={flightSort} onSortChange={setFlightSort} />}
+        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedPackage} />}
 
         {activeTab === "wishlist" && (
-          <div className="mt-7">
-            {savedDeals.length === 0 ? (
-              <EmptyPanel title="Noch keine Deals gespeichert" text="Klicke auf das Lesezeichen an einer Deal-Karte, um Angebote später zu vergleichen." />
+          <div className="mt-7 space-y-8">
+            {!hasSavedItems ? (
+              <EmptyPanel title="Noch nichts gespeichert" text="Klicke auf das Lesezeichen an Deals, Flügen oder Flug+Hotel-Angeboten, um sie später zu vergleichen." />
             ) : (
-              <div className="grid gap-5 lg:grid-cols-3">
-                {savedDeals.map((deal) => (
-                  <DealCard deal={deal} isSaved={savedDealIds.includes(deal.id)} key={deal.id} onOpen={setSelectedDeal} onToggleSave={toggleSavedDeal} />
-                ))}
-              </div>
+              <>
+                {savedDeals.length > 0 && (
+                  <WishlistSection title="Gespeicherte Deals">
+                    <div className="grid gap-5 lg:grid-cols-3">
+                      {savedDeals.map((deal) => (
+                        <DealCard deal={deal} isSaved={savedDealIds.includes(deal.id)} key={deal.id} onOpen={setSelectedDeal} onToggleSave={toggleSavedDeal} />
+                      ))}
+                    </div>
+                  </WishlistSection>
+                )}
+                {savedFlights.length > 0 && (
+                  <WishlistSection title="Gespeicherte Flüge">
+                    <FlightsPanel compact flights={savedFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />
+                  </WishlistSection>
+                )}
+                {savedPackages.length > 0 && (
+                  <WishlistSection title="Gespeicherte Flug + Hotel-Angebote">
+                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedPackage} />
+                  </WishlistSection>
+                )}
+              </>
             )}
           </div>
         )}
@@ -341,7 +372,7 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
 
       <div className="mt-3 grid grid-cols-2 gap-2 rounded-lg border border-white/10 bg-black/20 p-1">
         {[
-          ["roundTrip", "Hin & zurück"],
+          ["roundTrip", "Hin & zurÃ¼ck"],
           ["oneWay", "nur Hinflug"],
         ].map(([value, label]) => (
           <button
@@ -375,8 +406,8 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
           <Field icon={<CalendarDays size={16} />} label="Bis" type="date" value={search.endDate} onChange={(value) => onChange("endDate", value)} />
         ) : (
           <div className="rounded-md border border-white/10 bg-black/20 p-3 text-sm text-slate-300">
-            <span className="mb-2 flex items-center gap-2"><CalendarDays size={16} /> Rückflug</span>
-            nicht benötigt
+            <span className="mb-2 flex items-center gap-2"><CalendarDays size={16} /> RÃ¼ckflug</span>
+            nicht benÃ¶tigt
           </div>
         )}
       </div>
@@ -392,13 +423,13 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
         <div className="grid gap-3 sm:grid-cols-2">
           <Toggle label="Direktflug" checked={search.directOnly} onChange={(checked) => onChange("directOnly", checked)} />
           <Toggle label="Nur Wochenende" checked={search.weekendOnly} onChange={(checked) => onChange("weekendOnly", checked)} />
-          <Select label="Reisedauer" value={search.durationFilter} onChange={(value) => onChange("durationFilter", value as SearchState["durationFilter"])} options={[["any", "egal"], ["short", "2-3 Nächte"], ["medium", "4-5 Nächte"], ["long", "7+ Nächte"]]} />
-          <Select label="Gepäck" value={search.baggage} onChange={(value) => onChange("baggage", value as SearchState["baggage"])} options={[["personal", "Personal Item"], ["carryOn", "Handgepäck"], ["checked", "Aufgabegepäck"]]} />
-          <Select label="Flexible Suche" value={search.flexibleSearch} onChange={(value) => onChange("flexibleSearch", value as SearchState["flexibleSearch"])} options={[["exact", "exaktes Datum"], ["july", "irgendwann im Juli"], ["longWeekend", "nächstes langes Wochenende"], ["under500", "unter 500 € p. P."]]} />
+          <Select label="Reisedauer" value={search.durationFilter} onChange={(value) => onChange("durationFilter", value as SearchState["durationFilter"])} options={[["any", "egal"], ["short", "2-3 NÃ¤chte"], ["medium", "4-5 NÃ¤chte"], ["long", "7+ NÃ¤chte"]]} />
+          <Select label="GepÃ¤ck" value={search.baggage} onChange={(value) => onChange("baggage", value as SearchState["baggage"])} options={[["personal", "Personal Item"], ["carryOn", "HandgepÃ¤ck"], ["checked", "AufgabegepÃ¤ck"]]} />
+          <Select label="Flexible Suche" value={search.flexibleSearch} onChange={(value) => onChange("flexibleSearch", value as SearchState["flexibleSearch"])} options={[["exact", "exaktes Datum"], ["july", "irgendwann im Juli"], ["longWeekend", "nÃ¤chstes langes Wochenende"], ["under500", "unter 500 â‚¬ p. P."]]} />
           <Select label="Datumstoleranz" value={String(search.dateFlexDays)} onChange={(value) => onChange("dateFlexDays", Number(value) as SearchState["dateFlexDays"])} options={[["0", "exakt"], ["1", "+/- 1 Tag"], ["2", "+/- 2 Tage"], ["3", "+/- 3 Tage"]]} />
           <Select label="Hinflug Uhrzeit" value={search.outboundTimeWindow} onChange={(value) => onChange("outboundTimeWindow", value as SearchState["outboundTimeWindow"])} options={[["any", "egal"], ["morning", "05-11 Uhr"], ["midday", "11-17 Uhr"], ["evening", "17-05 Uhr"]]} />
           {search.flightType === "roundTrip" && (
-            <Select label="Rückflug Uhrzeit" value={search.returnTimeWindow} onChange={(value) => onChange("returnTimeWindow", value as SearchState["returnTimeWindow"])} options={[["any", "egal"], ["morning", "05-11 Uhr"], ["midday", "11-17 Uhr"], ["evening", "17-05 Uhr"]]} />
+            <Select label="RÃ¼ckflug Uhrzeit" value={search.returnTimeWindow} onChange={(value) => onChange("returnTimeWindow", value as SearchState["returnTimeWindow"])} options={[["any", "egal"], ["morning", "05-11 Uhr"], ["midday", "11-17 Uhr"], ["evening", "17-05 Uhr"]]} />
           )}
           <Field icon={<Hotel size={16} />} label="Hotelbewertung min." min={0} max={10} step={0.1} type="number" value={String(search.minHotelRating)} onChange={(value) => onChange("minHotelRating", Number(value))} />
         </div>
@@ -408,7 +439,7 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
 }
 
 function LiveStatusBadge({ status }: { status: "fallback" | "loading" | "live" | "error" }) {
-  const label = status === "live" ? "Live-Daten aktiv" : status === "loading" ? "Live-Daten werden geprüft" : status === "error" ? "Live-API nicht erreichbar, Snapshot aktiv" : "Snapshot-Fallback aktiv";
+  const label = status === "live" ? "Live-Daten aktiv" : status === "loading" ? "Live-Daten werden geprÃ¼ft" : status === "error" ? "Live-API nicht erreichbar, Snapshot aktiv" : "Snapshot-Fallback aktiv";
   const Icon = status === "live" ? Wifi : WifiOff;
   return (
     <div className="mt-7 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-slate-200">
@@ -428,13 +459,13 @@ function DateRecommendations({ flightType, items, onApply }: { flightType: Searc
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
-            <CalendarCheck size={18} /> Günstigste Reisedaten
+            <CalendarCheck size={18} /> GÃ¼nstigste Reisedaten
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{best ? `${formatRecommendation(best)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}</h2>
         </div>
         {best && (
           <button className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onApply(best)} type="button">
-            Empfehlung übernehmen
+            Empfehlung Ã¼bernehmen
           </button>
         )}
       </div>
@@ -443,7 +474,7 @@ function DateRecommendations({ flightType, items, onApply }: { flightType: Searc
           <button className="rounded-lg border border-white/10 bg-black/20 p-4 text-left transition hover:border-emerald-300 hover:bg-black/30" key={item.id} onClick={() => onApply(item)} type="button">
             <p className="text-sm font-semibold text-white">{formatRecommendation(item)}</p>
             <p className="mt-2 text-xl font-semibold text-emerald-200">{currency.format(item.totalPrice)}</p>
-            <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% günstiger</p>
+            <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% gÃ¼nstiger</p>
           </button>
         ))}
       </div>
@@ -469,7 +500,7 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
           </button>
         </div>
         <span className={`mt-3 inline-flex rounded-md px-2.5 py-1 text-xs font-bold ${overBudget ? "bg-amber-300 text-amber-950" : "bg-emerald-300 text-emerald-950"}`}>
-          {overBudget ? "über Budget" : "im Budget"}
+          {overBudget ? "Ã¼ber Budget" : "im Budget"}
         </span>
         <button className="mt-5 w-full text-left" onClick={() => onOpen(deal)} type="button">
           <div className="grid grid-cols-3 gap-3 text-sm">
@@ -485,7 +516,7 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
             </div>
             <div className="text-right">
               <p className="text-sm font-semibold text-emerald-200">{deal.priceDropPercent}% gefallen</p>
-              <p className="mt-1 text-xs text-slate-400">Details öffnen</p>
+              <p className="mt-1 text-xs text-slate-400">Details Ã¶ffnen</p>
             </div>
           </div>
         </button>
@@ -494,7 +525,7 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
             <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
               <Hotel size={16} /> {deal.hotelName}
             </p>
-            <p className="mt-1 text-sm text-slate-300">{deal.hotelDistrict} · {deal.hotelAddress}</p>
+            <p className="mt-1 text-sm text-slate-300">{deal.hotelDistrict} Â· {deal.hotelAddress}</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {deal.hotelUrl && (
                 <a className="inline-flex items-center gap-1 rounded-md border border-white/10 bg-white/[0.04] px-3 py-1.5 text-xs font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
@@ -550,7 +581,7 @@ function DealModal({
               <button className={`rounded-md border border-white/10 p-2 ${isSaved ? "bg-cyan-300 text-slate-950" : "text-slate-300 hover:bg-white/10"}`} onClick={() => onToggleSave(deal.id)} type="button" aria-label="Deal speichern">
                 {isSaved ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
               </button>
-              <button className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10" onClick={onClose} type="button" aria-label="Schließen">
+              <button className="rounded-md border border-white/10 p-2 text-slate-300 hover:bg-white/10" onClick={onClose} type="button" aria-label="SchlieÃŸen">
                 x
               </button>
             </div>
@@ -569,13 +600,13 @@ function DealModal({
               </label>
               {deal.flightType === "roundTrip" ? (
                 <label className="text-sm text-slate-300">
-                  Rückflug
+                  RÃ¼ckflug
                   <input className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" type="date" value={modalEndDate} onChange={(event) => setModalEndDate(event.target.value)} />
                 </label>
               ) : (
                 <div className="rounded-md border border-white/10 bg-black/20 p-3 text-sm text-slate-300">
-                  Rückflug
-                  <p className="mt-2 font-semibold text-white">nicht benötigt</p>
+                  RÃ¼ckflug
+                  <p className="mt-2 font-semibold text-white">nicht benÃ¶tigt</p>
                 </div>
               )}
               <label className="text-sm text-slate-300">
@@ -592,14 +623,14 @@ function DealModal({
               onClick={() => onApply({ startDate: modalStartDate, endDate: modalEndDate, originAirport: modalOrigin })}
               type="button"
             >
-              Auswahl übernehmen
+              Auswahl Ã¼bernehmen
             </button>
           </div>
           <PriceSparkline values={deal.priceHistory} large />
           <div className="mt-5 grid gap-3 sm:grid-cols-2">
             <Info icon={<LineChart size={16} />} label="Flugpreisquelle" value={deal.flightSource} />
-            <Info icon={<RefreshCw size={16} />} label="Zuletzt geprüft" value={new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(deal.lastCheckedAt))} />
-            <Info icon={<ShieldCheck size={16} />} label="Flugart" value={`${deal.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurück"}, ${deal.directFlight ? "Direktflug" : "mit Umstieg"}`} />
+            <Info icon={<RefreshCw size={16} />} label="Zuletzt geprÃ¼ft" value={new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(deal.lastCheckedAt))} />
+            <Info icon={<ShieldCheck size={16} />} label="Flugart" value={`${deal.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurÃ¼ck"}, ${deal.directFlight ? "Direktflug" : "mit Umstieg"}`} />
             <Info icon={<Hotel size={16} />} label="Hotel" value={deal.tripMode === "flight" ? "nicht enthalten" : `${deal.hotelSource}, ${deal.hotelRefundable ? "stornierbar" : "nicht stornierbar"}`} />
           </div>
           {deal.tripMode === "package" && (
@@ -612,7 +643,7 @@ function DealModal({
                   <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
                   <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
                   <p className="mt-2 text-sm text-slate-400">
-                    {currency.format(deal.hotelPrice)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
+                    {currency.format(deal.hotelPrice)} Hotelanteil Â· Bewertung {deal.hotelRating.toFixed(1)}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -656,64 +687,84 @@ function DealModal({
   );
 }
 
-function FlightsPanel({ flights, people, sort, onSortChange }: { flights: FlightOption[]; people: number; sort: FlightSort; onSortChange: (sort: FlightSort) => void }) {
+function FlightsPanel({
+  flights,
+  people,
+  savedFlightIds,
+  sort,
+  compact = false,
+  onSortChange,
+  onToggleSave,
+}: {
+  flights: FlightOption[];
+  people: number;
+  savedFlightIds: string[];
+  sort: FlightSort;
+  compact?: boolean;
+  onSortChange: (sort: FlightSort) => void;
+  onToggleSave: (flightId: string) => void;
+}) {
   if (flights.length === 0) {
-    return <EmptyPanel title="Keine Flüge für diese Filter" text="Lockere Datumstoleranz, Uhrzeitfenster, Direktflug oder Gepäck, um wieder Flugoptionen zu sehen." />;
+    return <EmptyPanel title="Keine FlÃ¼ge fÃ¼r diese Filter" text="Lockere Datumstoleranz, Uhrzeitfenster, Direktflug oder GepÃ¤ck, um wieder Flugoptionen zu sehen." />;
   }
 
   return (
     <div className="mt-7 space-y-4">
-      <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
+      {!compact && <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
-            <Plane size={18} /> Flüge
+            <Plane size={18} /> FlÃ¼ge
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis für {people} angegeben.</p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen fÃ¼r deine Suche</h2>
+          <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis fÃ¼r {people} angegeben.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
           <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="flight-sort" value={sort} onChange={(event) => onSortChange(event.target.value as FlightSort)}>
-            <option value="priceAsc">Günstigstes Angebot zuerst</option>
+            <option value="priceAsc">GÃ¼nstigstes Angebot zuerst</option>
             <option value="priceDesc">Teuerstes Angebot zuerst</option>
-            <option value="departureAsc">Früheste Abflugzeit zuerst</option>
-            <option value="directFirst">Direktflüge zuerst</option>
+            <option value="departureAsc">FrÃ¼heste Abflugzeit zuerst</option>
+            <option value="directFirst">DirektflÃ¼ge zuerst</option>
           </select>
         </label>
-      </div>
+      </div>}
 
       <div className="grid gap-4">
         {flights.map((flight) => (
           <article className="rounded-lg border border-white/10 bg-[#111827] p-5 shadow-xl transition hover:border-cyan-300" key={flight.id}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-cyan-200">{flight.airline} · {flight.source}</p>
+                <p className="text-sm font-semibold text-cyan-200">{flight.airline} Â· {flight.source}</p>
                 <h3 className="mt-1 text-xl font-semibold text-white">
-                  {flight.originAirport} → {flight.destinationAirport}
+                  {flight.originAirport} â†’ {flight.destinationAirport}
                 </h3>
                 <p className="mt-1 text-sm text-slate-400">
-                  {flight.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurück"} · {flight.directFlight ? "Direktflug" : "mit Umstieg"}
+                  {flight.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurÃ¼ck"} Â· {flight.directFlight ? "Direktflug" : "mit Umstieg"}
                 </p>
               </div>
               <div className="text-left sm:text-right">
                 <p className="text-3xl font-semibold text-white">{currency.format(flight.pricePerPerson)} p. P.</p>
                 <p className="mt-1 text-sm text-slate-400">{currency.format(flight.totalPrice)} gesamt</p>
+                <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedFlightIds.includes(flight.id) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(flight.id)} type="button">
+                  {savedFlightIds.includes(flight.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
+                  {savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
+                </button>
               </div>
             </div>
 
             <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-              <Info icon={<CalendarDays size={16} />} label="Hinflug" value={`${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
+              <Info icon={<CalendarDays size={16} />} label="Hinflug" value={`${formatShortDate(flight.outboundDate)} Â· ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
               <Info
                 icon={<Timer size={16} />}
-                label="Rückflug"
-                value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"}
+                label="RÃ¼ckflug"
+                value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} Â· ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benÃ¶tigt"}
               />
-              <Info icon={<ShieldCheck size={16} />} label="Handgepäck" value={flight.includesCarryOn || flight.includesCheckedBag ? "inklusive" : "nicht inklusive"} />
-              <Info icon={<Wallet size={16} />} label="Aufgabegepäck" value={flight.includesCheckedBag ? "inklusive" : "optional"} />
+              <Info icon={<ShieldCheck size={16} />} label="HandgepÃ¤ck" value={flight.includesCarryOn || flight.includesCheckedBag ? "inklusive" : "nicht inklusive"} />
+              <Info icon={<Wallet size={16} />} label="AufgabegepÃ¤ck" value={flight.includesCheckedBag ? "inklusive" : "optional"} />
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}, Live-Suche öffnet sich in einem neuen Tab.</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}, Live-Suche Ã¶ffnet sich in einem neuen Tab.</p>
               <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
                 Flug suchen <ExternalLink size={16} />
               </a>
@@ -725,19 +776,30 @@ function FlightsPanel({ flights, people, sort, onSortChange }: { flights: Flight
   );
 }
 
-function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deals: Deal[]; flights: FlightOption[]; people: number; sort: FlightSort; onSortChange: (sort: FlightSort) => void }) {
-  const packages = deals
-    .filter((deal) => deal.tripMode === "package")
-    .map((deal, index) => ({ deal, flight: flights[index % Math.max(1, flights.length)] }))
-    .filter((item): item is { deal: Deal; flight: FlightOption } => Boolean(item.flight));
-
+function FlightHotelPanel({
+  packages,
+  people,
+  savedPackageIds,
+  sort,
+  compact = false,
+  onSortChange,
+  onToggleSave,
+}: {
+  packages: PackageItem[];
+  people: number;
+  savedPackageIds: string[];
+  sort: FlightSort;
+  compact?: boolean;
+  onSortChange: (sort: FlightSort) => void;
+  onToggleSave: (packageId: string) => void;
+}) {
   if (packages.length === 0) {
-    return <EmptyPanel title="Keine Flug + Hotel-Angebote" text="Wähle Hin- und Rückflug, lockere Filter oder erhöhe das Budget, um Kombi-Angebote zu sehen." />;
+    return <EmptyPanel title="Keine Flug + Hotel-Angebote" text="WÃ¤hle Hin- und RÃ¼ckflug, lockere Filter oder erhÃ¶he das Budget, um Kombi-Angebote zu sehen." />;
   }
 
   return (
     <div className="mt-7 space-y-4">
-      <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
+      {!compact && <div className="flex flex-wrap items-end justify-between gap-4 rounded-lg border border-white/10 bg-white/[0.04] p-5">
         <div>
           <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
             <Hotel size={18} /> Flug + Hotel
@@ -748,16 +810,17 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="package-sort">
           Flug-Sortierung
           <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="package-sort" value={sort} onChange={(event) => onSortChange(event.target.value as FlightSort)}>
-            <option value="priceAsc">Günstigstes Flugangebot zuerst</option>
+            <option value="priceAsc">GÃ¼nstigstes Flugangebot zuerst</option>
             <option value="priceDesc">Teuerstes Flugangebot zuerst</option>
-            <option value="departureAsc">Früheste Abflugzeit zuerst</option>
-            <option value="directFirst">Direktflüge zuerst</option>
+            <option value="departureAsc">FrÃ¼heste Abflugzeit zuerst</option>
+            <option value="directFirst">DirektflÃ¼ge zuerst</option>
           </select>
         </label>
-      </div>
+      </div>}
 
       <div className="grid gap-5">
         {packages.map(({ deal, flight }) => {
+          const packageId = packageItemId({ deal, flight });
           const totalPrice = flight.totalPrice + deal.hotelPrice;
           const pricePerPerson = Math.round(totalPrice / people);
           return (
@@ -770,19 +833,23 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
                       <p className="text-sm font-semibold text-cyan-200">{deal.flightSource} + {deal.hotelSource}</p>
                       <h3 className="mt-1 text-2xl font-semibold text-white">{deal.title}</h3>
                       <p className="mt-2 text-sm text-slate-400">
-                        {formatDateRange(deal)} · {deal.durationNights} Nächte · {deal.hotelRefundable ? "Hotel stornierbar" : "nicht stornierbar"}
+                        {formatDateRange(deal)} Â· {deal.durationNights} NÃ¤chte Â· {deal.hotelRefundable ? "Hotel stornierbar" : "nicht stornierbar"}
                       </p>
                     </div>
                     <div className="text-left sm:text-right">
                       <p className="text-3xl font-semibold text-white">{currency.format(pricePerPerson)} p. P.</p>
                       <p className="mt-1 text-sm text-slate-400">{currency.format(totalPrice)} gesamt</p>
+                      <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedPackageIds.includes(packageId) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(packageId)} type="button">
+                        {savedPackageIds.includes(packageId) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
+                        {savedPackageIds.includes(packageId) ? "Gespeichert" : "Merken"}
+                      </button>
                     </div>
                   </div>
 
                   <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-                    <Info icon={<Plane size={16} />} label="Hinflug" value={`${flight.originAirport} → ${flight.destinationAirport}, ${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
-                    <Info icon={<Timer size={16} />} label="Rückflug" value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"} />
-                    <Info icon={<ShieldCheck size={16} />} label="Flug/Gepäck" value={`${flight.directFlight ? "Direktflug" : "mit Umstieg"}, ${flight.includesCheckedBag ? "Aufgabegepäck" : flight.includesCarryOn ? "Handgepäck" : "Personal Item"}`} />
+                    <Info icon={<Plane size={16} />} label="Hinflug" value={`${flight.originAirport} â†’ ${flight.destinationAirport}, ${formatShortDate(flight.outboundDate)} Â· ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
+                    <Info icon={<Timer size={16} />} label="RÃ¼ckflug" value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} Â· ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benÃ¶tigt"} />
+                    <Info icon={<ShieldCheck size={16} />} label="Flug/GepÃ¤ck" value={`${flight.directFlight ? "Direktflug" : "mit Umstieg"}, ${flight.includesCheckedBag ? "AufgabegepÃ¤ck" : flight.includesCarryOn ? "HandgepÃ¤ck" : "Personal Item"}`} />
                     <Info icon={<Wallet size={16} />} label="Preisdetails" value={`${currency.format(flight.totalPrice)} Flug, ${currency.format(deal.hotelPrice)} Hotel`} />
                   </div>
 
@@ -794,11 +861,11 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
                         </p>
                         <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
                         <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
-                        <p className="mt-2 text-sm text-slate-400">Bewertung {deal.hotelRating.toFixed(1)} · {deal.hotelSource}</p>
+                        <p className="mt-2 text-sm text-slate-400">Bewertung {deal.hotelRating.toFixed(1)} Â· {deal.hotelSource}</p>
                       </div>
                       {deal.hotelMapsUrl && (
                         <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelMapsUrl} rel="noreferrer" target="_blank">
-                          In Google Maps öffnen <ExternalLink size={16} />
+                          In Google Maps Ã¶ffnen <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
@@ -821,10 +888,10 @@ function FlightHotelPanel({ deals, flights, people, sort, onSortChange }: { deal
                     </div>
                     <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-3">
                       <p className="text-sm font-semibold text-emerald-200">Komplettangebot</p>
-                      <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prüfen.</p>
+                      <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prÃ¼fen.</p>
                       {deal.packageUrl && (
                         <a className="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                          Bei {deal.packageProvider} öffnen <ExternalLink size={16} />
+                          Bei {deal.packageProvider} Ã¶ffnen <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
@@ -846,6 +913,17 @@ function sortFlights(flights: FlightOption[], sort: FlightSort) {
     if (sort === "directFirst") return Number(b.directFlight) - Number(a.directFlight) || a.pricePerPerson - b.pricePerPerson;
     return a.pricePerPerson - b.pricePerPerson;
   });
+}
+
+function buildPackageItems(deals: Deal[], flights: FlightOption[]): PackageItem[] {
+  if (flights.length === 0) return [];
+  return deals
+    .filter((deal) => deal.tripMode === "package")
+    .map((deal, index) => ({ deal, flight: flights[index % flights.length] }));
+}
+
+function packageItemId(item: PackageItem) {
+  return `${item.deal.id}-${item.flight.id}`;
 }
 
 function toMinutes(time: string) {
@@ -879,12 +957,12 @@ function AgentsPanel({ lastRun }: { lastRun: string }) {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <p className="text-sm text-cyan-100">Scheduled Task</p>
-            <h3 className="mt-1 text-xl font-semibold text-white">Täglich um 07:00 Uhr vergleichen</h3>
+            <h3 className="mt-1 text-xl font-semibold text-white">TÃ¤glich um 07:00 Uhr vergleichen</h3>
           </div>
           <span className="rounded-md bg-white px-3 py-1 text-sm font-bold text-slate-950">Letzter Lauf: {lastRun}</span>
         </div>
         <p className="mt-4 text-sm leading-6 text-slate-200">
-          Browser-Push wird angefragt und ausgelöst, wenn ein Preis um mehr als 10 Prozent fällt oder ein neuer Deal auftaucht. Für Server-Push kann `VITE_DEAL_API_URL` später mit einem Backend verbunden werden.
+          Browser-Push wird angefragt und ausgelÃ¶st, wenn ein Preis um mehr als 10 Prozent fÃ¤llt oder ein neuer Deal auftaucht. FÃ¼r Server-Push kann `VITE_DEAL_API_URL` spÃ¤ter mit einem Backend verbunden werden.
         </p>
       </article>
     </div>
@@ -911,6 +989,15 @@ function PriceSparkline({ values, large = false }: { values: number[]; large?: b
         <polyline fill="none" points={points} stroke="#67e8f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
       </svg>
     </div>
+  );
+}
+
+function WishlistSection({ title, children }: { title: string; children: ReactNode }) {
+  return (
+    <section>
+      <h2 className="mb-4 text-2xl font-semibold text-white">{title}</h2>
+      {children}
+    </section>
   );
 }
 
