@@ -183,13 +183,13 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelAddress: effectiveTripMode === "package" ? hotel.address : undefined,
       hotelMapsUrl: effectiveTripMode === "package" ? buildMapsUrl(hotel.name, hotel.address) : undefined,
       packageProvider: effectiveTripMode === "package" ? "Booking.com Komplettpaket" : undefined,
-      packageUrl: effectiveTripMode === "package" ? buildPackageUrl(city.name, origin.code, city.airportCode, startDate, endDate, search.people) : undefined,
+      packageUrl: effectiveTripMode === "package" ? buildPackageUrl(city.name, hotel.name, hotel.address, origin.code, city.airportCode, startDate, endDate, search.people) : undefined,
       totalPrice,
       hotelRating,
       score,
       priceDropPercent,
       bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people, search.flightType),
-      hotelUrl: effectiveTripMode === "package" ? buildHotelUrl(city.name, startDate, endDate, search.people) : undefined,
+      hotelUrl: effectiveTripMode === "package" ? buildHotelUrl(city.name, hotel.name, hotel.address, startDate, endDate, search.people) : undefined,
       notes: [
         `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
         search.flightType === "oneWay" ? "Nur Hinflug, ohne Rückflug und Hotelkosten" : effectiveTripMode === "flight" ? "Hin- und Rückflug, ohne Hotelkosten berechnet" : "Flug plus Hotel als Paket-Orientierung",
@@ -432,25 +432,42 @@ function buildMapsUrl(name: string, address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
 }
 
-function buildPackageUrl(cityName: string, origin: string, destination: string, startDate: string, endDate: string, people: number) {
+function buildPackageUrl(cityName: string, hotelName: string, hotelAddress: string, origin: string, destination: string, startDate: string, endDate: string, people: number) {
+  const roomAdults = Array.from({ length: people }, () => "A").join(",");
   const params = new URLSearchParams({
     locale: "de-de",
+    tab: "packages",
     origin,
+    originAirport: origin,
     destination,
+    destinationAirport: destination,
     destinationName: cityName,
+    destinationSearchString: cityName,
+    ss: `${hotelName}, ${cityName}`,
+    hotelName,
+    hotelAddress,
     startDate,
     endDate,
+    checkin: startDate,
+    checkout: endDate,
+    departureDate: startDate,
+    returnDate: endDate,
     adults: String(people),
+    group_adults: String(people),
+    no_rooms: "1",
+    room1: roomAdults,
   });
   return `https://packages.booking.com/vacationpackages/?${params.toString()}`;
 }
 
-function buildHotelUrl(cityName: string, startDate: string, endDate: string, people: number) {
+function buildHotelUrl(cityName: string, hotelName: string, hotelAddress: string, startDate: string, endDate: string, people: number) {
   const query = new URLSearchParams({
-    ss: cityName,
+    ss: `${hotelName}, ${hotelAddress}, ${cityName}`,
     checkin: startDate,
     checkout: endDate,
     group_adults: String(people),
+    no_rooms: "1",
+    selected_currency: "EUR",
   });
   return `https://www.booking.com/searchresults.de.html?${query.toString()}`;
 }

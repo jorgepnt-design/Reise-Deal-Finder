@@ -93,7 +93,7 @@ const deals = cities.flatMap((city, cityIndex) => {
       hotelAddress: flightType.id === "oneWay" ? undefined : hotel.address,
       hotelMapsUrl: flightType.id === "oneWay" ? undefined : buildMapsUrl(hotel.name, hotel.address),
       packageProvider: flightType.id === "oneWay" ? undefined : "Booking.com Komplettpaket",
-      packageUrl: flightType.id === "oneWay" ? undefined : buildPackageUrl(city.name, origin.code, city.airport, toDate(startDate), toDate(endDate), 2),
+      packageUrl: flightType.id === "oneWay" ? undefined : buildPackageUrl(city.name, hotel.name, hotel.address, origin.code, city.airport, toDate(startDate), toDate(endDate), 2),
       totalPrice,
       previousPrice,
       priceDropPercent,
@@ -128,15 +128,30 @@ function buildMapsUrl(name, address) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${name}, ${address}`)}`;
 }
 
-function buildPackageUrl(cityName, origin, destination, startDate, endDate, people) {
+function buildPackageUrl(cityName, hotelName, hotelAddress, origin, destination, startDate, endDate, people) {
+  const roomAdults = Array.from({ length: people }, () => "A").join(",");
   const params = new URLSearchParams({
     locale: "de-de",
+    tab: "packages",
     origin,
+    originAirport: origin,
     destination,
+    destinationAirport: destination,
     destinationName: cityName,
+    destinationSearchString: cityName,
+    ss: `${hotelName}, ${cityName}`,
+    hotelName,
+    hotelAddress,
     startDate,
     endDate,
+    checkin: startDate,
+    checkout: endDate,
+    departureDate: startDate,
+    returnDate: endDate,
     adults: String(people),
+    group_adults: String(people),
+    no_rooms: "1",
+    room1: roomAdults,
   });
   return `https://packages.booking.com/vacationpackages/?${params.toString()}`;
 }
