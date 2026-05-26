@@ -10,6 +10,7 @@ const cities = [
   { id: "porto", name: "Porto", airport: "OPO", base: 146 },
   { id: "barcelona", name: "Barcelona", airport: "BCN", base: 132 },
   { id: "rome", name: "Rom", airport: "FCO", base: 154 },
+  { id: "naples", name: "Neapel", airport: "NAP", base: 142 },
   { id: "paris", name: "Paris", airport: "CDG", base: 118 },
 ];
 

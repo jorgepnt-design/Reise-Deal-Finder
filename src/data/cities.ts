@@ -30,6 +30,13 @@ export const cities: City[] = [
     heroImage: "https://images.unsplash.com/photo-1529260830199-42c24126f198?auto=format&fit=crop&w=1800&q=85",
   },
   {
+    id: "naples",
+    name: "Neapel",
+    country: "Italien",
+    airportCode: "NAP",
+    heroImage: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=1800&q=85",
+  },
+  {
     id: "paris",
     name: "Paris",
     country: "Frankreich",
@@ -101,6 +108,36 @@ export const activitiesByCity: Record<string, Activity[]> = {
   ],
   barcelona: [],
   rome: [],
+  naples: [
+    {
+      title: "Centro Storico und Spaccanapoli",
+      kind: "Altstadt",
+      description: "Durch enge Gassen, Kirchen und kleine Bars laufen, am besten vormittags starten.",
+      priceHint: "kostenlos",
+      image: "https://images.unsplash.com/photo-1533105079780-92b9be482077?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      title: "Pizza in der Via dei Tribunali",
+      kind: "Food",
+      description: "Klassische neapolitanische Pizza dort essen, wo die Warteschlange schnell rotiert.",
+      priceHint: "ab 7 EUR",
+      image: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      title: "Vomero und Castel Sant'Elmo",
+      kind: "Ausblick",
+      description: "Mit der Funicolare hochfahren und den Blick ueber Golf, Altstadt und Vesuv mitnehmen.",
+      priceHint: "ab 2 EUR",
+      image: "https://images.unsplash.com/photo-1595854341625-f33ee10dbf94?auto=format&fit=crop&w=900&q=80",
+    },
+    {
+      title: "Pompeji oder Vesuv",
+      kind: "Ausflug",
+      description: "Tagesausflug mit Bahn oder Shuttle, gut planbar als kompletter Kultur- und Naturtag.",
+      priceHint: "ab 18 EUR",
+      image: "https://images.unsplash.com/photo-1598275277521-1885382d523a?auto=format&fit=crop&w=900&q=80",
+    },
+  ],
   paris: [],
 };
 
