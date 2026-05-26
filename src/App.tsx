@@ -30,6 +30,7 @@ import type { DateRecommendation, Deal, FlightOption, SearchState } from "./type
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 type FlightSort = "priceAsc" | "priceDesc" | "departureAsc" | "directFirst";
+type PackageSort = "packagePriceAsc" | "packagePriceDesc" | "separateTotalAsc" | "departureAsc" | "directFirst";
 type PackageItem = { deal: Deal; flight: FlightOption };
 
 const defaultSearch: SearchState = {
@@ -78,6 +79,7 @@ export default function App() {
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
   const [flightSort, setFlightSort] = useState<FlightSort>("priceAsc");
+  const [packageSort, setPackageSort] = useState<PackageSort>("packagePriceAsc");
   const [savedDealIds, setSavedDealIds] = useStoredList("reise-deal-finder-saved-deals");
   const [savedFlightIds, setSavedFlightIds] = useStoredList("reise-deal-finder-saved-flights");
   const [savedPackageIds, setSavedPackageIds] = useStoredList("reise-deal-finder-saved-packages");
@@ -89,9 +91,9 @@ export default function App() {
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
   const flights = useMemo(() => sortFlights(buildFlights(search), flightSort), [flightSort, search]);
   const packageSearch = useMemo<SearchState>(() => ({ ...search, tripMode: "package", flightType: "roundTrip" }), [search]);
-  const packageFlights = useMemo(() => sortFlights(buildFlights(packageSearch), flightSort), [flightSort, packageSearch]);
+  const packageFlights = useMemo(() => buildFlights(packageSearch), [packageSearch]);
   const packageDeals = useMemo(() => buildDeals(packageSearch).sort((a, b) => a.totalPrice - b.totalPrice), [packageSearch]);
-  const packages = useMemo(() => buildPackageItems(packageDeals, packageFlights), [packageDeals, packageFlights]);
+  const packages = useMemo(() => sortPackageItems(buildPackageItems(packageDeals, packageFlights), packageSort), [packageDeals, packageFlights, packageSort]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
@@ -255,7 +257,7 @@ export default function App() {
 
         {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
-        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedPackage} />}
+        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7 space-y-8">
@@ -279,7 +281,7 @@ export default function App() {
                 )}
                 {savedPackages.length > 0 && (
                   <WishlistSection title="Gespeicherte Flug + Hotel-Angebote">
-                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedPackage} />
+                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />
                   </WishlistSection>
                 )}
               </>
@@ -788,9 +790,9 @@ function FlightHotelPanel({
   packages: PackageItem[];
   people: number;
   savedPackageIds: string[];
-  sort: FlightSort;
+  sort: PackageSort;
   compact?: boolean;
-  onSortChange: (sort: FlightSort) => void;
+  onSortChange: (sort: PackageSort) => void;
   onToggleSave: (packageId: string) => void;
 }) {
   if (packages.length === 0) {
@@ -808,10 +810,11 @@ function FlightHotelPanel({
           <p className="mt-2 text-sm text-slate-400">Vergleiche getrennte Flug-/Hotelsuche mit einem Komplettangebot aus einer Hand.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="package-sort">
-          Flug-Sortierung
-          <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="package-sort" value={sort} onChange={(event) => onSortChange(event.target.value as FlightSort)}>
-            <option value="priceAsc">Günstigstes Flugangebot zuerst</option>
-            <option value="priceDesc">Teuerstes Flugangebot zuerst</option>
+          Sortierung
+          <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" id="package-sort" value={sort} onChange={(event) => onSortChange(event.target.value as PackageSort)}>
+            <option value="packagePriceAsc">Günstigstes Komplettangebot zuerst</option>
+            <option value="packagePriceDesc">Teuerstes Komplettangebot zuerst</option>
+            <option value="separateTotalAsc">Günstigste getrennte Suche zuerst</option>
             <option value="departureAsc">Früheste Abflugzeit zuerst</option>
             <option value="directFirst">Direktflüge zuerst</option>
           </select>
@@ -916,6 +919,21 @@ function sortFlights(flights: FlightOption[], sort: FlightSort) {
     if (sort === "departureAsc") return toMinutes(a.outboundDeparture) - toMinutes(b.outboundDeparture);
     if (sort === "directFirst") return Number(b.directFlight) - Number(a.directFlight) || a.pricePerPerson - b.pricePerPerson;
     return a.pricePerPerson - b.pricePerPerson;
+  });
+}
+
+function sortPackageItems(packages: PackageItem[], sort: PackageSort) {
+  return [...packages].sort((a, b) => {
+    const aSeparateTotal = a.flight.totalPrice + a.deal.hotelPrice;
+    const bSeparateTotal = b.flight.totalPrice + b.deal.hotelPrice;
+    const aPackagePrice = packageOfferPrice(aSeparateTotal);
+    const bPackagePrice = packageOfferPrice(bSeparateTotal);
+
+    if (sort === "packagePriceDesc") return bPackagePrice - aPackagePrice;
+    if (sort === "separateTotalAsc") return aSeparateTotal - bSeparateTotal;
+    if (sort === "departureAsc") return toMinutes(a.flight.outboundDeparture) - toMinutes(b.flight.outboundDeparture);
+    if (sort === "directFirst") return Number(b.flight.directFlight) - Number(a.flight.directFlight) || aPackagePrice - bPackagePrice;
+    return aPackagePrice - bPackagePrice;
   });
 }
 
