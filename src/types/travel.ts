@@ -22,6 +22,9 @@ export type SearchState = {
   minHotelRating: number;
   baggage: "personal" | "carryOn" | "checked";
   flexibleSearch: "exact" | "july" | "longWeekend" | "under500";
+  dateFlexDays: 0 | 1 | 2 | 3;
+  outboundTimeWindow: "any" | "morning" | "midday" | "evening";
+  returnTimeWindow: "any" | "morning" | "midday" | "evening";
 };
 
 export type Deal = {
@@ -67,6 +70,28 @@ export type DateRecommendation = {
   savingPercent: number;
   originAirport: string;
   originName: string;
+};
+
+export type FlightOption = {
+  id: string;
+  cityId: string;
+  originAirport: string;
+  destinationAirport: string;
+  flightType: "roundTrip" | "oneWay";
+  outboundDate: string;
+  returnDate?: string;
+  outboundDeparture: string;
+  outboundArrival: string;
+  returnDeparture?: string;
+  returnArrival?: string;
+  airline: string;
+  directFlight: boolean;
+  includesCarryOn: boolean;
+  includesCheckedBag: boolean;
+  pricePerPerson: number;
+  totalPrice: number;
+  source: string;
+  bookingUrl: string;
 };
 
 export type Activity = {

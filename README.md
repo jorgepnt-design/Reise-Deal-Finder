@@ -7,8 +7,9 @@ Deutsche React-Web-App zum Finden von Reise-Deals für Lissabon und weitere Stä
 - Dunkles responsives Frontend mit Stadtauswahl, Reisezeitraum, Budget und Personen
 - Deal-Karten mit Bild, Flugpreis, Hotelpreis, Gesamtpreis, Datum, Hotelbewertung und Preisfall
 - Klickbare Deal-Details mit Preisverlauf, Quellen, Prüfzeitpunkt, Gepäckstatus und Stornierungsinfo
-- Erweiterte Filter für Direktflug, Reisedauer, Wochenende, Hotelbewertung und Gepäck
-- Flexible Suche für Juli, lange Wochenenden und Deals unter 500 Euro pro Person
+- Erweiterte Filter für Direktflug, Reisedauer, Wochenende, Hotelbewertung, Gepäck, Datumstoleranz und Uhrzeitfenster
+- Flexible Suche für Juli, lange Wochenenden, Deals unter 500 Euro pro Person und +/- 1 bis 3 Tage
+- Eigener Flüge-Tab mit Datum, Abflugzeit, Ankunftzeit, Gepäckstatus, Quelle, Preis pro Person und Gesamtpreis
 - Merkliste für gespeicherte Deals und Favoriten für Zielstädte
 - Bonus-Tab mit Aktivitäten-Empfehlungen für Lissabon und die gewählte Stadt
 - Agenten-Tab mit Quellen für Skyscanner, Google Flights, Booking und HRS

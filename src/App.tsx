@@ -13,8 +13,9 @@ import {
   Plane,
   RefreshCw,
   Search,
-  ShieldCheck,
   SlidersHorizontal,
+  Timer,
+  ShieldCheck,
   Sparkles,
   Users,
   Wallet,
@@ -24,8 +25,8 @@ import {
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { activitiesByCity, cities } from "./data/cities";
-import { agentStatus, buildDeals, loadLiveDeals, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
-import type { DateRecommendation, Deal, SearchState } from "./types/travel";
+import { agentStatus, buildDeals, buildFlights, loadLiveDeals, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
+import type { DateRecommendation, Deal, FlightOption, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 
@@ -45,6 +46,9 @@ const defaultSearch: SearchState = {
   minHotelRating: 8,
   baggage: "carryOn",
   flexibleSearch: "exact",
+  dateFlexDays: 0,
+  outboundTimeWindow: "any",
+  returnTimeWindow: "any",
 };
 
 function formatDateRange(deal: Deal) {
@@ -66,7 +70,7 @@ function scoreLabel(score: number) {
 
 export default function App() {
   const [search, setSearch] = useState<SearchState>(defaultSearch);
-  const [activeTab, setActiveTab] = useState<"deals" | "wishlist" | "agents" | "activities">("deals");
+  const [activeTab, setActiveTab] = useState<"deals" | "flights" | "wishlist" | "agents" | "activities">("deals");
   const [lastRun, setLastRun] = useState("Heute 07:00");
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
@@ -78,6 +82,7 @@ export default function App() {
   const fallbackDeals = useMemo(() => buildDeals(search).sort((a, b) => b.score - a.score), [search]);
   const deals = useMemo(() => (liveDeals.length > 0 ? liveDeals : fallbackDeals).sort((a, b) => b.score - a.score), [fallbackDeals, liveDeals]);
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
+  const flights = useMemo(() => buildFlights(search), [search]);
   const alertSummary = useMemo(() => runDailyPriceCheck(deals), [deals]);
   const featuredDeal = deals[0];
   const activities = activitiesByCity[selectedCity.id] ?? activitiesByCity.lisbon;
@@ -194,6 +199,7 @@ export default function App() {
           <div className="inline-flex rounded-lg border border-white/10 bg-white/[0.04] p-1">
             {[
               ["deals", "Deals"],
+              ["flights", "Flüge"],
               ["wishlist", "Merkliste"],
               ["agents", "Agenten"],
               ["activities", "Aktivitäten"],
@@ -223,6 +229,8 @@ export default function App() {
             )}
           </>
         )}
+
+        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7">
@@ -377,6 +385,11 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
           <Select label="Reisedauer" value={search.durationFilter} onChange={(value) => onChange("durationFilter", value as SearchState["durationFilter"])} options={[["any", "egal"], ["short", "2-3 Nächte"], ["medium", "4-5 Nächte"], ["long", "7+ Nächte"]]} />
           <Select label="Gepäck" value={search.baggage} onChange={(value) => onChange("baggage", value as SearchState["baggage"])} options={[["personal", "Personal Item"], ["carryOn", "Handgepäck"], ["checked", "Aufgabegepäck"]]} />
           <Select label="Flexible Suche" value={search.flexibleSearch} onChange={(value) => onChange("flexibleSearch", value as SearchState["flexibleSearch"])} options={[["exact", "exaktes Datum"], ["july", "irgendwann im Juli"], ["longWeekend", "nächstes langes Wochenende"], ["under500", "unter 500 € p. P."]]} />
+          <Select label="Datumstoleranz" value={String(search.dateFlexDays)} onChange={(value) => onChange("dateFlexDays", Number(value) as SearchState["dateFlexDays"])} options={[["0", "exakt"], ["1", "+/- 1 Tag"], ["2", "+/- 2 Tage"], ["3", "+/- 3 Tage"]]} />
+          <Select label="Hinflug Uhrzeit" value={search.outboundTimeWindow} onChange={(value) => onChange("outboundTimeWindow", value as SearchState["outboundTimeWindow"])} options={[["any", "egal"], ["morning", "05-11 Uhr"], ["midday", "11-17 Uhr"], ["evening", "17-05 Uhr"]]} />
+          {search.flightType === "roundTrip" && (
+            <Select label="Rückflug Uhrzeit" value={search.returnTimeWindow} onChange={(value) => onChange("returnTimeWindow", value as SearchState["returnTimeWindow"])} options={[["any", "egal"], ["morning", "05-11 Uhr"], ["midday", "11-17 Uhr"], ["evening", "17-05 Uhr"]]} />
+          )}
           <Field icon={<Hotel size={16} />} label="Hotelbewertung min." min={0} max={10} step={0.1} type="number" value={String(search.minHotelRating)} onChange={(value) => onChange("minHotelRating", Number(value))} />
         </div>
       </div>
@@ -571,6 +584,64 @@ function DealModal({
           </div>
         </div>
       </article>
+    </div>
+  );
+}
+
+function FlightsPanel({ flights, people }: { flights: FlightOption[]; people: number }) {
+  if (flights.length === 0) {
+    return <EmptyPanel title="Keine Flüge für diese Filter" text="Lockere Datumstoleranz, Uhrzeitfenster, Direktflug oder Gepäck, um wieder Flugoptionen zu sehen." />;
+  }
+
+  return (
+    <div className="mt-7 space-y-4">
+      <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5">
+        <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
+          <Plane size={18} /> Flüge nach Preis sortiert
+        </p>
+        <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
+        <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis für {people} angegeben.</p>
+      </div>
+
+      <div className="grid gap-4">
+        {flights.map((flight) => (
+          <article className="rounded-lg border border-white/10 bg-[#111827] p-5 shadow-xl transition hover:border-cyan-300" key={flight.id}>
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold text-cyan-200">{flight.airline} · {flight.source}</p>
+                <h3 className="mt-1 text-xl font-semibold text-white">
+                  {flight.originAirport} → {flight.destinationAirport}
+                </h3>
+                <p className="mt-1 text-sm text-slate-400">
+                  {flight.flightType === "oneWay" ? "nur Hinflug" : "Hin & zurück"} · {flight.directFlight ? "Direktflug" : "mit Umstieg"}
+                </p>
+              </div>
+              <div className="text-left sm:text-right">
+                <p className="text-3xl font-semibold text-white">{currency.format(flight.pricePerPerson)} p. P.</p>
+                <p className="mt-1 text-sm text-slate-400">{currency.format(flight.totalPrice)} gesamt</p>
+              </div>
+            </div>
+
+            <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+              <Info icon={<CalendarDays size={16} />} label="Hinflug" value={`${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
+              <Info
+                icon={<Timer size={16} />}
+                label="Rückflug"
+                value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"}
+              />
+              <Info icon={<ShieldCheck size={16} />} label="Handgepäck" value={flight.includesCarryOn || flight.includesCheckedBag ? "inklusive" : "nicht inklusive"} />
+              <Info icon={<Wallet size={16} />} label="Aufgabegepäck" value={flight.includesCheckedBag ? "inklusive" : "optional"} />
+            </div>
+
+            <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
+              <p className="text-sm text-slate-400">Quelle: {flight.source}, Live-Suche öffnet sich in einem neuen Tab.</p>
+              <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
+                Flug suchen <ExternalLink size={16} />
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
     </div>
   );
 }

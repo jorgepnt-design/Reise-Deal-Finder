@@ -1,5 +1,5 @@
 import { cities } from "../data/cities";
-import type { DateRecommendation, Deal, SearchState } from "../types/travel";
+import type { DateRecommendation, Deal, FlightOption, SearchState } from "../types/travel";
 
 export const originAirports = [
   { code: "FRA", name: "Frankfurt" },
@@ -215,6 +215,63 @@ export function recommendTravelDates(search: SearchState): DateRecommendation[] 
   }).sort((a, b) => a.totalPrice - b.totalPrice);
 }
 
+export function buildFlights(search: SearchState): FlightOption[] {
+  const city = cities.find((item) => item.id === search.cityId) ?? cities[0];
+  const base = cityBasePrice[city.id] ?? 160;
+  const origin = originAirports.find((airport) => airport.code === search.originAirport) ?? originAirports[0];
+  const originFactor = originPriceFactor[origin.code] ?? 1;
+  const offsets = buildDateOffsets(search.dateFlexDays);
+  const timeSlots = [
+    { key: "morning", outboundDeparture: "06:35", outboundArrival: "08:45", returnDeparture: "09:30", returnArrival: "13:35", airline: "Lufthansa" },
+    { key: "midday", outboundDeparture: "11:20", outboundArrival: "13:35", returnDeparture: "14:15", returnArrival: "18:20", airline: "Eurowings" },
+    { key: "evening", outboundDeparture: "18:05", outboundArrival: "20:20", returnDeparture: "20:55", returnArrival: "00:55", airline: "Ryanair" },
+  ];
+
+  return offsets.flatMap((offset, dateIndex) => {
+    const outboundDate = addDays(search.startDate, offset);
+    const returnDate = search.flightType === "oneWay" ? undefined : addDays(search.endDate, offset);
+
+    return timeSlots.map((slot, slotIndex) => {
+      const includesCheckedBag = slotIndex === 1 || search.baggage === "checked";
+      const includesCarryOn = slotIndex !== 2 || search.baggage !== "personal";
+      const directFlight = slotIndex !== 2;
+      const roundTripFactor = search.flightType === "oneWay" ? 0.58 : 1;
+      const baggagePrice = search.baggage === "checked" ? 42 : search.baggage === "carryOn" ? 18 : 0;
+      const pricePerPerson = Math.round((base * originFactor * roundTripFactor + dateIndex * 12 + slotIndex * 24 + baggagePrice) * (directFlight ? 1 : 0.88));
+      const bookingUrl = buildFlightUrl(origin.code, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType);
+
+      return {
+        id: `${city.id}-${origin.code}-${search.flightType}-${outboundDate}-${slot.key}`,
+        cityId: city.id,
+        originAirport: origin.code,
+        destinationAirport: city.airportCode,
+        flightType: search.flightType,
+        outboundDate,
+        returnDate,
+        outboundDeparture: slot.outboundDeparture,
+        outboundArrival: slot.outboundArrival,
+        returnDeparture: search.flightType === "roundTrip" ? slot.returnDeparture : undefined,
+        returnArrival: search.flightType === "roundTrip" ? slot.returnArrival : undefined,
+        airline: slot.airline,
+        directFlight,
+        includesCarryOn,
+        includesCheckedBag,
+        pricePerPerson,
+        totalPrice: pricePerPerson * search.people,
+        source: slotIndex === 1 ? "Skyscanner" : "Google Flights",
+        bookingUrl,
+      };
+    });
+  }).filter((flight) => {
+    if (search.directOnly && !flight.directFlight) return false;
+    if (search.baggage === "carryOn" && !flight.includesCarryOn && !flight.includesCheckedBag) return false;
+    if (search.baggage === "checked" && !flight.includesCheckedBag) return false;
+    if (!matchesTimeWindow(flight.outboundDeparture, search.outboundTimeWindow)) return false;
+    if (search.flightType === "roundTrip" && flight.returnDeparture && !matchesTimeWindow(flight.returnDeparture, search.returnTimeWindow)) return false;
+    return true;
+  }).sort((a, b) => a.pricePerPerson - b.pricePerPerson);
+}
+
 export function runDailyPriceCheck(deals: Deal[]) {
   const relevantDeals = deals.filter((deal) => deal.priceDropPercent >= 10);
   const headline =
@@ -287,6 +344,19 @@ function isWeekendTrip(startDate: string, endDate: string) {
 function buildPriceHistory(totalPrice: number, priceDropPercent: number, index: number) {
   const peak = Math.round(totalPrice / (1 - priceDropPercent / 100));
   return [peak + 18 + index * 9, peak + 6, peak - 14, peak - 4, totalPrice + 21, totalPrice + 8, totalPrice];
+}
+
+function buildDateOffsets(flexDays: SearchState["dateFlexDays"]) {
+  if (flexDays === 0) return [0];
+  return Array.from({ length: flexDays * 2 + 1 }, (_, index) => index - flexDays);
+}
+
+function matchesTimeWindow(time: string, window: SearchState["outboundTimeWindow"]) {
+  if (window === "any") return true;
+  const hour = Number(time.slice(0, 2));
+  if (window === "morning") return hour >= 5 && hour < 11;
+  if (window === "midday") return hour >= 11 && hour < 17;
+  return hour >= 17 || hour < 5;
 }
 
 function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number, flightType: SearchState["flightType"]) {
