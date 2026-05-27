@@ -104,6 +104,7 @@ export default function App() {
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
   const [liveFlights, setLiveFlights] = useState<FlightOption[]>([]);
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const [flightSort, setFlightSort] = useState<FlightSort>("priceAsc");
   const [packageSort, setPackageSort] = useState<PackageSort>("packagePriceAsc");
   const [savedDealIds, setSavedDealIds] = useStoredList("reise-deal-finder-saved-deals");
@@ -172,10 +173,12 @@ export default function App() {
   }
 
   function refreshAgents() {
+    setIsRefreshing(true);
     setLastRun(new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
     if (search.alertsEnabled && alertSummary.shouldPush) {
       sendBrowserNotification(alertSummary.headline, featuredDeal ? `${featuredDeal.title} ab ${formatApproxPrice(featuredDeal.totalPrice)}` : "Neue Reise-Deals verfügbar");
     }
+    window.setTimeout(() => setIsRefreshing(false), 1200);
   }
 
   function toggleSavedDeal(dealId: string) {
@@ -275,8 +278,8 @@ export default function App() {
               </button>
             ))}
           </div>
-          <button className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 text-sm text-slate-200 hover:bg-white/10" onClick={refreshAgents} type="button">
-            <RefreshCw size={16} /> Preise aktualisieren
+          <button className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 text-sm text-slate-200 hover:bg-white/10 disabled:cursor-wait disabled:opacity-80" disabled={isRefreshing} onClick={refreshAgents} type="button">
+            <RefreshCw className={isRefreshing ? "animate-spin" : ""} size={16} /> {isRefreshing ? "Aktualisiere..." : "Preise aktualisieren"}
           </button>
         </div>
 
