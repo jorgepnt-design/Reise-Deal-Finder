@@ -14,8 +14,6 @@ const originMap = {
   CGN: "Köln/Bonn",
 };
 
-let tokenCache;
-
 export default async function handler(req, res) {
   setCorsHeaders(res);
 
@@ -32,9 +30,8 @@ export default async function handler(req, res) {
   try {
     const search = normalizeSearch(req.query);
     const city = cityMap[search.city] ?? cityMap.lisbon;
-    const token = await getAmadeusToken();
-    const offers = await searchFlightOffers(token, city, search);
-    const deals = offers.map((offer, index) => mapOfferToDeal(offer, city, search, index));
+    const offers = await searchDuffelOffers(city, search);
+    const deals = offers.slice(0, 8).map((offer, index) => mapOfferToDeal(offer, city, search, index));
 
     res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate=3600");
     res.status(200).json(deals);
@@ -71,80 +68,71 @@ function clampNumber(value, min, max) {
   return Math.min(max, Math.max(min, Math.round(value)));
 }
 
-async function getAmadeusToken() {
-  const clientId = process.env.AMADEUS_CLIENT_ID;
-  const clientSecret = process.env.AMADEUS_CLIENT_SECRET;
-  if (!clientId || !clientSecret) {
-    throw withStatus(new Error("AMADEUS_CLIENT_ID und AMADEUS_CLIENT_SECRET fehlen in Vercel."), 500);
+async function searchDuffelOffers(city, search) {
+  const token = process.env.DUFFEL_ACCESS_TOKEN;
+  if (!token) {
+    throw withStatus(new Error("DUFFEL_ACCESS_TOKEN fehlt in Vercel."), 500);
   }
 
-  if (tokenCache && tokenCache.expiresAt > Date.now() + 60_000) return tokenCache.accessToken;
+  const slices = [
+    {
+      origin: search.origin,
+      destination: city.airportCode,
+      departure_date: search.startDate,
+    },
+  ];
 
-  const baseUrl = amadeusBaseUrl();
-  const body = new URLSearchParams({
-    grant_type: "client_credentials",
-    client_id: clientId,
-    client_secret: clientSecret,
-  });
-
-  const response = await fetch(`${baseUrl}/v1/security/oauth2/token`, {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body,
-  });
-
-  if (!response.ok) {
-    throw withStatus(new Error(`Amadeus OAuth fehlgeschlagen (${response.status})`), response.status);
+  if (search.flightType === "roundTrip") {
+    slices.push({
+      origin: city.airportCode,
+      destination: search.origin,
+      departure_date: search.endDate,
+    });
   }
 
-  const payload = await response.json();
-  tokenCache = {
-    accessToken: payload.access_token,
-    expiresAt: Date.now() + Number(payload.expires_in ?? 1200) * 1000,
+  const body = {
+    data: {
+      slices,
+      passengers: Array.from({ length: search.people }, () => ({ type: "adult" })),
+      cabin_class: "economy",
+    },
   };
-  return tokenCache.accessToken;
-}
 
-async function searchFlightOffers(token, city, search) {
-  const params = new URLSearchParams({
-    originLocationCode: search.origin,
-    destinationLocationCode: city.airportCode,
-    departureDate: search.startDate,
-    adults: String(search.people),
-    currencyCode: "EUR",
-    max: "8",
-  });
-
-  if (search.flightType === "roundTrip") params.set("returnDate", search.endDate);
-
-  const response = await fetch(`${amadeusBaseUrl()}/v2/shopping/flight-offers?${params.toString()}`, {
-    headers: { Authorization: `Bearer ${token}` },
+  const response = await fetch("https://api.duffel.com/air/offer_requests?return_offers=true", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      "Duffel-Version": "v2",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(body),
   });
 
   if (!response.ok) {
     const text = await response.text();
-    throw withStatus(new Error(`Amadeus Flight Offers fehlgeschlagen (${response.status}): ${text.slice(0, 240)}`), response.status);
+    throw withStatus(new Error(`Duffel Offer Request fehlgeschlagen (${response.status}): ${text.slice(0, 240)}`), response.status);
   }
 
   const payload = await response.json();
-  return Array.isArray(payload.data) ? payload.data : [];
+  const offers = payload.data?.offers;
+  return Array.isArray(offers) ? offers.sort((a, b) => Number(a.total_amount ?? 0) - Number(b.total_amount ?? 0)) : [];
 }
 
 function mapOfferToDeal(offer, city, search, index) {
-  const firstItinerary = offer.itineraries?.[0];
-  const returnItinerary = offer.itineraries?.[1];
-  const firstSegment = firstItinerary?.segments?.[0];
-  const lastOutboundSegment = firstItinerary?.segments?.[firstItinerary.segments.length - 1];
-  const totalPrice = Math.round(Number(offer.price?.grandTotal ?? offer.price?.total ?? 0));
-  const directFlight = firstItinerary?.segments?.length === 1 && (!returnItinerary || returnItinerary.segments?.length === 1);
-  const carrierCode = firstSegment?.carrierCode ?? "Airline";
-  const startDate = firstSegment?.departure?.at?.slice(0, 10) ?? search.startDate;
-  const endDate = returnItinerary?.segments?.[0]?.departure?.at?.slice(0, 10) ?? search.endDate;
-  const bookingUrl = buildGoogleFlightsUrl(search.origin, city.airportCode, startDate, endDate, search.people, search.flightType);
+  const outboundSlice = offer.slices?.[0];
+  const returnSlice = offer.slices?.[1];
+  const firstSegment = outboundSlice?.segments?.[0];
+  const lastOutboundSegment = outboundSlice?.segments?.[outboundSlice.segments.length - 1];
+  const totalPrice = Math.round(Number(offer.total_amount ?? 0));
+  const airline = offer.owner?.name ?? firstSegment?.operating_carrier?.name ?? firstSegment?.marketing_carrier?.name ?? "Airline";
+  const startDate = firstSegment?.departing_at?.slice(0, 10) ?? search.startDate;
+  const endDate = returnSlice?.segments?.[0]?.departing_at?.slice(0, 10) ?? search.endDate;
+  const directFlight = outboundSlice?.segments?.length === 1 && (!returnSlice || returnSlice.segments?.length === 1);
 
   return {
-    id: `amadeus-${offer.id ?? index}`,
-    title: `${city.name} Flug: Live-Angebot ${carrierCode}`,
+    id: `duffel-${offer.id ?? index}`,
+    title: `${city.name} Flug: Live-Angebot ${airline}`,
     cityId: search.city,
     destinationAirport: city.airportCode,
     originAirport: search.origin,
@@ -162,27 +150,35 @@ function mapOfferToDeal(offer, city, search, index) {
     hotelRating: 0,
     score: Math.max(50, 100 - index * 5),
     priceDropPercent: 0,
-    bookingUrl,
+    bookingUrl: buildGoogleFlightsUrl(search.origin, city.airportCode, startDate, endDate, search.people, search.flightType),
     notes: [
-      "Live-Flugpreis von Amadeus Flight Offers Search",
-      `${carrierCode}: ${firstSegment?.departure?.iataCode ?? search.origin} nach ${lastOutboundSegment?.arrival?.iataCode ?? city.airportCode}`,
-      directFlight ? "Direktflug laut Amadeus-Angebot" : "Umstieg laut Amadeus-Angebot möglich",
+      "Live-Flugpreis von Duffel Offer Request",
+      `${airline}: ${firstSegment?.origin?.iata_code ?? search.origin} nach ${lastOutboundSegment?.destination?.iata_code ?? city.airportCode}`,
+      directFlight ? "Direktflug laut Duffel-Angebot" : "Umstieg laut Duffel-Angebot möglich",
       "Hotelpreise folgen in Phase 2 über Booking oder Hotel-API",
     ],
     directFlight,
     durationNights: nightsBetween(startDate, endDate),
-    includesCarryOn: false,
-    includesCheckedBag: false,
+    includesCarryOn: hasIncludedBaggage(offer, "carry_on"),
+    includesCheckedBag: hasIncludedBaggage(offer, "checked"),
     hotelRefundable: false,
-    flightSource: "Amadeus",
+    flightSource: "Duffel",
     lastCheckedAt: new Date().toISOString(),
     priceHistory: [totalPrice, totalPrice, totalPrice, totalPrice, totalPrice, totalPrice, totalPrice],
     isLive: true,
   };
 }
 
-function amadeusBaseUrl() {
-  return process.env.AMADEUS_ENV === "production" ? "https://api.amadeus.com" : "https://test.api.amadeus.com";
+function hasIncludedBaggage(offer, baggageType) {
+  return Boolean(
+    offer.slices?.some((slice) =>
+      slice.segments?.some((segment) =>
+        segment.passengers?.some((passenger) =>
+          passenger.baggages?.some((baggage) => baggage.type === baggageType && Number(baggage.quantity ?? 0) > 0),
+        ),
+      ),
+    ),
+  );
 }
 
 function buildGoogleFlightsUrl(origin, destination, startDate, endDate, people, flightType) {
