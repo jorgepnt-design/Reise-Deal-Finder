@@ -245,6 +245,35 @@ export async function loadLiveTravelData(search: SearchState): Promise<LiveTrave
   };
 }
 
+export async function createDuffelBookingLink(flight: FlightOption, search: SearchState): Promise<string> {
+  const endpoint = import.meta.env.VITE_DEAL_API_URL as string | undefined;
+  if (!endpoint) throw new Error("VITE_DEAL_API_URL ist nicht gesetzt.");
+
+  const bookingEndpoint = new URL(endpoint);
+  bookingEndpoint.pathname = bookingEndpoint.pathname.replace(/\/api\/deals\/?$/, "/api/duffel-link");
+
+  const response = await fetch(bookingEndpoint.toString(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      flightId: flight.id,
+      offerId: flight.offerId,
+      cityId: flight.cityId,
+      originAirport: flight.originAirport,
+      destinationAirport: flight.destinationAirport,
+      outboundDate: flight.outboundDate,
+      returnDate: flight.returnDate,
+      flightType: flight.flightType,
+      people: search.people,
+    }),
+  });
+
+  if (!response.ok) throw new Error("Duffel-Buchungslink konnte nicht erstellt werden.");
+  const payload = (await response.json()) as { url?: string };
+  if (!payload.url) throw new Error("Duffel hat keinen Buchungslink zurückgegeben.");
+  return payload.url;
+}
+
 export function recommendTravelDates(search: SearchState): DateRecommendation[] {
   const city = cities.find((item) => item.id === search.cityId) ?? cities[0];
   const base = cityBasePrice[city.id] ?? 160;

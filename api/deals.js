@@ -201,6 +201,7 @@ function mapOfferToFlight(offer, city, search, index) {
 
   return {
     id: `duffel-flight-${offer.id ?? index}`,
+    offerId: offer.id,
     cityId: search.city,
     originAirport: search.origin,
     destinationAirport: city.airportCode,

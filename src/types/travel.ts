@@ -80,6 +80,7 @@ export type DateRecommendation = {
 
 export type FlightOption = {
   id: string;
+  offerId?: string;
   cityId: string;
   originAirport: string;
   destinationAirport: string;

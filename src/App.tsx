@@ -25,7 +25,7 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { activitiesByCity, cities } from "./data/cities";
-import { agentStatus, buildDeals, buildFlights, loadLiveTravelData, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
+import { agentStatus, buildDeals, buildFlights, createDuffelBookingLink, loadLiveTravelData, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
 import type { DateRecommendation, Deal, FlightOption, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
@@ -175,6 +175,15 @@ export default function App() {
     setFavoriteCityIds((current) => toggleListValue(current, cityId));
   }
 
+  async function openDuffelBookingLink(flight: FlightOption) {
+    try {
+      const url = await createDuffelBookingLink(flight, search);
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch {
+      window.alert("Der Duffel-Buchungslink konnte gerade nicht erstellt werden. Bitte versuche es gleich noch einmal.");
+    }
+  }
+
   return (
     <main className="min-h-screen bg-[#090d14] text-slate-100">
       <section className="relative overflow-hidden border-b border-white/10">
@@ -267,9 +276,9 @@ export default function App() {
           </>
         )}
 
-        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
+        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
-        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
+        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7 space-y-8">
@@ -288,12 +297,12 @@ export default function App() {
                 )}
                 {savedFlights.length > 0 && (
                   <WishlistSection title="Gespeicherte Flüge">
-                    <FlightsPanel compact flights={savedFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />
+                    <FlightsPanel compact flights={savedFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />
                   </WishlistSection>
                 )}
                 {savedPackages.length > 0 && (
                   <WishlistSection title="Gespeicherte Flug + Hotel-Angebote">
-                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />
+                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />
                   </WishlistSection>
                 )}
               </>
@@ -709,6 +718,7 @@ function FlightsPanel({
   savedFlightIds,
   sort,
   compact = false,
+  onBookLiveFlight,
   onSortChange,
   onToggleSave,
 }: {
@@ -717,6 +727,7 @@ function FlightsPanel({
   savedFlightIds: string[];
   sort: FlightSort;
   compact?: boolean;
+  onBookLiveFlight: (flight: FlightOption) => void;
   onSortChange: (sort: FlightSort) => void;
   onToggleSave: (flightId: string) => void;
 }) {
@@ -780,11 +791,11 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis aus Duffel, Buchungslink folgt." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis aus Duffel; Buchung öffnet einen Duffel-Checkout." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
               {flight.isLive ? (
-                <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm font-bold text-emerald-100">
-                  Duffel-Livepreis geprüft
-                </span>
+                <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
+                  Bei Duffel buchen <ExternalLink size={16} />
+                </button>
               ) : (
                 <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
                   Flug suchen <ExternalLink size={16} />
@@ -804,6 +815,7 @@ function FlightHotelPanel({
   savedPackageIds,
   sort,
   compact = false,
+  onBookLiveFlight,
   onSortChange,
   onToggleSave,
 }: {
@@ -812,6 +824,7 @@ function FlightHotelPanel({
   savedPackageIds: string[];
   sort: PackageSort;
   compact?: boolean;
+  onBookLiveFlight: (flight: FlightOption) => void;
   onSortChange: (sort: PackageSort) => void;
   onToggleSave: (packageId: string) => void;
 }) {
@@ -902,9 +915,9 @@ function FlightHotelPanel({
                       <p className="mt-1 text-xs text-slate-400">Flug und Hotel separat vergleichen.</p>
                       <div className="mt-3 flex flex-wrap gap-2">
                         {flight.isLive ? (
-                          <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm font-bold text-emerald-100">
-                            Duffel-Livepreis geprüft
-                          </span>
+                          <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
+                            Bei Duffel buchen <ExternalLink size={16} />
+                          </button>
                         ) : (
                           <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
                             Flug suchen <ExternalLink size={16} />

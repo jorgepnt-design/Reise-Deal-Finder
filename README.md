@@ -78,6 +78,7 @@ Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deal
 ```text
 DUFFEL_ACCESS_TOKEN=duffel_test_dein_neuer_token
 ALLOWED_ORIGIN=https://jorgepnt-design.github.io
+PUBLIC_APP_URL=https://jorgepnt-design.github.io/Reise-Deal-Finder/
 ```
 
 ### 3. Frontend mit Backend verbinden
