@@ -98,16 +98,32 @@ async function searchDuffelOffers(city, search) {
     },
   };
 
-  const response = await fetch("https://api.duffel.com/air/offer_requests?return_offers=true", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Duffel-Version": "v2",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(body),
+  const query = new URLSearchParams({
+    return_offers: "true",
+    supplier_timeout: "5000",
   });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 8000);
+
+  let response;
+  try {
+    response = await fetch(`https://api.duffel.com/air/offer_requests?${query.toString()}`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Duffel-Version": "v2",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error.name === "AbortError") throw withStatus(new Error("Duffel hat nicht rechtzeitig geantwortet. Bitte erneut versuchen."), 504);
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     const text = await response.text();
