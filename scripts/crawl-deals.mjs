@@ -130,17 +130,41 @@ function buildMapsUrl(name, address) {
 
 function buildPackageUrl(cityName, hotelName, hotelAddress, origin, destination, startDate, endDate, people) {
   const exactSearch = `${hotelName}, ${hotelAddress}, ${cityName}`;
+  const checkin = dateParts(startDate);
+  const checkout = dateParts(endDate);
+  const roomAdults = Array.from({ length: people }, () => "A").join(",");
   const params = new URLSearchParams({
     ss: exactSearch,
+    ssne: cityName,
+    ssne_untouched: cityName,
+    ss_raw: hotelName,
     checkin: startDate,
     checkout: endDate,
+    checkin_year: checkin.year,
+    checkin_month: checkin.month,
+    checkin_monthday: checkin.day,
+    checkout_year: checkout.year,
+    checkout_month: checkout.month,
+    checkout_monthday: checkout.day,
     group_adults: String(people),
     no_rooms: "1",
     group_children: "0",
+    room1: roomAdults,
     selected_currency: "EUR",
     order: "price",
-    src: "searchresults",
+    sb: "1",
+    sb_lp: "1",
+    src: "index",
+    src_elem: "sb",
+    from_sf: "1",
+    search_selected: "true",
+    sb_price_type: "total",
     label: `reise-deal-finder-${origin}-${destination}`,
   });
   return `https://www.booking.com/searchresults.de.html?${params.toString()}`;
+}
+
+function dateParts(date) {
+  const [year, month, day] = date.split("-");
+  return { year, month: String(Number(month)), day: String(Number(day)) };
 }
