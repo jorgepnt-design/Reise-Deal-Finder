@@ -894,8 +894,8 @@ function FlightHotelPanel({
                     <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-3">
                       <p className="text-sm font-semibold text-emerald-200">Komplettangebot</p>
                       <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prüfen.</p>
-                      <p className="mt-3 text-2xl font-semibold text-white">{currency.format(packagePrice)}</p>
-                      <p className="mt-1 text-xs text-slate-300">{currency.format(packagePricePerPerson)} p. P. · Direkt zum Angebot</p>
+                      <p className="mt-3 text-4xl font-semibold leading-tight text-white">{currency.format(packagePricePerPerson)} p. P.</p>
+                      <p className="mt-1 text-sm text-slate-300">{currency.format(packagePrice)} gesamt · Direkt zum Angebot</p>
                       {deal.packageUrl && (
                         <a className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-300 px-4 py-3 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
                           Bei {deal.packageProvider} für {currency.format(packagePrice)} öffnen <ExternalLink size={16} />
