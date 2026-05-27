@@ -839,7 +839,8 @@ function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption
                     </label>
                     <label className="text-sm text-slate-300">
                       Telefon
-                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={passenger.phoneNumber} onChange={(event) => updatePassenger(index, "phoneNumber", event.target.value)} />
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" inputMode="tel" placeholder="+491723532409 oder 01723532409" value={passenger.phoneNumber} onChange={(event) => updatePassenger(index, "phoneNumber", event.target.value)} />
+                      <span className="mt-1 block text-xs text-slate-500">Deutsche Nummern mit 0 werden automatisch in +49 umgewandelt.</span>
                     </label>
                   </div>
                 </div>

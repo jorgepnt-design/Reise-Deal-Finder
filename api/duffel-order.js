@@ -122,10 +122,10 @@ function buildPassengers(offer, passengerInput) {
     const familyName = clean(input.familyName);
     const bornOn = clean(input.bornOn);
     const email = clean(input.email);
-    const phoneNumber = clean(input.phoneNumber);
+    const phoneNumber = normalizePhoneNumber(input.phoneNumber);
 
     if (!givenName || !familyName || !bornOn || !email || !phoneNumber) {
-      throw withStatus(new Error("Vorname, Nachname, Geburtsdatum, E-Mail und Telefonnummer sind für alle Reisenden erforderlich."), 400);
+      throw withStatus(new Error("Vorname, Nachname, Geburtsdatum, E-Mail und Telefonnummer sind für alle Reisenden erforderlich. Telefonnummer bitte z. B. als +491723532409 oder 01723532409 eingeben."), 400);
     }
 
     return {
@@ -144,6 +144,16 @@ function buildPassengers(offer, passengerInput) {
 
 function clean(value) {
   return String(value ?? "").trim();
+}
+
+function normalizePhoneNumber(value) {
+  const raw = clean(value).replace(/[\s()./-]/g, "");
+  if (!raw) return "";
+  if (/^\+[1-9]\d{7,14}$/.test(raw)) return raw;
+  if (/^00[1-9]\d{7,14}$/.test(raw)) return `+${raw.slice(2)}`;
+  if (/^0[1-9]\d{6,13}$/.test(raw)) return `+49${raw.slice(1)}`;
+  if (/^49[1-9]\d{6,13}$/.test(raw)) return `+${raw}`;
+  return "";
 }
 
 function setCorsHeaders(res) {
