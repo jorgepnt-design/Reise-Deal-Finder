@@ -77,6 +77,18 @@ function formatFlightPrice(value: number, isLive?: boolean) {
   return isLive ? `${currency.format(value)} Anbieterpreis` : formatApproxPrice(value);
 }
 
+function providerPriceBadge(source: string) {
+  if (source === "Google Flights") return "Google Flights Live-Preis";
+  if (source === "Skyscanner") return "Skyscanner kein Live-Preis";
+  return "Fallback-Preis";
+}
+
+function providerPriceCopy(source: string, isLive?: boolean) {
+  if (source === "Google Flights") return "Live-Preis direkt über Google Flights API; final beim Anbieter prüfen.";
+  if (source === "Skyscanner") return "Kein Live-Preis aktiv. Skyscanner-Link öffnet nur die Suche, Preis dort prüfen.";
+  return isLive ? "Fallback-Preisquelle; final beim Anbieter prüfen." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen.";
+}
+
 function scoreLabel(score: number) {
   if (score >= 92) return "Top-Deal";
   if (score >= 86) return "Sehr stark";
@@ -907,7 +919,7 @@ function FlightsPanel({
             <Plane size={18} /> Flüge
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Wenn API-Keys gesetzt sind, kommen die Preise direkt aus Google Flights und Skyscanner. Der finale Preis steht beim Anbieter.</p>
+          <p className="mt-2 text-sm text-slate-400">Google Flights zeigt Live-Preise über SerpApi. Skyscanner ist erst Live, wenn ein Skyscanner API-Key gesetzt ist; sonst öffnet es nur die Suche.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -925,7 +937,12 @@ function FlightsPanel({
           <article className="rounded-lg border border-white/10 bg-[#111827] p-5 shadow-xl transition hover:border-cyan-300" key={flight.id}>
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold text-cyan-200">{flight.airline} · {flight.source}</p>
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="text-sm font-semibold text-cyan-200">{flight.airline} · {flight.source}</p>
+                  <span className={`rounded-md px-2 py-1 text-xs font-bold ${flight.source === "Google Flights" ? "bg-emerald-300 text-emerald-950" : flight.source === "Skyscanner" ? "bg-amber-300 text-amber-950" : "bg-white/10 text-slate-200"}`}>
+                    {providerPriceBadge(flight.source)}
+                  </span>
+                </div>
                 <h3 className="mt-1 text-xl font-semibold text-white">
                   {flight.originAirport} → {flight.destinationAirport}
                 </h3>
@@ -955,7 +972,7 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.source === "Google Flights" || flight.source === "Skyscanner" ? "Preis direkt aus dieser Anbieter-Suche; final beim Anbieter prüfen." : flight.isLive ? "Live-Preisquelle; final beim Anbieter prüfen." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {providerPriceCopy(flight.source, flight.isLive)}</p>
               {flight.isLive ? (
                 <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
                   Preis beim Anbieter prüfen <ExternalLink size={16} />
