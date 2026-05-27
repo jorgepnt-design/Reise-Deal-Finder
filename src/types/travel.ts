@@ -130,6 +130,29 @@ export type DuffelOrderResult = {
   totalAmount: string;
   totalCurrency: string;
   status: string;
+  createdAt?: string;
+  isLive: boolean;
+  airline: string;
+  supportContact: string;
+  checkInHint: string;
+  emailSent: boolean;
+  passengers: Array<{
+    name: string;
+    type: string;
+  }>;
+  flights: Array<{
+    flightNumber: string;
+    airline: string;
+    operatingCarrier: string;
+    origin: string;
+    originName: string;
+    destination: string;
+    destinationName: string;
+    departingAt: string;
+    arrivingAt: string;
+  }>;
+  baggage: string[];
+  paymentSummary: string;
 };
 
 export type LiveTravelData = {

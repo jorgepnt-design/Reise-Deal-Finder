@@ -81,7 +81,7 @@ function scoreLabel(score: number) {
 
 export default function App() {
   const [search, setSearch] = useState<SearchState>(defaultSearch);
-  const [activeTab, setActiveTab] = useState<"deals" | "flights" | "packages" | "wishlist" | "agents" | "activities">("deals");
+  const [activeTab, setActiveTab] = useState<"deals" | "flights" | "packages" | "bookings" | "wishlist" | "agents" | "activities">("deals");
   const [lastRun, setLastRun] = useState("Heute 07:00");
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [checkoutFlight, setCheckoutFlight] = useState<FlightOption | null>(null);
@@ -94,6 +94,7 @@ export default function App() {
   const [savedFlightIds, setSavedFlightIds] = useStoredList("reise-deal-finder-saved-flights");
   const [savedPackageIds, setSavedPackageIds] = useStoredList("reise-deal-finder-saved-packages");
   const [favoriteCityIds, setFavoriteCityIds] = useStoredList("reise-deal-finder-favorite-cities");
+  const [bookings, setBookings] = useStoredJson<DuffelOrderResult[]>("reise-deal-finder-bookings", []);
 
   const selectedCity = cities.find((city) => city.id === search.cityId) ?? cities[0];
   const fallbackDeals = useMemo(() => buildDeals(search).sort((a, b) => b.score - a.score), [search]);
@@ -176,6 +177,11 @@ export default function App() {
     setFavoriteCityIds((current) => toggleListValue(current, cityId));
   }
 
+  function saveBooking(booking: DuffelOrderResult) {
+    setBookings((current) => [booking, ...current.filter((item) => item.id !== booking.id)]);
+    setActiveTab("bookings");
+  }
+
   return (
     <main className="min-h-screen bg-[#090d14] text-slate-100">
       <section className="relative overflow-hidden border-b border-white/10">
@@ -238,6 +244,7 @@ export default function App() {
               ["deals", "Deals"],
               ["flights", "Flüge"],
               ["packages", "Flug + Hotel"],
+              ["bookings", "Meine Buchungen"],
               ["wishlist", "Merkliste"],
               ["agents", "Agenten"],
               ["activities", "Aktivitäten"],
@@ -271,6 +278,8 @@ export default function App() {
         {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
         {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
+
+        {activeTab === "bookings" && <BookingsPanel bookings={bookings} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7 space-y-8">
@@ -332,7 +341,7 @@ export default function App() {
           onToggleSave={toggleSavedDeal}
         />
       )}
-      {checkoutFlight && <DuffelCheckoutModal flight={checkoutFlight} people={search.people} onClose={() => setCheckoutFlight(null)} />}
+      {checkoutFlight && <DuffelCheckoutModal flight={checkoutFlight} people={search.people} onBookingCreated={saveBooking} onClose={() => setCheckoutFlight(null)} />}
     </main>
   );
 }
@@ -705,7 +714,7 @@ function DealModal({
   );
 }
 
-function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption; people: number; onClose: () => void }) {
+function DuffelCheckoutModal({ flight, people, onBookingCreated, onClose }: { flight: FlightOption; people: number; onBookingCreated: (booking: DuffelOrderResult) => void; onClose: () => void }) {
   const [offer, setOffer] = useState<DuffelCheckoutOffer | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "booking" | "booked" | "error">("loading");
   const [error, setError] = useState("");
@@ -755,6 +764,7 @@ function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption
     try {
       const result = await createDuffelOrder(flight, passengers);
       setOrder(result);
+      onBookingCreated(result);
       setStatus("booked");
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Die Buchung konnte nicht erstellt werden.");
@@ -793,6 +803,10 @@ function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption
             <h3 className="mt-2 text-2xl font-semibold text-white">Referenz {order.bookingReference}</h3>
             <p className="mt-2 text-sm text-slate-300">
               Order {order.id} · {order.totalAmount} {order.totalCurrency} · Status {order.status}
+            </p>
+            <BookingDetails booking={order} />
+            <p className="mt-4 text-sm text-slate-300">
+              {order.emailSent ? "Die Bestätigung wurde per E-Mail verschickt." : "E-Mail-Versand ist noch nicht konfiguriert. Trage RESEND_API_KEY und BOOKING_EMAIL_FROM in Vercel ein."}
             </p>
           </div>
         )}
@@ -855,6 +869,84 @@ function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption
           </form>
         )}
       </article>
+    </div>
+  );
+}
+
+function BookingsPanel({ bookings }: { bookings: DuffelOrderResult[] }) {
+  if (bookings.length === 0) {
+    return <EmptyPanel title="Noch keine Buchungen" text="Nach einer erfolgreichen Direktbuchung erscheinen hier Booking Reference, Flüge, Passagiere, Gepäck und Zahlungsdetails." />;
+  }
+
+  return (
+    <div className="mt-7 space-y-5">
+      {bookings.map((booking) => (
+        <article className="rounded-lg border border-white/10 bg-[#111827] p-5 shadow-xl" key={booking.id}>
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-semibold text-emerald-200">{booking.isLive ? "Live-Buchung" : "Testbuchung"}</p>
+              <h2 className="mt-1 text-2xl font-semibold text-white">Booking Reference {booking.bookingReference}</h2>
+              <p className="mt-2 text-sm text-slate-400">Order {booking.id} · {booking.status}</p>
+            </div>
+            <div className="text-left sm:text-right">
+              <p className="text-3xl font-semibold text-white">{booking.totalAmount} {booking.totalCurrency}</p>
+              <p className="mt-1 text-sm text-slate-400">{booking.emailSent ? "E-Mail verschickt" : "E-Mail nicht konfiguriert"}</p>
+            </div>
+          </div>
+          <BookingDetails booking={booking} />
+        </article>
+      ))}
+    </div>
+  );
+}
+
+function BookingDetails({ booking }: { booking: DuffelOrderResult }) {
+  return (
+    <div className="mt-5 space-y-4">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        <Info icon={<Plane size={16} />} label="Airline" value={booking.airline} />
+        <Info icon={<BookmarkCheck size={16} />} label="Buchungsnummer" value={booking.bookingReference} />
+        <Info icon={<Wallet size={16} />} label="Zahlung" value={booking.paymentSummary} />
+        <Info icon={<ShieldCheck size={16} />} label="Support" value={booking.supportContact} />
+      </div>
+
+      <div className="rounded-lg border border-white/10 bg-black/20 p-4">
+        <p className="mb-3 text-sm font-semibold text-cyan-200">Flugdaten</p>
+        <div className="grid gap-3">
+          {booking.flights.map((flight, index) => (
+            <div className="rounded-md bg-white/[0.04] p-3" key={`${flight.flightNumber}-${index}`}>
+              <p className="font-semibold text-white">{flight.airline} {flight.flightNumber}</p>
+              <p className="mt-1 text-sm text-slate-300">
+                {flight.origin} {flight.originName} → {flight.destination} {flight.destinationName}
+              </p>
+              <p className="mt-1 text-sm text-slate-400">
+                Abflug {formatDateTime(flight.departingAt)} · Ankunft {formatDateTime(flight.arrivingAt)}
+              </p>
+              <p className="mt-1 text-xs text-slate-500">Ausführende Airline: {flight.operatingCarrier}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="grid gap-4 md:grid-cols-2">
+        <div className="rounded-lg border border-white/10 bg-black/20 p-4">
+          <p className="mb-2 text-sm font-semibold text-cyan-200">Passagiere</p>
+          <ul className="space-y-2 text-sm text-slate-300">
+            {booking.passengers.map((passenger, index) => (
+              <li key={`${passenger.name}-${index}`}>{passenger.name} · {passenger.type}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-lg border border-white/10 bg-black/20 p-4">
+          <p className="mb-2 text-sm font-semibold text-cyan-200">Gepäck und Check-in</p>
+          <ul className="space-y-2 text-sm text-slate-300">
+            {booking.baggage.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm text-slate-400">{booking.checkInHint}</p>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1275,6 +1367,11 @@ function formatShortDate(date: string) {
   return new Intl.DateTimeFormat("de-DE", { day: "2-digit", month: "short" }).format(new Date(date));
 }
 
+function formatDateTime(value: string) {
+  if (!value) return "noch nicht verfügbar";
+  return new Intl.DateTimeFormat("de-DE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(value));
+}
+
 function useStoredList(key: string): [string[], Dispatch<SetStateAction<string[]>>] {
   const [items, setItems] = useState<string[]>(() => {
     try {
@@ -1289,6 +1386,22 @@ function useStoredList(key: string): [string[], Dispatch<SetStateAction<string[]
   }, [items, key]);
 
   return [items, setItems];
+}
+
+function useStoredJson<T>(key: string, fallback: T): [T, Dispatch<SetStateAction<T>>] {
+  const [item, setItem] = useState<T>(() => {
+    try {
+      return JSON.parse(localStorage.getItem(key) ?? "") as T;
+    } catch {
+      return fallback;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(item));
+  }, [item, key]);
+
+  return [item, setItem];
 }
 
 function toggleListValue(items: string[], value: string) {
