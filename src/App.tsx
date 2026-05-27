@@ -804,6 +804,11 @@ function DuffelCheckoutModal({ flight, people, onBookingCreated, onClose }: { fl
             <p className="mt-2 text-sm text-slate-300">
               Order {order.id} · {order.totalAmount} {order.totalCurrency} · Status {order.status}
             </p>
+            {order.refreshedOffer && (
+              <p className="mt-3 rounded-md border border-cyan-300/30 bg-cyan-300/10 p-3 text-sm text-cyan-100">
+                Das ursprüngliche Duffel-Angebot war bereits verwendet. Vor der Buchung wurde automatisch ein frisches gleichwertiges Angebot geladen.
+              </p>
+            )}
             <BookingDetails booking={order} />
             <p className="mt-4 text-sm text-slate-300">
               {order.emailSent ? "Die Bestätigung wurde per E-Mail verschickt." : "E-Mail-Versand ist noch nicht konfiguriert. Trage RESEND_API_KEY und BOOKING_EMAIL_FROM in Vercel ein."}
@@ -887,6 +892,7 @@ function BookingsPanel({ bookings }: { bookings: DuffelOrderResult[] }) {
               <p className="text-sm font-semibold text-emerald-200">{booking.isLive ? "Live-Buchung" : "Testbuchung"}</p>
               <h2 className="mt-1 text-2xl font-semibold text-white">Booking Reference {booking.bookingReference}</h2>
               <p className="mt-2 text-sm text-slate-400">Order {booking.id} · {booking.status}</p>
+              {booking.refreshedOffer && <p className="mt-2 text-sm text-cyan-200">Vor Buchung automatisch frisch gesucht.</p>}
             </div>
             <div className="text-left sm:text-right">
               <p className="text-3xl font-semibold text-white">{booking.totalAmount} {booking.totalCurrency}</p>

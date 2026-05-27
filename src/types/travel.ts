@@ -136,6 +136,7 @@ export type DuffelOrderResult = {
   supportContact: string;
   checkInHint: string;
   emailSent: boolean;
+  refreshedOffer?: boolean;
   passengers: Array<{
     name: string;
     type: string;

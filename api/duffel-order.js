@@ -20,7 +20,8 @@ export default async function handler(req, res) {
       const offerId = String(body.offerId ?? "");
       if (!offerId) throw withStatus(new Error("offerId fehlt."), 400);
 
-      const offer = await getDuffelOffer(offerId);
+      const originalOffer = await getDuffelOffer(offerId);
+      const offer = await refreshOfferForBooking(originalOffer);
       const passengers = buildPassengers(offer, body.passengers);
       const response = await duffelFetch("/air/orders", {
         method: "POST",
@@ -47,6 +48,7 @@ export default async function handler(req, res) {
       const payload = await response.json();
       const order = payload.data;
       const confirmation = mapOrderConfirmation(order, offer, passengers);
+      confirmation.refreshedOffer = offer.id !== originalOffer.id;
       confirmation.emailSent = await sendBookingEmail(confirmation, passengers[0]?.email);
       res.status(201).json(confirmation);
       return;
@@ -66,6 +68,64 @@ async function getDuffelOffer(offerId) {
   const response = await duffelFetch(`/air/offers/${encodeURIComponent(offerId)}`);
   const payload = await response.json();
   return payload.data;
+}
+
+async function refreshOfferForBooking(originalOffer) {
+  const slices = (originalOffer.slices ?? []).map((slice) => {
+    const firstSegment = slice.segments?.[0];
+    const lastSegment = slice.segments?.[slice.segments.length - 1];
+    return {
+      origin: firstSegment?.origin?.iata_code ?? firstSegment?.origin?.id,
+      destination: lastSegment?.destination?.iata_code ?? lastSegment?.destination?.id,
+      departure_date: firstSegment?.departing_at?.slice(0, 10),
+    };
+  });
+
+  if (slices.some((slice) => !slice.origin || !slice.destination || !slice.departure_date)) {
+    return originalOffer;
+  }
+
+  const requestBody = {
+    data: {
+      slices,
+      passengers: (originalOffer.passengers ?? [{ type: "adult" }]).map((passenger) => ({ type: passenger.type ?? "adult" })),
+      cabin_class: originalOffer.cabin_class ?? "economy",
+    },
+  };
+
+  const query = new URLSearchParams({
+    return_offers: "true",
+    supplier_timeout: "8000",
+  });
+
+  const response = await duffelFetch(`/air/offer_requests?${query.toString()}`, {
+    method: "POST",
+    body: JSON.stringify(requestBody),
+  });
+  const payload = await response.json();
+  const offers = payload.data?.offers;
+  if (!Array.isArray(offers) || offers.length === 0) return originalOffer;
+
+  const originalSignature = offerSignature(originalOffer);
+  const sameFlight = offers.find((offer) => offerSignature(offer) === originalSignature);
+  if (sameFlight) return sameFlight;
+
+  const originalOwner = originalOffer.owner?.id ?? originalOffer.owner?.name;
+  const sameAirline = offers.find((offer) => (offer.owner?.id ?? offer.owner?.name) === originalOwner);
+  if (sameAirline) return sameAirline;
+
+  return offers.sort((a, b) => Number(a.total_amount ?? 0) - Number(b.total_amount ?? 0))[0];
+}
+
+function offerSignature(offer) {
+  return (offer.slices ?? [])
+    .flatMap((slice) => slice.segments ?? [])
+    .map((segment) => {
+      const carrier = segment.marketing_carrier?.iata_code ?? segment.operating_carrier?.iata_code ?? "";
+      const flightNumber = segment.marketing_carrier_flight_number ?? segment.operating_carrier_flight_number ?? "";
+      return [carrier, flightNumber, segment.origin?.iata_code, segment.destination?.iata_code, segment.departing_at?.slice(0, 16)].join("-");
+    })
+    .join("|");
 }
 
 async function duffelFetch(path, options = {}) {
