@@ -297,7 +297,7 @@ function buildGoogleFlightResult({ item, outboundFirst, outboundLast, returnFirs
     pricePerPerson: Math.round(totalPrice / search.people),
     totalPrice,
     source: "Google Flights",
-    bookingUrl: buildGoogleFlightsUrl(search.origin, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType, airline, formatProviderTime(outboundFirst.departure_airport?.time), search.flightType === "roundTrip" ? formatProviderTime(returnFirst?.departure_airport?.time) : ""),
+    bookingUrl: buildGoogleFlightsUrl(search.origin, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType),
     isLive: true,
   };
 }
@@ -531,9 +531,18 @@ function hasIncludedBaggage(offer, baggageType) {
   );
 }
 
-function buildGoogleFlightsUrl(origin, destination, startDate, endDate, people, flightType, airline = "", outboundTime = "", returnTime = "") {
-  const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} ${outboundTime} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${outboundTime} ${endDate} ${returnTime} Hin und zurück`;
-  return `https://www.google.com/travel/flights?q=${encodeURIComponent(`${route} ${people} Personen ${airline}`.trim())}`;
+function buildGoogleFlightsUrl(origin, destination, startDate, endDate, people, flightType) {
+  const query =
+    flightType === "oneWay"
+      ? `Flights from ${origin} to ${destination} on ${startDate} for ${people} adults`
+      : `Flights from ${origin} to ${destination} on ${startDate} through ${endDate} for ${people} adults`;
+  const params = new URLSearchParams({
+    hl: "de",
+    gl: "DE",
+    curr: "EUR",
+    q: query,
+  });
+  return `https://www.google.com/travel/flights?${params.toString()}`;
 }
 
 function buildSkyscannerFlightUrl(origin, destination, startDate, endDate, people, flightType) {

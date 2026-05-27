@@ -796,8 +796,13 @@ function PrivateBookingModal({ flight, people, onClose }: { flight: FlightOption
 }
 
 function buildGoogleFlightsSearchUrl(flight: FlightOption, people: number) {
-  const route = flight.flightType === "oneWay" ? `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} ${flight.outboundDeparture} nur Hinflug` : `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} ${flight.outboundDeparture} ${flight.returnDate ?? flight.outboundDate} ${flight.returnDeparture ?? ""} Hin und zurück`;
-  return `https://www.google.com/travel/flights?q=${encodeURIComponent(`${route} ${people} Personen ${flight.airline}`)}`;
+  if (flight.bookingUrl) return flight.bookingUrl;
+  const query =
+    flight.flightType === "oneWay"
+      ? `Flights from ${flight.originAirport} to ${flight.destinationAirport} on ${flight.outboundDate} for ${people} adults`
+      : `Flights from ${flight.originAirport} to ${flight.destinationAirport} on ${flight.outboundDate} through ${flight.returnDate ?? flight.outboundDate} for ${people} adults`;
+  const params = new URLSearchParams({ hl: "de", gl: "DE", curr: "EUR", q: query });
+  return `https://www.google.com/travel/flights?${params.toString()}`;
 }
 
 function buildSkyscannerSearchUrl(flight: FlightOption, people: number) {
