@@ -161,6 +161,7 @@ export function buildDeals(search: SearchState): Deal[] {
     const rawScore = Math.round(100 - index * 6 - Math.max(0, totalPrice - search.budget) / 50 + priceDropPercent / 2);
     const score = Math.max(0, Math.min(100, rawScore));
     const priceHistory = buildPriceHistory(totalPrice, priceDropPercent, index);
+    const flightSource = index % 2 === 0 ? "Google Flights" : "Skyscanner";
 
     return {
       id: `${city.id}-${index}`,
@@ -188,7 +189,7 @@ export function buildDeals(search: SearchState): Deal[] {
       hotelRating,
       score,
       priceDropPercent,
-      bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people, search.flightType),
+      bookingUrl: buildFlightUrl(origin.code, city.airportCode, startDate, endDate, search.people, search.flightType, flightSource),
       hotelUrl: effectiveTripMode === "package" ? buildHotelUrl(city.name, hotel.name, hotel.address, startDate, endDate, search.people) : undefined,
       notes: [
         `${origin.name} (${origin.code}) nach ${city.name} (${city.airportCode})`,
@@ -202,7 +203,7 @@ export function buildDeals(search: SearchState): Deal[] {
       includesCarryOn,
       includesCheckedBag,
       hotelRefundable,
-      flightSource: index % 2 === 0 ? "Google Flights" : "Skyscanner",
+      flightSource,
       hotelSource: effectiveTripMode === "package" ? (index % 2 === 0 ? "Booking" : "HRS") : undefined,
       lastCheckedAt: new Date().toISOString(),
       priceHistory,
@@ -284,7 +285,8 @@ export function buildFlights(search: SearchState): FlightOption[] {
       const roundTripFactor = search.flightType === "oneWay" ? 0.58 : 1;
       const baggagePrice = search.baggage === "checked" ? 42 : search.baggage === "carryOn" ? 18 : 0;
       const pricePerPerson = Math.round((base * originFactor * roundTripFactor + dateIndex * 12 + slotIndex * 24 + baggagePrice) * (directFlight ? 1 : 0.88));
-      const bookingUrl = buildFlightUrl(origin.code, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType);
+      const source = slotIndex === 1 ? "Skyscanner" : "Google Flights";
+      const bookingUrl = buildFlightUrl(origin.code, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType, source);
 
       return {
         id: `${city.id}-${origin.code}-${search.flightType}-${outboundDate}-${slot.key}`,
@@ -304,7 +306,7 @@ export function buildFlights(search: SearchState): FlightOption[] {
         includesCheckedBag,
         pricePerPerson,
         totalPrice: pricePerPerson * search.people,
-        source: slotIndex === 1 ? "Skyscanner" : "Google Flights",
+        source,
         bookingUrl,
       };
     });
@@ -422,10 +424,33 @@ function matchesTimeWindow(time: string, window: SearchState["outboundTimeWindow
   return hour >= 17 || hour < 5;
 }
 
-function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number, flightType: SearchState["flightType"]) {
+function buildFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number, flightType: SearchState["flightType"], source: string) {
+  if (source === "Skyscanner") return buildSkyscannerFlightUrl(origin, destination, startDate, endDate, people, flightType);
   const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${endDate} Hin und zurück`;
   const query = encodeURIComponent(`${route} ${people} Personen`);
   return `https://www.google.com/travel/flights?q=${query}`;
+}
+
+function buildSkyscannerFlightUrl(origin: string, destination: string, startDate: string, endDate: string, people: number, flightType: SearchState["flightType"]) {
+  const outbound = formatSkyscannerDate(startDate);
+  const inbound = formatSkyscannerDate(endDate);
+  const path = flightType === "oneWay" ? `${origin.toLowerCase()}/${destination.toLowerCase()}/${outbound}` : `${origin.toLowerCase()}/${destination.toLowerCase()}/${outbound}/${inbound}`;
+  const query = new URLSearchParams({
+    adults: String(people),
+    adultsv2: String(people),
+    cabinclass: "economy",
+    children: "0",
+    currency: "EUR",
+    locale: "de-DE",
+    market: "DE",
+    rtn: flightType === "oneWay" ? "0" : "1",
+  });
+  return `https://www.skyscanner.de/transport/flights/${path}/?${query.toString()}`;
+}
+
+function formatSkyscannerDate(date: string) {
+  const [year, month, day] = date.split("-");
+  return `${year.slice(2)}${month}${day}`;
 }
 
 function buildMapsUrl(name: string, address: string) {
