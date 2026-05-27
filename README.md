@@ -56,9 +56,9 @@ npm run crawl:deals
 
 Das Repository ist für GitHub Pages auf `/Reise-Deal-Finder/` konfiguriert. Der Workflow `.github/workflows/deploy-pages.yml` baut die App automatisch bei Push auf `main`.
 
-## Echte Flugpreise mit Vercel und Duffel
+## Echte Flugpreise mit Vercel und private Buchung
 
-Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deals.js` und kann als Vercel Serverless Function deployed werden.
+Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deals.js` und kann als Vercel Serverless Function deployed werden. Duffel wird nur noch für Live-Preisabfragen genutzt. Die private Buchung findet direkt bei Airline, Google Flights, Skyscanner oder einem OTA statt.
 
 ### 1. Duffel-Zugangstoken erstellen
 
@@ -79,9 +79,6 @@ Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deal
 DUFFEL_ACCESS_TOKEN=duffel_test_dein_neuer_token
 ALLOWED_ORIGIN=https://jorgepnt-design.github.io
 PUBLIC_APP_URL=https://jorgepnt-design.github.io/Reise-Deal-Finder/
-SUPPORT_EMAIL=support@deine-domain.de
-RESEND_API_KEY=re_dein_resend_key
-BOOKING_EMAIL_FROM=Jorge Reise-Deal-Finder <buchungen@deine-domain.de>
 ```
 
 ### 3. Frontend mit Backend verbinden
@@ -92,9 +89,7 @@ In GitHub Actions bzw. beim GitHub-Pages-Build muss gesetzt werden:
 VITE_DEAL_API_URL=https://dein-vercel-projekt.vercel.app/api/deals
 ```
 
-Danach ruft die App echte Flugangebote über Duffel ab. Live-Flüge können über `api/duffel-order.js` als exakte Duffel Order gebucht werden: Die App lädt das ausgewählte Offer neu, nimmt die Reisendendaten auf und erstellt mit `selected_offers` genau für diese Offer-ID eine Buchung. Im Testmodus entstehen nur Testbuchungen; im Live-Modus braucht das Duffel-Konto Live-Freischaltung und eine gedeckte Balance. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
-
-Für echte Live-Buchungen muss in Vercel ein Live-Zugangstoken von Duffel eingetragen werden, nicht ein Token mit `duffel_test_`. Der E-Mail-Versand der Buchungsbestätigung läuft optional über Resend: `RESEND_API_KEY` und `BOOKING_EMAIL_FROM` müssen gesetzt sein, sonst wird die Buchung zwar in der App unter `Meine Buchungen` gespeichert, aber keine Mail versendet.
+Danach ruft die App echte Flugangebote über Duffel ab. Der Button `Privat buchen` öffnet passende Anbieter-Suchen bei Google Flights, Skyscanner und der Airline-Suche. Zahlung, Buchungsnummer, Gepäckbestätigung und Check-in-Infos kommen danach direkt vom Anbieter oder der Airline. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
 
 ### 4. Hotels als nächster Schritt
 
