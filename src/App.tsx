@@ -199,6 +199,10 @@ export default function App() {
     setActiveTab("bookings");
   }
 
+  function removeBooking(bookingId: string) {
+    setBookings((current) => current.filter((booking) => booking.id !== bookingId));
+  }
+
   return (
     <main className="min-h-screen bg-[#090d14] text-slate-100">
       <section className="relative overflow-hidden border-b border-white/10">
@@ -296,7 +300,7 @@ export default function App() {
 
         {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
 
-        {activeTab === "bookings" && <BookingsPanel bookings={bookings} />}
+        {activeTab === "bookings" && <BookingsPanel bookings={bookings} onRemove={removeBooking} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7 space-y-8">
@@ -810,7 +814,7 @@ function formatSkyscannerDate(date: string) {
   return `${year.slice(2)}${month}${day}`;
 }
 
-function BookingsPanel({ bookings }: { bookings: DuffelOrderResult[] }) {
+function BookingsPanel({ bookings, onRemove }: { bookings: DuffelOrderResult[]; onRemove: (bookingId: string) => void }) {
   if (bookings.length === 0) {
     return <EmptyPanel title="Noch keine Buchungen" text="Nach einer erfolgreichen Direktbuchung erscheinen hier Booking Reference, Flüge, Passagiere, Gepäck und Zahlungsdetails." />;
   }
@@ -829,6 +833,9 @@ function BookingsPanel({ bookings }: { bookings: DuffelOrderResult[] }) {
             <div className="text-left sm:text-right">
               <p className="text-3xl font-semibold text-white">{booking.totalAmount} {booking.totalCurrency}</p>
               <p className="mt-1 text-sm text-slate-400">{booking.emailSent ? "E-Mail verschickt" : "E-Mail nicht konfiguriert"}</p>
+              <button className="mt-3 inline-flex items-center gap-2 rounded-md border border-rose-300/30 bg-rose-300/10 px-3 py-2 text-sm font-semibold text-rose-100 hover:bg-rose-300/20" onClick={() => onRemove(booking.id)} type="button">
+                Löschen
+              </button>
             </div>
           </div>
           <BookingDetails booking={booking} />
