@@ -433,31 +433,20 @@ function buildMapsUrl(name: string, address: string) {
 }
 
 function buildPackageUrl(cityName: string, hotelName: string, hotelAddress: string, origin: string, destination: string, startDate: string, endDate: string, people: number) {
-  const roomAdults = Array.from({ length: people }, () => "A").join(",");
+  const exactSearch = `${hotelName}, ${hotelAddress}, ${cityName}`;
   const params = new URLSearchParams({
-    locale: "de-de",
-    tab: "packages",
-    origin,
-    originAirport: origin,
-    destination,
-    destinationAirport: destination,
-    destinationName: cityName,
-    destinationSearchString: cityName,
-    ss: `${hotelName}, ${cityName}`,
-    hotelName,
-    hotelAddress,
-    startDate,
-    endDate,
+    ss: exactSearch,
     checkin: startDate,
     checkout: endDate,
-    departureDate: startDate,
-    returnDate: endDate,
-    adults: String(people),
     group_adults: String(people),
     no_rooms: "1",
-    room1: roomAdults,
+    group_children: "0",
+    selected_currency: "EUR",
+    order: "price",
+    src: "searchresults",
+    label: `reise-deal-finder-${origin}-${destination}`,
   });
-  return `https://packages.booking.com/vacationpackages/?${params.toString()}`;
+  return `https://www.booking.com/searchresults.de.html?${params.toString()}`;
 }
 
 function buildHotelUrl(cityName: string, hotelName: string, hotelAddress: string, startDate: string, endDate: string, people: number) {

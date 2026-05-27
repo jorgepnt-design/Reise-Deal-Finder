@@ -678,8 +678,8 @@ function DealModal({
               </a>
             )}
             {deal.packageUrl && (
-              <a className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                Komplettpaket bei {deal.packageProvider} für {currency.format(packageOfferPrice(deal.totalPrice))} <ExternalLink size={16} />
+                <a className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
+                  Booking-Angebot für {deal.hotelName} öffnen <ExternalLink size={16} />
               </a>
             )}
           </div>
@@ -898,7 +898,7 @@ function FlightHotelPanel({
                       <p className="mt-1 text-sm text-slate-300">{currency.format(packagePrice)} gesamt · Direkt zum Angebot</p>
                       {deal.packageUrl && (
                         <a className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-300 px-4 py-3 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                          Bei {deal.packageProvider} für {currency.format(packagePrice)} öffnen <ExternalLink size={16} />
+                          Booking-Angebot für {deal.hotelName} öffnen <ExternalLink size={16} />
                         </a>
                       )}
                     </div>
