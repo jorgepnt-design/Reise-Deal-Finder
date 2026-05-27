@@ -77,6 +77,8 @@ Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deal
 
 ```text
 DUFFEL_ACCESS_TOKEN=duffel_test_dein_neuer_token
+SERPAPI_KEY=dein_serpapi_key_fuer_google_flights
+SKYSCANNER_API_KEY=dein_skyscanner_partner_api_key
 ALLOWED_ORIGIN=https://jorgepnt-design.github.io
 PUBLIC_APP_URL=https://jorgepnt-design.github.io/Reise-Deal-Finder/
 ```
@@ -89,7 +91,7 @@ In GitHub Actions bzw. beim GitHub-Pages-Build muss gesetzt werden:
 VITE_DEAL_API_URL=https://dein-vercel-projekt.vercel.app/api/deals
 ```
 
-Danach ruft die App echte Flugangebote über Duffel ab. Diese Preise sind Live-Marktpreise zur Orientierung, aber keine garantierten Checkout-Preise bei Google Flights, Skyscanner oder Airline-Websites. Der Button `Preis beim Anbieter prüfen` öffnet passende Anbieter-Suchen; verbindlich ist der Preis erst beim Anbieter. Zahlung, Buchungsnummer, Gepäckbestätigung und Check-in-Infos kommen danach direkt vom Anbieter oder der Airline. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
+Danach ruft die App bevorzugt echte Preise direkt aus Google Flights über SerpApi und aus der Skyscanner Flights Live Prices API ab. Wenn `SERPAPI_KEY` gesetzt ist, erscheinen Google-Flights-Preise; wenn `SKYSCANNER_API_KEY` gesetzt ist, erscheinen Skyscanner-Preise. Der Button `Preis beim Anbieter prüfen` öffnet die passende Anbieter-Suche; verbindlich ist der Preis erst beim Anbieter. Zahlung, Buchungsnummer, Gepäckbestätigung und Check-in-Infos kommen danach direkt vom Anbieter oder der Airline. Wenn diese Keys fehlen, nutzt die App Duffel weiterhin nur als Fallback-Preisquelle und fällt bei Ausfall auf Richtpreise zurück.
 
 ### 4. Hotels als nächster Schritt
 

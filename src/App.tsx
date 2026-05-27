@@ -74,7 +74,7 @@ function formatDisplayPrice(value: number, isLive: boolean) {
 }
 
 function formatFlightPrice(value: number, isLive?: boolean) {
-  return isLive ? `${currency.format(value)} Marktpreis` : formatApproxPrice(value);
+  return isLive ? `${currency.format(value)} Anbieterpreis` : formatApproxPrice(value);
 }
 
 function scoreLabel(score: number) {
@@ -743,11 +743,11 @@ function PrivateBookingModal({ flight, people, onClose }: { flight: FlightOption
           <Info icon={<Plane size={16} />} label="Route" value={`${flight.originAirport} → ${flight.destinationAirport}`} />
           <Info icon={<CalendarDays size={16} />} label="Hinflug" value={`${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
           <Info icon={<Timer size={16} />} label="Rückflug" value={flight.returnDate && flight.returnDeparture ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"} />
-          <Info icon={<Wallet size={16} />} label={flight.isLive ? "Preisindikator" : "Richtpreis"} value={`${formatFlightPrice(flight.pricePerPerson, flight.isLive)} p. P.`} />
+          <Info icon={<Wallet size={16} />} label={flight.isLive ? "Anbieterpreis" : "Richtpreis"} value={`${formatFlightPrice(flight.pricePerPerson, flight.isLive)} p. P.`} />
         </div>
 
         <div className="mt-5 rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm leading-6 text-amber-50">
-          Der angezeigte Preis kommt aus der Live-Preissuche und ist kein garantierter Checkout-Preis beim Anbieter. Der endgültige Preis zählt erst auf der geöffneten Anbieter-Seite.
+          Der angezeigte Preis kommt direkt aus der Anbieter-Preissuche. Bitte prüfe ihn beim geöffneten Anbieter final, bevor du bezahlst.
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -907,7 +907,7 @@ function FlightsPanel({
             <Plane size={18} /> Flüge
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Preise aus Duffel sind Live-Marktpreise zur Orientierung. Der verbindliche Privatpreis steht erst beim Anbieter.</p>
+          <p className="mt-2 text-sm text-slate-400">Wenn API-Keys gesetzt sind, kommen die Preise direkt aus Google Flights und Skyscanner. Der finale Preis steht beim Anbieter.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -955,7 +955,7 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Preisindikator aus Duffel; endgültiger Privatpreis wird beim Anbieter geprüft." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.source === "Google Flights" || flight.source === "Skyscanner" ? "Preis direkt aus dieser Anbieter-Suche; final beim Anbieter prüfen." : flight.isLive ? "Live-Preisquelle; final beim Anbieter prüfen." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
               {flight.isLive ? (
                 <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
                   Preis beim Anbieter prüfen <ExternalLink size={16} />

@@ -30,9 +30,12 @@ export default async function handler(req, res) {
   try {
     const search = normalizeSearch(req.query);
     const city = cityMap[search.city] ?? cityMap.lisbon;
-    const offers = await searchDuffelOffers(city, search);
-    const deals = offers.slice(0, 8).map((offer, index) => mapOfferToDeal(offer, city, search, index));
-    const flights = offers.slice(0, 12).map((offer, index) => mapOfferToFlight(offer, city, search, index));
+    const providerFlights = await searchProviderFlights(city, search);
+    const flights =
+      providerFlights.length > 0
+        ? providerFlights
+        : (await searchDuffelOffers(city, search)).slice(0, 12).map((offer, index) => mapOfferToFlight(offer, city, search, index));
+    const deals = flights.slice(0, 8).map((flight, index) => mapFlightToDeal(flight, city, search, index));
 
     res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate=3600");
     res.status(200).json({ deals, flights });
@@ -134,6 +137,197 @@ async function searchDuffelOffers(city, search) {
   const payload = await response.json();
   const offers = payload.data?.offers;
   return Array.isArray(offers) ? offers.sort((a, b) => Number(a.total_amount ?? 0) - Number(b.total_amount ?? 0)) : [];
+}
+
+async function searchProviderFlights(city, search) {
+  const results = await Promise.allSettled([searchGoogleFlights(city, search), searchSkyscannerFlights(city, search)]);
+  return results
+    .flatMap((result) => (result.status === "fulfilled" ? result.value : []))
+    .sort((a, b) => a.pricePerPerson - b.pricePerPerson)
+    .slice(0, 12);
+}
+
+async function searchGoogleFlights(city, search) {
+  const apiKey = process.env.SERPAPI_KEY;
+  if (!apiKey) return [];
+
+  const params = new URLSearchParams({
+    engine: "google_flights",
+    api_key: apiKey,
+    departure_id: search.origin,
+    arrival_id: city.airportCode,
+    outbound_date: search.startDate,
+    currency: "EUR",
+    hl: "de",
+    gl: "de",
+    type: search.flightType === "oneWay" ? "2" : "1",
+    adults: String(search.people),
+    travel_class: "1",
+    no_cache: "true",
+  });
+  if (search.flightType === "roundTrip") params.set("return_date", search.endDate);
+
+  const response = await fetch(`https://serpapi.com/search.json?${params.toString()}`);
+  if (!response.ok) return [];
+  const payload = await response.json();
+  const items = [...(payload.best_flights ?? []), ...(payload.other_flights ?? []), ...(payload.flights ?? [])];
+
+  return items
+    .filter((item) => Number.isFinite(Number(item.price)))
+    .map((item, index) => {
+      const first = item.flights?.[0] ?? {};
+      const last = item.flights?.[item.flights.length - 1] ?? first;
+      const returnFlight = item.flights?.find((flight) => flight.departure_airport?.id === city.airportCode);
+      const totalPrice = Math.round(Number(item.price));
+      const airline = first.airline ?? item.airline ?? "Google Flights";
+      return {
+        id: `google-flights-${item.booking_token ?? index}`,
+        cityId: search.city,
+        originAirport: search.origin,
+        destinationAirport: city.airportCode,
+        flightType: search.flightType,
+        outboundDate: first.departure_airport?.time?.slice(0, 10) ?? search.startDate,
+        returnDate: search.flightType === "roundTrip" ? (returnFlight?.departure_airport?.time?.slice(0, 10) ?? search.endDate) : undefined,
+        outboundDeparture: formatProviderTime(first.departure_airport?.time),
+        outboundArrival: formatProviderTime(last.arrival_airport?.time),
+        returnDeparture: search.flightType === "roundTrip" ? formatProviderTime(returnFlight?.departure_airport?.time) : undefined,
+        returnArrival: search.flightType === "roundTrip" ? formatProviderTime(returnFlight?.arrival_airport?.time) : undefined,
+        airline,
+        directFlight: (item.flights?.length ?? 1) <= (search.flightType === "roundTrip" ? 2 : 1),
+        includesCarryOn: true,
+        includesCheckedBag: item.extensions?.some((extension) => String(extension).toLowerCase().includes("checked")) ?? false,
+        pricePerPerson: Math.round(totalPrice / search.people),
+        totalPrice,
+        source: "Google Flights",
+        bookingUrl: buildGoogleFlightsUrl(search.origin, city.airportCode, search.startDate, search.endDate, search.people, search.flightType),
+        isLive: true,
+      };
+    });
+}
+
+async function searchSkyscannerFlights(city, search) {
+  const apiKey = process.env.SKYSCANNER_API_KEY;
+  if (!apiKey) return [];
+
+  const legs = [
+    {
+      originPlaceId: { iata: search.origin },
+      destinationPlaceId: { iata: city.airportCode },
+      date: dateObject(search.startDate),
+    },
+  ];
+  if (search.flightType === "roundTrip") {
+    legs.push({
+      originPlaceId: { iata: city.airportCode },
+      destinationPlaceId: { iata: search.origin },
+      date: dateObject(search.endDate),
+    });
+  }
+
+  const createResponse = await fetch("https://partners.api.skyscanner.net/apiservices/v3/flights/live/search/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+    },
+    body: JSON.stringify({
+      query: {
+        market: "DE",
+        locale: "de-DE",
+        currency: "EUR",
+        queryLegs: legs,
+        adults: search.people,
+        cabinClass: "CABIN_CLASS_ECONOMY",
+      },
+    }),
+  });
+  if (!createResponse.ok) return [];
+  const created = await createResponse.json();
+  const token = created.sessionToken ?? created.session_token;
+  if (!token) return [];
+
+  const pollResponse = await fetch(`https://partners.api.skyscanner.net/apiservices/v3/flights/live/search/poll/${encodeURIComponent(token)}`, {
+    method: "POST",
+    headers: { "x-api-key": apiKey },
+  });
+  if (!pollResponse.ok) return [];
+  const payload = await pollResponse.json();
+  const itineraries = Object.values(payload.content?.results?.itineraries ?? {});
+  const legsById = payload.content?.results?.legs ?? {};
+  const carriers = payload.content?.results?.carriers ?? {};
+
+  return itineraries
+    .map((item, index) => {
+      const pricing = item.pricingOptions?.[0];
+      const totalPrice = Number(pricing?.price?.amount ?? pricing?.price?.raw ?? pricing?.price);
+      if (!Number.isFinite(totalPrice)) return null;
+      const outboundLeg = legsById[item.legIds?.[0]] ?? {};
+      const returnLeg = legsById[item.legIds?.[1]] ?? {};
+      const carrier = carriers[outboundLeg.marketingCarrierIds?.[0]] ?? carriers[outboundLeg.operatingCarrierIds?.[0]] ?? {};
+      return {
+        id: `skyscanner-${item.id ?? index}`,
+        cityId: search.city,
+        originAirport: search.origin,
+        destinationAirport: city.airportCode,
+        flightType: search.flightType,
+        outboundDate: outboundLeg.departureDateTime?.year ? objectDate(outboundLeg.departureDateTime) : search.startDate,
+        returnDate: search.flightType === "roundTrip" ? (returnLeg.departureDateTime?.year ? objectDate(returnLeg.departureDateTime) : search.endDate) : undefined,
+        outboundDeparture: objectTime(outboundLeg.departureDateTime),
+        outboundArrival: objectTime(outboundLeg.arrivalDateTime),
+        returnDeparture: search.flightType === "roundTrip" ? objectTime(returnLeg.departureDateTime) : undefined,
+        returnArrival: search.flightType === "roundTrip" ? objectTime(returnLeg.arrivalDateTime) : undefined,
+        airline: carrier.name ?? "Skyscanner",
+        directFlight: outboundLeg.stopCount === 0 && (!returnLeg.id || returnLeg.stopCount === 0),
+        includesCarryOn: true,
+        includesCheckedBag: false,
+        pricePerPerson: Math.round(totalPrice / search.people),
+        totalPrice: Math.round(totalPrice),
+        source: "Skyscanner",
+        bookingUrl: buildSkyscannerFlightUrl(search.origin, city.airportCode, search.startDate, search.endDate, search.people, search.flightType),
+        isLive: true,
+      };
+    })
+    .filter(Boolean);
+}
+
+function mapFlightToDeal(flight, city, search, index) {
+  return {
+    id: `deal-${flight.id}`,
+    title: `${city.name} Flug: ${flight.source} Angebot ${flight.airline}`,
+    cityId: search.city,
+    destinationAirport: city.airportCode,
+    originAirport: search.origin,
+    originName: originMap[search.origin] ?? search.origin,
+    tripMode: "flight",
+    flightType: search.flightType,
+    image: city.image,
+    startDate: flight.outboundDate,
+    endDate: flight.returnDate ?? flight.outboundDate,
+    people: search.people,
+    budget: search.budget,
+    flightPrice: flight.totalPrice,
+    hotelPrice: 0,
+    totalPrice: flight.totalPrice,
+    hotelRating: 0,
+    score: Math.max(50, 100 - index * 5),
+    priceDropPercent: 0,
+    bookingUrl: flight.bookingUrl,
+    notes: [
+      `Preis direkt aus ${flight.source}`,
+      `${flight.airline}: ${search.origin} nach ${city.airportCode}`,
+      flight.directFlight ? "Direktflug" : "Umstieg möglich",
+      "Endgültige Buchung und Preisbestätigung erfolgen beim Anbieter.",
+    ],
+    directFlight: flight.directFlight,
+    durationNights: nightsBetween(flight.outboundDate, flight.returnDate ?? flight.outboundDate),
+    includesCarryOn: flight.includesCarryOn,
+    includesCheckedBag: flight.includesCheckedBag,
+    hotelRefundable: false,
+    flightSource: flight.source,
+    lastCheckedAt: new Date().toISOString(),
+    priceHistory: [flight.totalPrice, flight.totalPrice, flight.totalPrice, flight.totalPrice, flight.totalPrice, flight.totalPrice, flight.totalPrice],
+    isLive: true,
+  };
 }
 
 function mapOfferToDeal(offer, city, search, index) {
@@ -239,6 +433,46 @@ function hasIncludedBaggage(offer, baggageType) {
 function buildGoogleFlightsUrl(origin, destination, startDate, endDate, people, flightType) {
   const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${endDate} Hin und zurück`;
   return `https://www.google.com/travel/flights?q=${encodeURIComponent(`${route} ${people} Personen`)}`;
+}
+
+function buildSkyscannerFlightUrl(origin, destination, startDate, endDate, people, flightType) {
+  const outbound = formatSkyscannerDate(startDate);
+  const inbound = formatSkyscannerDate(endDate);
+  const path = flightType === "oneWay" ? `${origin.toLowerCase()}/${destination.toLowerCase()}/${outbound}` : `${origin.toLowerCase()}/${destination.toLowerCase()}/${outbound}/${inbound}`;
+  const query = new URLSearchParams({
+    adults: String(people),
+    cabinclass: "economy",
+    currency: "EUR",
+    locale: "de-DE",
+    market: "DE",
+    rtn: flightType === "oneWay" ? "0" : "1",
+  });
+  return `https://www.skyscanner.de/transport/flights/${path}/?${query.toString()}`;
+}
+
+function formatSkyscannerDate(date) {
+  const [year, month, day] = date.split("-");
+  return `${year.slice(2)}${month}${day}`;
+}
+
+function dateObject(date) {
+  const [year, month, day] = date.split("-").map(Number);
+  return { year, month, day };
+}
+
+function objectDate(value) {
+  return `${String(value.year).padStart(4, "0")}-${String(value.month).padStart(2, "0")}-${String(value.day).padStart(2, "0")}`;
+}
+
+function objectTime(value) {
+  if (!value) return "--:--";
+  return `${String(value.hour ?? 0).padStart(2, "0")}:${String(value.minute ?? 0).padStart(2, "0")}`;
+}
+
+function formatProviderTime(value) {
+  if (!value) return "--:--";
+  const match = String(value).match(/(\d{1,2}):(\d{2})/);
+  return match ? `${match[1].padStart(2, "0")}:${match[2]}` : "--:--";
 }
 
 function formatTime(value) {
