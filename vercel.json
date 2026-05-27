@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/deals.js": {
+      "maxDuration": 20
+    }
+  }
+}

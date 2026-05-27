@@ -224,6 +224,7 @@ export async function loadLiveDeals(search: SearchState): Promise<Deal[]> {
     startDate: search.startDate,
     endDate: search.endDate,
     people: String(search.people),
+    budget: String(search.budget),
     mode: search.tripMode,
     flightType: search.flightType,
   });

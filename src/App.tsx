@@ -62,11 +62,15 @@ function formatDateRange(deal: Deal) {
 }
 
 function formatDealPriceLabel(deal: Deal) {
-  return `${formatApproxPrice(deal.totalPrice)} gesamt (${formatApproxPrice(Math.round(deal.totalPrice / deal.people))} p. P.)`;
+  return `${formatDisplayPrice(deal.totalPrice, deal.isLive)} gesamt (${formatDisplayPrice(Math.round(deal.totalPrice / deal.people), deal.isLive)} p. P.)`;
 }
 
 function formatApproxPrice(value: number) {
   return `ca. ${currency.format(value)}`;
+}
+
+function formatDisplayPrice(value: number, isLive: boolean) {
+  return isLive ? currency.format(value) : formatApproxPrice(value);
 }
 
 function scoreLabel(score: number) {
@@ -512,15 +516,15 @@ function DealCard({ deal, isSaved, removeMode = false, onOpen, onToggleSave }: {
         </span>
         <button className="mt-5 w-full text-left" onClick={() => onOpen(deal)} type="button">
           <div className="grid grid-cols-3 gap-3 text-sm">
-            <Info icon={<Plane size={16} />} label="Flug" value={formatApproxPrice(deal.flightPrice)} />
+            <Info icon={<Plane size={16} />} label="Flug" value={formatDisplayPrice(deal.flightPrice, deal.isLive)} />
             <Info icon={<MapPin size={16} />} label="Abflug" value={deal.originAirport} />
-            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : deal.hotelName ?? formatApproxPrice(deal.hotelPrice)} />
+            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : deal.hotelName ?? formatDisplayPrice(deal.hotelPrice, deal.isLive)} />
           </div>
           <PriceSparkline values={deal.priceHistory} />
           <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
             <div>
               <p className="text-sm text-slate-400">{formatDateRange(deal)}</p>
-              <p className="mt-1 text-3xl font-semibold text-white">{formatApproxPrice(deal.totalPrice)}</p>
+              <p className="mt-1 text-3xl font-semibold text-white">{formatDisplayPrice(deal.totalPrice, deal.isLive)}</p>
             </div>
             <div className="text-right">
               <p className="text-sm font-semibold text-emerald-200">{deal.priceDropPercent}% gefallen</p>
@@ -596,7 +600,7 @@ function DealModal({
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <Info icon={<CalendarDays size={16} />} label="Datum" value={formatDateRange(deal)} />
-            <Info icon={<Plane size={16} />} label="Flug" value={formatApproxPrice(deal.flightPrice)} />
+            <Info icon={<Plane size={16} />} label="Flug" value={formatDisplayPrice(deal.flightPrice, deal.isLive)} />
             <Info icon={<Wallet size={16} />} label="Preis" value={formatDealPriceLabel(deal)} />
           </div>
           <div className="mt-5 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
@@ -651,7 +655,7 @@ function DealModal({
                   <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
                   <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
                   <p className="mt-2 text-sm text-slate-400">
-                    {formatApproxPrice(deal.hotelPrice)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
+                    {formatDisplayPrice(deal.hotelPrice, deal.isLive)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -1015,7 +1019,7 @@ function PriceSparkline({ values, large = false }: { values: number[]; large?: b
     <div className={`mt-4 rounded-md border border-white/10 bg-black/20 p-3 ${large ? "p-4" : ""}`}>
       <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
         <span>7-Tage-Preisverlauf</span>
-        <span>{formatApproxPrice(values[values.length - 1])}</span>
+        <span>{currency.format(values[values.length - 1])}</span>
       </div>
       <svg className={large ? "h-24 w-full" : "h-14 w-full"} viewBox="0 0 100 46" role="img" aria-label="Preisverlauf">
         <polyline fill="none" points={points} stroke="#67e8f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />

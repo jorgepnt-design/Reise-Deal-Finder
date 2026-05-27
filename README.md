@@ -55,3 +55,46 @@ npm run crawl:deals
 ## Deployment
 
 Das Repository ist für GitHub Pages auf `/Reise-Deal-Finder/` konfiguriert. Der Workflow `.github/workflows/deploy-pages.yml` baut die App automatisch bei Push auf `main`.
+
+## Echte Flugpreise mit Vercel und Amadeus
+
+Das Frontend bleibt auf GitHub Pages. Der Backend-Endpunkt liegt unter `api/deals.js` und kann als Vercel Serverless Function deployed werden.
+
+### 1. Amadeus-Zugang anlegen
+
+1. Auf https://developers.amadeus.com/ registrieren.
+2. Eine App erstellen.
+3. `API Key` und `API Secret` kopieren.
+
+### 2. Vercel-Projekt verbinden
+
+1. Repository in Vercel importieren.
+2. Als Framework kann `Other`/statisches Projekt verwendet werden.
+3. Environment Variables setzen:
+
+```text
+AMADEUS_CLIENT_ID=dein_amadeus_api_key
+AMADEUS_CLIENT_SECRET=dein_amadeus_api_secret
+AMADEUS_ENV=test
+ALLOWED_ORIGIN=https://jorgepnt-design.github.io
+```
+
+Für Produktion später:
+
+```text
+AMADEUS_ENV=production
+```
+
+### 3. Frontend mit Backend verbinden
+
+In GitHub Actions bzw. beim GitHub-Pages-Build muss gesetzt werden:
+
+```text
+VITE_DEAL_API_URL=https://dein-vercel-projekt.vercel.app/api/deals
+```
+
+Danach ruft die App echte Flugpreise über Amadeus ab. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
+
+### 4. Hotels als nächster Schritt
+
+Hotels sind im ersten Backend-Schritt noch nicht live angebunden. Dafür ist später eine Hotel-API nötig, z. B. Booking.com Demand API mit Affiliate-Zugang oder eine andere Hotel-Partnerlösung.
