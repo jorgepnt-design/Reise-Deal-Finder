@@ -981,7 +981,7 @@ function FlightsPanel({
                 value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"}
               />
               <Info icon={<ShieldCheck size={16} />} label="Handgepäck" value={flight.includesCarryOn || flight.includesCheckedBag ? "inklusive" : "nicht inklusive"} />
-              <Info icon={<Wallet size={16} />} label="Aufgabegepäck" value={flight.includesCheckedBag ? "inklusive" : "optional"} />
+              <Info icon={<Wallet size={16} />} label="Aufgabegepäck" value={flight.includesCheckedBag ? "inklusive" : flight.source === "Google Flights" ? "optional beim Anbieter" : "optional"} />
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">

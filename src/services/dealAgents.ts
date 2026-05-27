@@ -363,7 +363,7 @@ function applyFlightFilters(flights: FlightOption[], search: SearchState) {
 function matchesFlightFilters(flight: FlightOption, search: SearchState) {
   if (search.directOnly && !flight.directFlight) return false;
   if (search.baggage === "carryOn" && !flight.includesCarryOn && !flight.includesCheckedBag) return false;
-  if (search.baggage === "checked" && !flight.includesCheckedBag) return false;
+  if (search.baggage === "checked" && !flight.includesCheckedBag && flight.source !== "Google Flights") return false;
   if (!matchesTimeWindow(flight.outboundDeparture, search.outboundTimeWindow)) return false;
   if (search.flightType === "roundTrip" && flight.returnDeparture && !matchesTimeWindow(flight.returnDeparture, search.returnTimeWindow)) return false;
   return true;
@@ -402,7 +402,7 @@ function applyDealFilters(deals: Deal[], search: SearchState) {
     if (search.tripMode === "package" && deal.hotelRating < search.minHotelRating) return false;
     if (search.weekendOnly && !isWeekendTrip(deal.startDate, deal.endDate)) return false;
     if (search.baggage === "carryOn" && !deal.includesCarryOn && !deal.includesCheckedBag) return false;
-    if (search.baggage === "checked" && !deal.includesCheckedBag) return false;
+    if (search.baggage === "checked" && !deal.includesCheckedBag && deal.flightSource !== "Google Flights") return false;
     if (search.durationFilter === "short" && (deal.durationNights < 2 || deal.durationNights > 3)) return false;
     if (search.durationFilter === "medium" && (deal.durationNights < 4 || deal.durationNights > 5)) return false;
     if (search.durationFilter === "long" && deal.durationNights < 7) return false;
