@@ -269,7 +269,7 @@ export default function App() {
                   <WishlistSection title="Gespeicherte Deals">
                     <div className="grid gap-5 lg:grid-cols-3">
                       {savedDeals.map((deal) => (
-                        <DealCard deal={deal} isSaved={savedDealIds.includes(deal.id)} key={deal.id} onOpen={setSelectedDeal} onToggleSave={toggleSavedDeal} />
+                        <DealCard deal={deal} isSaved={savedDealIds.includes(deal.id)} key={deal.id} removeMode onOpen={setSelectedDeal} onToggleSave={toggleSavedDeal} />
                       ))}
                     </div>
                   </WishlistSection>
@@ -484,8 +484,9 @@ function DateRecommendations({ flightType, items, onApply }: { flightType: Searc
   );
 }
 
-function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved: boolean; onOpen: (deal: Deal) => void; onToggleSave: (dealId: string) => void }) {
+function DealCard({ deal, isSaved, removeMode = false, onOpen, onToggleSave }: { deal: Deal; isSaved: boolean; removeMode?: boolean; onOpen: (deal: Deal) => void; onToggleSave: (dealId: string) => void }) {
   const overBudget = deal.totalPrice > deal.budget;
+  const saveLabel = removeMode && isSaved ? "Entfernen" : isSaved ? "Gespeichert" : "Speichern";
   return (
     <article className="overflow-hidden rounded-lg border border-white/10 bg-[#111827] shadow-xl transition hover:-translate-y-1 hover:border-cyan-300">
       <button className="w-full text-left" onClick={() => onOpen(deal)} type="button">
@@ -497,8 +498,9 @@ function DealCard({ deal, isSaved, onOpen, onToggleSave }: { deal: Deal; isSaved
             <p className="text-sm font-semibold text-cyan-200">{scoreLabel(deal.score)}</p>
             <h3 className="mt-1 text-xl font-semibold text-white">{deal.title}</h3>
           </button>
-          <button className={`grid h-10 w-10 place-items-center rounded-md border border-white/10 ${isSaved ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-300"}`} onClick={() => onToggleSave(deal.id)} type="button" aria-label="Deal speichern">
+          <button className={`inline-flex h-10 items-center justify-center gap-2 rounded-md border border-white/10 ${removeMode ? "px-3 text-sm font-semibold" : "w-10"} ${isSaved ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-300"}`} onClick={() => onToggleSave(deal.id)} type="button" aria-label={saveLabel}>
             {isSaved ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+            {removeMode && <span>{saveLabel}</span>}
           </button>
         </div>
         <span className={`mt-3 inline-flex rounded-md px-2.5 py-1 text-xs font-bold ${overBudget ? "bg-amber-300 text-amber-950" : "bg-emerald-300 text-emerald-950"}`}>
@@ -749,7 +751,7 @@ function FlightsPanel({
                 <p className="mt-1 text-sm text-slate-400">{currency.format(flight.totalPrice)} gesamt</p>
                 <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedFlightIds.includes(flight.id) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(flight.id)} type="button">
                   {savedFlightIds.includes(flight.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
-                  {savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
+                  {compact && savedFlightIds.includes(flight.id) ? "Entfernen" : savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
                 </button>
               </div>
             </div>
@@ -846,7 +848,7 @@ function FlightHotelPanel({
                       <p className="mt-1 text-sm text-slate-400">{currency.format(totalPrice)} gesamt</p>
                       <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedPackageIds.includes(packageId) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(packageId)} type="button">
                         {savedPackageIds.includes(packageId) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
-                        {savedPackageIds.includes(packageId) ? "Gespeichert" : "Merken"}
+                        {compact && savedPackageIds.includes(packageId) ? "Entfernen" : savedPackageIds.includes(packageId) ? "Gespeichert" : "Merken"}
                       </button>
                     </div>
                   </div>
