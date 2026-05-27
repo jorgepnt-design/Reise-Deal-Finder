@@ -98,6 +98,12 @@ export type FlightOption = {
   totalPrice: number;
   source: string;
   bookingUrl: string;
+  isLive?: boolean;
+};
+
+export type LiveTravelData = {
+  deals: Deal[];
+  flights: FlightOption[];
 };
 
 export type Activity = {

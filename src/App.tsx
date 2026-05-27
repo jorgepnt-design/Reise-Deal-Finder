@@ -25,7 +25,7 @@
 import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { activitiesByCity, cities } from "./data/cities";
-import { agentStatus, buildDeals, buildFlights, loadLiveDeals, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
+import { agentStatus, buildDeals, buildFlights, loadLiveTravelData, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
 import type { DateRecommendation, Deal, FlightOption, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
@@ -85,6 +85,7 @@ export default function App() {
   const [lastRun, setLastRun] = useState("Heute 07:00");
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
+  const [liveFlights, setLiveFlights] = useState<FlightOption[]>([]);
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
   const [flightSort, setFlightSort] = useState<FlightSort>("priceAsc");
   const [packageSort, setPackageSort] = useState<PackageSort>("packagePriceAsc");
@@ -97,7 +98,8 @@ export default function App() {
   const fallbackDeals = useMemo(() => buildDeals(search).sort((a, b) => b.score - a.score), [search]);
   const deals = useMemo(() => (liveDeals.length > 0 ? liveDeals : fallbackDeals).sort((a, b) => b.score - a.score), [fallbackDeals, liveDeals]);
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
-  const flights = useMemo(() => sortFlights(buildFlights(search), flightSort), [flightSort, search]);
+  const fallbackFlights = useMemo(() => buildFlights(search), [search]);
+  const flights = useMemo(() => sortFlights(liveFlights.length > 0 ? liveFlights : fallbackFlights, flightSort), [fallbackFlights, flightSort, liveFlights]);
   const packageSearch = useMemo<SearchState>(() => ({ ...search, tripMode: "package", flightType: "roundTrip" }), [search]);
   const packageFlights = useMemo(() => buildFlights(packageSearch), [packageSearch]);
   const packageDeals = useMemo(() => buildDeals(packageSearch).sort((a, b) => a.totalPrice - b.totalPrice), [packageSearch]);
@@ -113,15 +115,17 @@ export default function App() {
   useEffect(() => {
     let cancelled = false;
     setLiveStatus("loading");
-    loadLiveDeals(search)
-      .then((items) => {
+    loadLiveTravelData(search)
+      .then((data) => {
         if (cancelled) return;
-        setLiveDeals(items);
-        setLiveStatus(items.length > 0 ? "live" : "fallback");
+        setLiveDeals(data.deals);
+        setLiveFlights(data.flights);
+        setLiveStatus(data.deals.length > 0 || data.flights.length > 0 ? "live" : "fallback");
       })
       .catch(() => {
         if (cancelled) return;
         setLiveDeals([]);
+        setLiveFlights([]);
         setLiveStatus("error");
       });
     return () => {
@@ -728,7 +732,7 @@ function FlightsPanel({
             <Plane size={18} /> Flüge
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Richtpreise in der App. Der verbindliche Preis steht erst beim Anbieter.</p>
+          <p className="mt-2 text-sm text-slate-400">Livepreise erscheinen ohne ca.; Fallback-Richtpreise sind entsprechend markiert.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -755,8 +759,8 @@ function FlightsPanel({
                 </p>
               </div>
               <div className="text-left sm:text-right">
-                <p className="text-3xl font-semibold text-white">{formatApproxPrice(flight.pricePerPerson)} p. P.</p>
-                <p className="mt-1 text-sm text-slate-400">{formatApproxPrice(flight.totalPrice)} gesamt</p>
+                <p className="text-3xl font-semibold text-white">{formatDisplayPrice(flight.pricePerPerson, Boolean(flight.isLive))} p. P.</p>
+                <p className="mt-1 text-sm text-slate-400">{formatDisplayPrice(flight.totalPrice, Boolean(flight.isLive))} gesamt</p>
                 <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedFlightIds.includes(flight.id) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(flight.id)} type="button">
                   {savedFlightIds.includes(flight.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
                   {compact && savedFlightIds.includes(flight.id) ? "Entfernen" : savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
@@ -776,7 +780,7 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen.</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis über Duffel." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
               <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
                 Flug suchen <ExternalLink size={16} />
               </a>

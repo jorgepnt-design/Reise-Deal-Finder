@@ -1,5 +1,5 @@
 import { cities } from "../data/cities";
-import type { DateRecommendation, Deal, FlightOption, SearchState } from "../types/travel";
+import type { DateRecommendation, Deal, FlightOption, LiveTravelData, SearchState } from "../types/travel";
 
 export const originAirports = [
   { code: "FRA", name: "Frankfurt" },
@@ -215,8 +215,13 @@ export function buildDeals(search: SearchState): Deal[] {
 }
 
 export async function loadLiveDeals(search: SearchState): Promise<Deal[]> {
+  const data = await loadLiveTravelData(search);
+  return data.deals;
+}
+
+export async function loadLiveTravelData(search: SearchState): Promise<LiveTravelData> {
   const endpoint = import.meta.env.VITE_DEAL_API_URL as string | undefined;
-  if (!endpoint) return [];
+  if (!endpoint) return { deals: [], flights: [] };
 
   const params = new URLSearchParams({
     city: search.cityId,
@@ -231,8 +236,13 @@ export async function loadLiveDeals(search: SearchState): Promise<Deal[]> {
 
   const response = await fetch(`${endpoint}?${params.toString()}`);
   if (!response.ok) throw new Error("Live-Daten konnten nicht geladen werden");
-  const deals = (await response.json()) as Deal[];
-  return applyDealFilters(deals.map((deal) => ({ ...deal, isLive: true })), search);
+  const payload = (await response.json()) as LiveTravelData | Deal[];
+  const deals = Array.isArray(payload) ? payload : payload.deals;
+  const flights = Array.isArray(payload) ? [] : payload.flights;
+  return {
+    deals: applyDealFilters((deals ?? []).map((deal) => ({ ...deal, isLive: true })), search),
+    flights: applyFlightFilters((flights ?? []).map((flight) => ({ ...flight, isLive: true })), search),
+  };
 }
 
 export function recommendTravelDates(search: SearchState): DateRecommendation[] {
@@ -312,13 +322,21 @@ export function buildFlights(search: SearchState): FlightOption[] {
       };
     });
   }).filter((flight) => {
-    if (search.directOnly && !flight.directFlight) return false;
-    if (search.baggage === "carryOn" && !flight.includesCarryOn && !flight.includesCheckedBag) return false;
-    if (search.baggage === "checked" && !flight.includesCheckedBag) return false;
-    if (!matchesTimeWindow(flight.outboundDeparture, search.outboundTimeWindow)) return false;
-    if (search.flightType === "roundTrip" && flight.returnDeparture && !matchesTimeWindow(flight.returnDeparture, search.returnTimeWindow)) return false;
-    return true;
+    return matchesFlightFilters(flight, search);
   }).sort((a, b) => a.pricePerPerson - b.pricePerPerson);
+}
+
+function applyFlightFilters(flights: FlightOption[], search: SearchState) {
+  return flights.filter((flight) => matchesFlightFilters(flight, search)).sort((a, b) => a.pricePerPerson - b.pricePerPerson);
+}
+
+function matchesFlightFilters(flight: FlightOption, search: SearchState) {
+  if (search.directOnly && !flight.directFlight) return false;
+  if (search.baggage === "carryOn" && !flight.includesCarryOn && !flight.includesCheckedBag) return false;
+  if (search.baggage === "checked" && !flight.includesCheckedBag) return false;
+  if (!matchesTimeWindow(flight.outboundDeparture, search.outboundTimeWindow)) return false;
+  if (search.flightType === "roundTrip" && flight.returnDeparture && !matchesTimeWindow(flight.returnDeparture, search.returnTimeWindow)) return false;
+  return true;
 }
 
 export function runDailyPriceCheck(deals: Deal[]) {

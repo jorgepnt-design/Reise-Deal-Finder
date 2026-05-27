@@ -32,9 +32,10 @@ export default async function handler(req, res) {
     const city = cityMap[search.city] ?? cityMap.lisbon;
     const offers = await searchDuffelOffers(city, search);
     const deals = offers.slice(0, 8).map((offer, index) => mapOfferToDeal(offer, city, search, index));
+    const flights = offers.slice(0, 12).map((offer, index) => mapOfferToFlight(offer, city, search, index));
 
     res.setHeader("Cache-Control", "s-maxage=900, stale-while-revalidate=3600");
-    res.status(200).json(deals);
+    res.status(200).json({ deals, flights });
   } catch (error) {
     const status = error.statusCode ?? 500;
     res.status(status).json({
@@ -185,6 +186,43 @@ function mapOfferToDeal(offer, city, search, index) {
   };
 }
 
+function mapOfferToFlight(offer, city, search, index) {
+  const outboundSlice = offer.slices?.[0];
+  const returnSlice = offer.slices?.[1];
+  const firstSegment = outboundSlice?.segments?.[0];
+  const lastOutboundSegment = outboundSlice?.segments?.[outboundSlice.segments.length - 1];
+  const firstReturnSegment = returnSlice?.segments?.[0];
+  const lastReturnSegment = returnSlice?.segments?.[returnSlice.segments.length - 1];
+  const totalPrice = Math.round(Number(offer.total_amount ?? 0));
+  const pricePerPerson = Math.round(totalPrice / search.people);
+  const airline = offer.owner?.name ?? firstSegment?.operating_carrier?.name ?? firstSegment?.marketing_carrier?.name ?? "Airline";
+  const outboundDate = firstSegment?.departing_at?.slice(0, 10) ?? search.startDate;
+  const returnDate = firstReturnSegment?.departing_at?.slice(0, 10) ?? (search.flightType === "roundTrip" ? search.endDate : undefined);
+
+  return {
+    id: `duffel-flight-${offer.id ?? index}`,
+    cityId: search.city,
+    originAirport: search.origin,
+    destinationAirport: city.airportCode,
+    flightType: search.flightType,
+    outboundDate,
+    returnDate,
+    outboundDeparture: formatTime(firstSegment?.departing_at),
+    outboundArrival: formatTime(lastOutboundSegment?.arriving_at),
+    returnDeparture: search.flightType === "roundTrip" ? formatTime(firstReturnSegment?.departing_at) : undefined,
+    returnArrival: search.flightType === "roundTrip" ? formatTime(lastReturnSegment?.arriving_at) : undefined,
+    airline,
+    directFlight: outboundSlice?.segments?.length === 1 && (!returnSlice || returnSlice.segments?.length === 1),
+    includesCarryOn: hasIncludedBaggage(offer, "carry_on"),
+    includesCheckedBag: hasIncludedBaggage(offer, "checked"),
+    pricePerPerson,
+    totalPrice,
+    source: "Duffel",
+    bookingUrl: buildGoogleFlightsUrl(search.origin, city.airportCode, outboundDate, returnDate ?? outboundDate, search.people, search.flightType),
+    isLive: true,
+  };
+}
+
 function hasIncludedBaggage(offer, baggageType) {
   return Boolean(
     offer.slices?.some((slice) =>
@@ -200,6 +238,11 @@ function hasIncludedBaggage(offer, baggageType) {
 function buildGoogleFlightsUrl(origin, destination, startDate, endDate, people, flightType) {
   const route = flightType === "oneWay" ? `${origin} nach ${destination} ${startDate} nur Hinflug` : `${origin} nach ${destination} ${startDate} ${endDate} Hin und zurück`;
   return `https://www.google.com/travel/flights?q=${encodeURIComponent(`${route} ${people} Personen`)}`;
+}
+
+function formatTime(value) {
+  if (!value) return "--:--";
+  return value.slice(11, 16);
 }
 
 function nightsBetween(startDate, endDate) {
