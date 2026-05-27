@@ -118,6 +118,7 @@ export default function App() {
   const dateRecommendations = useMemo(() => recommendTravelDates(search), [search]);
   const fallbackFlights = useMemo(() => buildFlights(search), [search]);
   const flights = useMemo(() => sortFlights(liveFlights.length > 0 ? liveFlights : fallbackFlights, flightSort), [fallbackFlights, flightSort, liveFlights]);
+  const googleLiveFlights = useMemo(() => sortFlights(liveFlights.filter((flight) => flight.source === "Google Flights" && flight.isLive), flightSort), [flightSort, liveFlights]);
   const packageSearch = useMemo<SearchState>(() => ({ ...search, tripMode: "package", flightType: "roundTrip" }), [search]);
   const packageFlights = useMemo(() => buildFlights(packageSearch), [packageSearch]);
   const packageDeals = useMemo(() => buildDeals(packageSearch).sort((a, b) => a.totalPrice - b.totalPrice), [packageSearch]);
@@ -291,7 +292,7 @@ export default function App() {
           </>
         )}
 
-        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
+        {activeTab === "flights" && <FlightsPanel googleLiveOnly flights={googleLiveFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
         {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
 
@@ -894,6 +895,7 @@ function FlightsPanel({
   savedFlightIds,
   sort,
   compact = false,
+  googleLiveOnly = false,
   onBookLiveFlight,
   onSortChange,
   onToggleSave,
@@ -903,11 +905,15 @@ function FlightsPanel({
   savedFlightIds: string[];
   sort: FlightSort;
   compact?: boolean;
+  googleLiveOnly?: boolean;
   onBookLiveFlight: (flight: FlightOption) => void;
   onSortChange: (sort: FlightSort) => void;
   onToggleSave: (flightId: string) => void;
 }) {
   if (flights.length === 0) {
+    if (googleLiveOnly) {
+      return <EmptyPanel title="Keine Google-Flights-Livepreise verfügbar" text="Trage in Vercel einen gültigen SERPAPI_KEY ein und aktualisiere die Suche. Im Flüge-Tab werden nur Google-Flights-Livepreise angezeigt." />;
+    }
     return <EmptyPanel title="Keine Flüge für diese Filter" text="Lockere Datumstoleranz, Uhrzeitfenster, Direktflug oder Gepäck, um wieder Flugoptionen zu sehen." />;
   }
 
@@ -918,8 +924,8 @@ function FlightsPanel({
           <p className="flex items-center gap-2 text-sm font-semibold text-cyan-200">
             <Plane size={18} /> Flüge
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Google Flights zeigt Live-Preise über SerpApi. Skyscanner ist erst Live, wenn ein Skyscanner API-Key gesetzt ist; sonst öffnet es nur die Suche.</p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Google-Flights-Livepreise für deine Suche</h2>
+          <p className="mt-2 text-sm text-slate-400">Hier werden ausschließlich Livepreise von Google Flights angezeigt. Der finale Preis wird beim Anbieter nochmals geprüft.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -940,7 +946,7 @@ function FlightsPanel({
                 <div className="flex flex-wrap items-center gap-2">
                   <p className="text-sm font-semibold text-cyan-200">{flight.airline} · {flight.source}</p>
                   <span className={`rounded-md px-2 py-1 text-xs font-bold ${flight.source === "Google Flights" ? "bg-emerald-300 text-emerald-950" : flight.source === "Skyscanner" ? "bg-amber-300 text-amber-950" : "bg-white/10 text-slate-200"}`}>
-                    {providerPriceBadge(flight.source)}
+                    Google Flights Live-Preis
                   </span>
                 </div>
                 <h3 className="mt-1 text-xl font-semibold text-white">
