@@ -780,10 +780,16 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis über Duffel." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
-              <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
-                Flug suchen <ExternalLink size={16} />
-              </a>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis aus Duffel, Buchungslink folgt." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
+              {flight.isLive ? (
+                <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm font-bold text-emerald-100">
+                  Duffel-Livepreis geprüft
+                </span>
+              ) : (
+                <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
+                  Flug suchen <ExternalLink size={16} />
+                </a>
+              )}
             </div>
           </article>
         ))}
@@ -895,9 +901,15 @@ function FlightHotelPanel({
                       <p className="text-sm font-semibold text-cyan-200">Getrennt suchen</p>
                       <p className="mt-1 text-xs text-slate-400">Flug und Hotel separat vergleichen.</p>
                       <div className="mt-3 flex flex-wrap gap-2">
-                        <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
-                          Flug suchen <ExternalLink size={16} />
-                        </a>
+                        {flight.isLive ? (
+                          <span className="inline-flex items-center gap-2 rounded-lg border border-emerald-300/30 bg-emerald-300/10 px-4 py-2 text-sm font-bold text-emerald-100">
+                            Duffel-Livepreis geprüft
+                          </span>
+                        ) : (
+                          <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
+                            Flug suchen <ExternalLink size={16} />
+                          </a>
+                        )}
                         {deal.hotelUrl && (
                           <a className="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-4 py-2 text-sm font-semibold text-white hover:bg-white/10" href={deal.hotelUrl} rel="noreferrer" target="_blank">
                             Hotel suchen <ExternalLink size={16} />
