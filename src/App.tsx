@@ -73,6 +73,10 @@ function formatDisplayPrice(value: number, isLive: boolean) {
   return isLive ? currency.format(value) : formatApproxPrice(value);
 }
 
+function escapeHtml(value: string) {
+  return value.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" })[char] ?? char);
+}
+
 function scoreLabel(score: number) {
   if (score >= 92) return "Top-Deal";
   if (score >= 86) return "Sehr stark";
@@ -176,11 +180,26 @@ export default function App() {
   }
 
   async function openDuffelBookingLink(flight: FlightOption) {
+    const bookingTab = window.open("about:blank", "_blank", "noopener,noreferrer");
+    if (bookingTab) {
+      bookingTab.document.write("<!doctype html><title>Duffel wird geöffnet</title><body style=\"background:#090d14;color:white;font-family:system-ui;padding:32px\"><h1>Duffel-Buchung wird vorbereitet...</h1><p>Der Live-Buchungslink wird gerade erstellt.</p></body>");
+      bookingTab.document.close();
+    }
+
     try {
       const url = await createDuffelBookingLink(flight, search);
-      window.open(url, "_blank", "noopener,noreferrer");
-    } catch {
-      window.alert("Der Duffel-Buchungslink konnte gerade nicht erstellt werden. Bitte versuche es gleich noch einmal.");
+      if (bookingTab) {
+        bookingTab.location.href = url;
+      } else {
+        window.location.href = url;
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Unbekannter Fehler";
+      if (bookingTab) {
+        bookingTab.document.body.innerHTML = `<h1>Duffel konnte nicht geöffnet werden</h1><p>${escapeHtml(message)}</p><p>Bitte versuche es erneut oder lade die Seite neu.</p>`;
+      } else {
+        window.alert(`Duffel konnte nicht geöffnet werden: ${message}`);
+      }
     }
   }
 
