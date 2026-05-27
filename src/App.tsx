@@ -62,7 +62,11 @@ function formatDateRange(deal: Deal) {
 }
 
 function formatDealPriceLabel(deal: Deal) {
-  return `${currency.format(deal.totalPrice)} gesamt (${currency.format(Math.round(deal.totalPrice / deal.people))} p. P.)`;
+  return `${formatApproxPrice(deal.totalPrice)} gesamt (${formatApproxPrice(Math.round(deal.totalPrice / deal.people))} p. P.)`;
+}
+
+function formatApproxPrice(value: number) {
+  return `ca. ${currency.format(value)}`;
 }
 
 function scoreLabel(score: number) {
@@ -143,7 +147,7 @@ export default function App() {
   function refreshAgents() {
     setLastRun(new Intl.DateTimeFormat("de-DE", { hour: "2-digit", minute: "2-digit" }).format(new Date()));
     if (search.alertsEnabled && alertSummary.shouldPush) {
-      sendBrowserNotification(alertSummary.headline, featuredDeal ? `${featuredDeal.title} ab ${currency.format(featuredDeal.totalPrice)}` : "Neue Reise-Deals verfügbar");
+      sendBrowserNotification(alertSummary.headline, featuredDeal ? `${featuredDeal.title} ab ${formatApproxPrice(featuredDeal.totalPrice)}` : "Neue Reise-Deals verfügbar");
     }
   }
 
@@ -206,7 +210,7 @@ export default function App() {
               </p>
               {featuredDeal && (
                 <div className="mt-7 grid max-w-2xl grid-cols-3 gap-3">
-                  <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Preis"} value={formatDealPriceLabel(featuredDeal)} />
+                  <Metric label={search.tripMode === "flight" ? "Bester Flug" : "Bester Richtpreis"} value={formatDealPriceLabel(featuredDeal)} />
                   <Metric label={search.flightType === "oneWay" ? "Hinflug" : "Datum"} value={formatDateRange(featuredDeal)} />
                   <Metric label="Abflug" value={featuredDeal.originAirport} />
                 </div>
@@ -441,7 +445,7 @@ function SearchPanel({ favoriteCityIds, search, onChange, onToggleFavoriteCity }
 }
 
 function LiveStatusBadge({ status }: { status: "fallback" | "loading" | "live" | "error" }) {
-  const label = status === "live" ? "Live-Daten aktiv" : status === "loading" ? "Live-Daten werden geprüft" : status === "error" ? "Live-API nicht erreichbar, Snapshot aktiv" : "Snapshot-Fallback aktiv";
+  const label = status === "live" ? "Live-Daten aktiv" : status === "loading" ? "Live-Daten werden geprüft" : status === "error" ? "Live-API nicht erreichbar, Richtpreise aktiv" : "Richtpreise aktiv - Anbieterpreis prüfen";
   const Icon = status === "live" ? Wifi : WifiOff;
   return (
     <div className="mt-7 inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm text-slate-200">
@@ -463,7 +467,7 @@ function DateRecommendations({ flightType, items, onApply }: { flightType: Searc
           <p className="flex items-center gap-2 text-sm font-semibold text-emerald-200">
             <CalendarCheck size={18} /> Günstigste Reisedaten
           </p>
-          <h2 className="mt-2 text-2xl font-semibold text-white">{best ? `${formatRecommendation(best)} ab ${currency.format(best.totalPrice)}` : "Keine Empfehlung"}</h2>
+          <h2 className="mt-2 text-2xl font-semibold text-white">{best ? `${formatRecommendation(best)} ab ${formatApproxPrice(best.totalPrice)}` : "Keine Empfehlung"}</h2>
         </div>
         {best && (
           <button className="rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onApply(best)} type="button">
@@ -475,7 +479,7 @@ function DateRecommendations({ flightType, items, onApply }: { flightType: Searc
         {items.map((item) => (
           <button className="rounded-lg border border-white/10 bg-black/20 p-4 text-left transition hover:border-emerald-300 hover:bg-black/30" key={item.id} onClick={() => onApply(item)} type="button">
             <p className="text-sm font-semibold text-white">{formatRecommendation(item)}</p>
-            <p className="mt-2 text-xl font-semibold text-emerald-200">{currency.format(item.totalPrice)}</p>
+            <p className="mt-2 text-xl font-semibold text-emerald-200">{formatApproxPrice(item.totalPrice)}</p>
             <p className="mt-1 text-xs text-slate-400">{item.originName} ({item.originAirport}), ca. {item.savingPercent}% günstiger</p>
           </button>
         ))}
@@ -508,15 +512,15 @@ function DealCard({ deal, isSaved, removeMode = false, onOpen, onToggleSave }: {
         </span>
         <button className="mt-5 w-full text-left" onClick={() => onOpen(deal)} type="button">
           <div className="grid grid-cols-3 gap-3 text-sm">
-            <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
+            <Info icon={<Plane size={16} />} label="Flug" value={formatApproxPrice(deal.flightPrice)} />
             <Info icon={<MapPin size={16} />} label="Abflug" value={deal.originAirport} />
-            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : deal.hotelName ?? currency.format(deal.hotelPrice)} />
+            <Info icon={deal.tripMode === "flight" ? <ShieldCheck size={16} /> : <Hotel size={16} />} label={deal.tripMode === "flight" ? "Modus" : "Hotel"} value={deal.tripMode === "flight" ? "Nur Flug" : deal.hotelName ?? formatApproxPrice(deal.hotelPrice)} />
           </div>
           <PriceSparkline values={deal.priceHistory} />
           <div className="mt-5 flex items-end justify-between gap-4 border-t border-white/10 pt-4">
             <div>
               <p className="text-sm text-slate-400">{formatDateRange(deal)}</p>
-              <p className="mt-1 text-3xl font-semibold text-white">{currency.format(deal.totalPrice)}</p>
+              <p className="mt-1 text-3xl font-semibold text-white">{formatApproxPrice(deal.totalPrice)}</p>
             </div>
             <div className="text-right">
               <p className="text-sm font-semibold text-emerald-200">{deal.priceDropPercent}% gefallen</p>
@@ -543,7 +547,7 @@ function DealCard({ deal, isSaved, removeMode = false, onOpen, onToggleSave }: {
               )}
               {deal.packageUrl && (
                 <a className="inline-flex items-center gap-1 rounded-md bg-emerald-300 px-3 py-1.5 text-xs font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
-                  Komplettpaket {currency.format(packageOfferPrice(deal.totalPrice))} <ExternalLink size={13} />
+                  Komplettpaket prüfen <ExternalLink size={13} />
                 </a>
               )}
             </div>
@@ -592,7 +596,7 @@ function DealModal({
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <Info icon={<CalendarDays size={16} />} label="Datum" value={formatDateRange(deal)} />
-            <Info icon={<Plane size={16} />} label="Flug" value={currency.format(deal.flightPrice)} />
+            <Info icon={<Plane size={16} />} label="Flug" value={formatApproxPrice(deal.flightPrice)} />
             <Info icon={<Wallet size={16} />} label="Preis" value={formatDealPriceLabel(deal)} />
           </div>
           <div className="mt-5 rounded-lg border border-cyan-300/20 bg-cyan-300/10 p-4">
@@ -647,7 +651,7 @@ function DealModal({
                   <p className="mt-2 text-sm text-slate-300">{deal.hotelDistrict}</p>
                   <p className="mt-1 text-sm text-slate-400">{deal.hotelAddress}</p>
                   <p className="mt-2 text-sm text-slate-400">
-                    {currency.format(deal.hotelPrice)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
+                    {formatApproxPrice(deal.hotelPrice)} Hotelanteil · Bewertung {deal.hotelRating.toFixed(1)}
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
@@ -720,7 +724,7 @@ function FlightsPanel({
             <Plane size={18} /> Flüge
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Preise sind als Preis pro Person und Gesamtpreis für {people} angegeben.</p>
+          <p className="mt-2 text-sm text-slate-400">Richtpreise in der App. Der verbindliche Preis steht erst beim Anbieter.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -747,8 +751,8 @@ function FlightsPanel({
                 </p>
               </div>
               <div className="text-left sm:text-right">
-                <p className="text-3xl font-semibold text-white">{currency.format(flight.pricePerPerson)} p. P.</p>
-                <p className="mt-1 text-sm text-slate-400">{currency.format(flight.totalPrice)} gesamt</p>
+                <p className="text-3xl font-semibold text-white">{formatApproxPrice(flight.pricePerPerson)} p. P.</p>
+                <p className="mt-1 text-sm text-slate-400">{formatApproxPrice(flight.totalPrice)} gesamt</p>
                 <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedFlightIds.includes(flight.id) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(flight.id)} type="button">
                   {savedFlightIds.includes(flight.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
                   {compact && savedFlightIds.includes(flight.id) ? "Entfernen" : savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
@@ -768,7 +772,7 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}, Live-Suche öffnet sich in einem neuen Tab.</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen.</p>
               <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
                 Flug suchen <ExternalLink size={16} />
               </a>
@@ -844,8 +848,8 @@ function FlightHotelPanel({
                       </p>
                     </div>
                     <div className="text-left sm:text-right">
-                      <p className="text-3xl font-semibold text-white">{currency.format(pricePerPerson)} p. P.</p>
-                      <p className="mt-1 text-sm text-slate-400">{currency.format(totalPrice)} gesamt</p>
+                      <p className="text-3xl font-semibold text-white">{formatApproxPrice(pricePerPerson)} p. P.</p>
+                      <p className="mt-1 text-sm text-slate-400">{formatApproxPrice(totalPrice)} gesamt</p>
                       <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedPackageIds.includes(packageId) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(packageId)} type="button">
                         {savedPackageIds.includes(packageId) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
                         {compact && savedPackageIds.includes(packageId) ? "Entfernen" : savedPackageIds.includes(packageId) ? "Gespeichert" : "Merken"}
@@ -857,7 +861,7 @@ function FlightHotelPanel({
                     <Info icon={<Plane size={16} />} label="Hinflug" value={`${flight.originAirport} → ${flight.destinationAirport}, ${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
                     <Info icon={<Timer size={16} />} label="Rückflug" value={flight.returnDate && flight.returnDeparture && flight.returnArrival ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"} />
                     <Info icon={<ShieldCheck size={16} />} label="Flug/Gepäck" value={`${flight.directFlight ? "Direktflug" : "mit Umstieg"}, ${flight.includesCheckedBag ? "Aufgabegepäck" : flight.includesCarryOn ? "Handgepäck" : "Personal Item"}`} />
-                    <Info icon={<Wallet size={16} />} label="Preisdetails" value={`${currency.format(flight.totalPrice)} Flug, ${currency.format(deal.hotelPrice)} Hotel`} />
+                    <Info icon={<Wallet size={16} />} label="Preisdetails" value={`${formatApproxPrice(flight.totalPrice)} Flug, ${formatApproxPrice(deal.hotelPrice)} Hotel`} />
                   </div>
 
                   <div className="mt-5 rounded-lg border border-white/10 bg-black/20 p-4">
@@ -896,8 +900,8 @@ function FlightHotelPanel({
                     <div className="rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-3">
                       <p className="text-sm font-semibold text-emerald-200">Komplettangebot</p>
                       <p className="mt-1 text-xs text-slate-300">Flug + Hotel zusammen bei einem Anbieter prüfen.</p>
-                      <p className="mt-3 text-4xl font-semibold leading-tight text-white">{currency.format(packagePricePerPerson)} p. P.</p>
-                      <p className="mt-1 text-sm text-slate-300">{currency.format(packagePrice)} gesamt · Direkt zum Angebot</p>
+                      <p className="mt-3 text-4xl font-semibold leading-tight text-white">{formatApproxPrice(packagePricePerPerson)} p. P.</p>
+                      <p className="mt-1 text-sm text-slate-300">{formatApproxPrice(packagePrice)} gesamt · Beim Anbieter prüfen</p>
                       {deal.packageUrl && (
                         <a className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-300 px-4 py-3 text-sm font-bold text-emerald-950 hover:bg-emerald-200" href={deal.packageUrl} rel="noreferrer" target="_blank">
                           Booking-Angebot für {deal.hotelName} öffnen <ExternalLink size={16} />
@@ -1011,7 +1015,7 @@ function PriceSparkline({ values, large = false }: { values: number[]; large?: b
     <div className={`mt-4 rounded-md border border-white/10 bg-black/20 p-3 ${large ? "p-4" : ""}`}>
       <div className="mb-2 flex items-center justify-between text-xs text-slate-400">
         <span>7-Tage-Preisverlauf</span>
-        <span>{currency.format(values[values.length - 1])}</span>
+        <span>{formatApproxPrice(values[values.length - 1])}</span>
       </div>
       <svg className={large ? "h-24 w-full" : "h-14 w-full"} viewBox="0 0 100 46" role="img" aria-label="Preisverlauf">
         <polyline fill="none" points={points} stroke="#67e8f9" strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" />
