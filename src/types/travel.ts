@@ -102,6 +102,36 @@ export type FlightOption = {
   isLive?: boolean;
 };
 
+export type DuffelCheckoutOffer = {
+  offerId: string;
+  totalAmount: string;
+  totalCurrency: string;
+  expiresAt?: string;
+  airline: string;
+  passengers: Array<{
+    id: string;
+    type: string;
+    label: string;
+  }>;
+};
+
+export type DuffelPassengerInput = {
+  title: "mr" | "mrs";
+  givenName: string;
+  familyName: string;
+  bornOn: string;
+  email: string;
+  phoneNumber: string;
+};
+
+export type DuffelOrderResult = {
+  id: string;
+  bookingReference: string;
+  totalAmount: string;
+  totalCurrency: string;
+  status: string;
+};
+
 export type LiveTravelData = {
   deals: Deal[];
   flights: FlightOption[];

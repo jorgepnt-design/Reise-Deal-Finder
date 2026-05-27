@@ -1,5 +1,5 @@
 import { cities } from "../data/cities";
-import type { DateRecommendation, Deal, FlightOption, LiveTravelData, SearchState } from "../types/travel";
+import type { DateRecommendation, Deal, DuffelCheckoutOffer, DuffelOrderResult, DuffelPassengerInput, FlightOption, LiveTravelData, SearchState } from "../types/travel";
 
 export const originAirports = [
   { code: "FRA", name: "Frankfurt" },
@@ -272,6 +272,40 @@ export async function createDuffelBookingLink(flight: FlightOption, search: Sear
   const payload = (await response.json()) as { url?: string };
   if (!payload.url) throw new Error("Duffel hat keinen Buchungslink zurückgegeben.");
   return payload.url;
+}
+
+export async function loadDuffelCheckoutOffer(flight: FlightOption): Promise<DuffelCheckoutOffer> {
+  if (!flight.offerId) throw new Error("Für diesen Flug fehlt die Duffel-Offer-ID.");
+  const endpoint = buildDealApiSiblingUrl("/api/duffel-order");
+  endpoint.searchParams.set("offerId", flight.offerId);
+
+  const response = await fetch(endpoint.toString());
+  if (!response.ok) throw new Error("Das ausgewählte Duffel-Angebot ist nicht mehr verfügbar. Bitte Preise aktualisieren.");
+  return (await response.json()) as DuffelCheckoutOffer;
+}
+
+export async function createDuffelOrder(flight: FlightOption, passengers: DuffelPassengerInput[]): Promise<DuffelOrderResult> {
+  if (!flight.offerId) throw new Error("Für diesen Flug fehlt die Duffel-Offer-ID.");
+  const endpoint = buildDealApiSiblingUrl("/api/duffel-order");
+
+  const response = await fetch(endpoint.toString(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ offerId: flight.offerId, passengers }),
+  });
+
+  const payload = await response.json().catch(() => null);
+  if (!response.ok) throw new Error(payload?.detail ?? "Die Duffel-Buchung konnte nicht erstellt werden.");
+  return payload as DuffelOrderResult;
+}
+
+function buildDealApiSiblingUrl(pathname: string) {
+  const endpoint = import.meta.env.VITE_DEAL_API_URL as string | undefined;
+  if (!endpoint) throw new Error("VITE_DEAL_API_URL ist nicht gesetzt.");
+  const url = new URL(endpoint);
+  url.pathname = pathname;
+  url.search = "";
+  return url;
 }
 
 export function recommendTravelDates(search: SearchState): DateRecommendation[] {

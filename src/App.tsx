@@ -22,11 +22,11 @@
   Wifi,
   WifiOff,
 } from "lucide-react";
-import type { Dispatch, ReactNode, SetStateAction } from "react";
+import type { Dispatch, FormEvent, ReactNode, SetStateAction } from "react";
 import { useEffect, useMemo, useState } from "react";
 import { activitiesByCity, cities } from "./data/cities";
-import { agentStatus, buildDeals, buildFlights, createDuffelBookingLink, loadLiveTravelData, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
-import type { DateRecommendation, Deal, FlightOption, SearchState } from "./types/travel";
+import { agentStatus, buildDeals, buildFlights, createDuffelOrder, loadDuffelCheckoutOffer, loadLiveTravelData, originAirports, recommendTravelDates, runDailyPriceCheck } from "./services/dealAgents";
+import type { DateRecommendation, Deal, DuffelCheckoutOffer, DuffelOrderResult, DuffelPassengerInput, FlightOption, SearchState } from "./types/travel";
 
 const currency = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR", maximumFractionDigits: 0 });
 type FlightSort = "priceAsc" | "priceDesc" | "departureAsc" | "directFirst";
@@ -73,10 +73,6 @@ function formatDisplayPrice(value: number, isLive: boolean) {
   return isLive ? currency.format(value) : formatApproxPrice(value);
 }
 
-function escapeHtml(value: string) {
-  return value.replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#039;" })[char] ?? char);
-}
-
 function scoreLabel(score: number) {
   if (score >= 92) return "Top-Deal";
   if (score >= 86) return "Sehr stark";
@@ -88,6 +84,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<"deals" | "flights" | "packages" | "wishlist" | "agents" | "activities">("deals");
   const [lastRun, setLastRun] = useState("Heute 07:00");
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
+  const [checkoutFlight, setCheckoutFlight] = useState<FlightOption | null>(null);
   const [liveDeals, setLiveDeals] = useState<Deal[]>([]);
   const [liveFlights, setLiveFlights] = useState<FlightOption[]>([]);
   const [liveStatus, setLiveStatus] = useState<"fallback" | "loading" | "live" | "error">("fallback");
@@ -177,30 +174,6 @@ export default function App() {
 
   function toggleFavoriteCity(cityId: string) {
     setFavoriteCityIds((current) => toggleListValue(current, cityId));
-  }
-
-  async function openDuffelBookingLink(flight: FlightOption) {
-    const bookingTab = window.open("about:blank", "_blank", "noopener,noreferrer");
-    if (bookingTab) {
-      bookingTab.document.write("<!doctype html><title>Duffel wird geöffnet</title><body style=\"background:#090d14;color:white;font-family:system-ui;padding:32px\"><h1>Duffel-Buchung wird vorbereitet...</h1><p>Der Live-Buchungslink wird gerade erstellt.</p></body>");
-      bookingTab.document.close();
-    }
-
-    try {
-      const url = await createDuffelBookingLink(flight, search);
-      if (bookingTab) {
-        bookingTab.location.href = url;
-      } else {
-        window.location.href = url;
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unbekannter Fehler";
-      if (bookingTab) {
-        bookingTab.document.body.innerHTML = `<h1>Duffel konnte nicht geöffnet werden</h1><p>${escapeHtml(message)}</p><p>Bitte versuche es erneut oder lade die Seite neu.</p>`;
-      } else {
-        window.alert(`Duffel konnte nicht geöffnet werden: ${message}`);
-      }
-    }
   }
 
   return (
@@ -295,9 +268,9 @@ export default function App() {
           </>
         )}
 
-        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
+        {activeTab === "flights" && <FlightsPanel flights={flights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />}
 
-        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
+        {activeTab === "packages" && <FlightHotelPanel packages={packages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />}
 
         {activeTab === "wishlist" && (
           <div className="mt-7 space-y-8">
@@ -316,12 +289,12 @@ export default function App() {
                 )}
                 {savedFlights.length > 0 && (
                   <WishlistSection title="Gespeicherte Flüge">
-                    <FlightsPanel compact flights={savedFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />
+                    <FlightsPanel compact flights={savedFlights} people={search.people} savedFlightIds={savedFlightIds} sort={flightSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setFlightSort} onToggleSave={toggleSavedFlight} />
                   </WishlistSection>
                 )}
                 {savedPackages.length > 0 && (
                   <WishlistSection title="Gespeicherte Flug + Hotel-Angebote">
-                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={openDuffelBookingLink} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />
+                    <FlightHotelPanel compact packages={savedPackages} people={search.people} savedPackageIds={savedPackageIds} sort={packageSort} onBookLiveFlight={setCheckoutFlight} onSortChange={setPackageSort} onToggleSave={toggleSavedPackage} />
                   </WishlistSection>
                 )}
               </>
@@ -359,6 +332,7 @@ export default function App() {
           onToggleSave={toggleSavedDeal}
         />
       )}
+      {checkoutFlight && <DuffelCheckoutModal flight={checkoutFlight} people={search.people} onClose={() => setCheckoutFlight(null)} />}
     </main>
   );
 }
@@ -731,6 +705,159 @@ function DealModal({
   );
 }
 
+function DuffelCheckoutModal({ flight, people, onClose }: { flight: FlightOption; people: number; onClose: () => void }) {
+  const [offer, setOffer] = useState<DuffelCheckoutOffer | null>(null);
+  const [status, setStatus] = useState<"loading" | "ready" | "booking" | "booked" | "error">("loading");
+  const [error, setError] = useState("");
+  const [order, setOrder] = useState<DuffelOrderResult | null>(null);
+  const [passengers, setPassengers] = useState<DuffelPassengerInput[]>(() =>
+    Array.from({ length: people }, () => ({
+      title: "mr",
+      givenName: "",
+      familyName: "",
+      bornOn: "",
+      email: "",
+      phoneNumber: "+49",
+    })),
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    setStatus("loading");
+    setError("");
+    loadDuffelCheckoutOffer(flight)
+      .then((data) => {
+        if (cancelled) return;
+        setOffer(data);
+        setPassengers((current) =>
+          Array.from({ length: data.passengers.length }, (_, index) => current[index] ?? { title: "mr", givenName: "", familyName: "", bornOn: "", email: "", phoneNumber: "+49" }),
+        );
+        setStatus("ready");
+      })
+      .catch((cause) => {
+        if (cancelled) return;
+        setError(cause instanceof Error ? cause.message : "Das Angebot konnte nicht geladen werden.");
+        setStatus("error");
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [flight]);
+
+  function updatePassenger(index: number, key: keyof DuffelPassengerInput, value: string) {
+    setPassengers((current) => current.map((passenger, passengerIndex) => (passengerIndex === index ? { ...passenger, [key]: value } : passenger)));
+  }
+
+  async function submitOrder(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStatus("booking");
+    setError("");
+    try {
+      const result = await createDuffelOrder(flight, passengers);
+      setOrder(result);
+      setStatus("booked");
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Die Buchung konnte nicht erstellt werden.");
+      setStatus("ready");
+    }
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-black/70 px-4 py-6 backdrop-blur">
+      <article className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-[#111827] p-5 shadow-2xl">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <p className="text-sm font-semibold text-emerald-200">Exakter Duffel-Checkout</p>
+            <h2 className="mt-1 text-2xl font-semibold text-white">{flight.originAirport} → {flight.destinationAirport} direkt buchen</h2>
+            <p className="mt-2 text-sm text-slate-400">
+              Dieses Formular erstellt eine Order für genau das ausgewählte Duffel-Angebot, ohne erneute Suche.
+            </p>
+          </div>
+          <button className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-sm font-semibold text-white hover:bg-white/10" onClick={onClose} type="button">
+            Schließen
+          </button>
+        </div>
+
+        {status === "loading" && <p className="mt-6 rounded-lg border border-white/10 bg-black/20 p-4 text-sm text-slate-300">Aktuellen Duffel-Preis und Passagierplätze laden...</p>}
+
+        {status === "error" && (
+          <div className="mt-6 rounded-lg border border-rose-300/30 bg-rose-300/10 p-4">
+            <p className="font-semibold text-rose-100">Angebot nicht mehr buchbar</p>
+            <p className="mt-2 text-sm text-rose-100">{error}</p>
+          </div>
+        )}
+
+        {status === "booked" && order && (
+          <div className="mt-6 rounded-lg border border-emerald-300/30 bg-emerald-300/10 p-5">
+            <p className="text-sm font-semibold text-emerald-200">Buchung erstellt</p>
+            <h3 className="mt-2 text-2xl font-semibold text-white">Referenz {order.bookingReference}</h3>
+            <p className="mt-2 text-sm text-slate-300">
+              Order {order.id} · {order.totalAmount} {order.totalCurrency} · Status {order.status}
+            </p>
+          </div>
+        )}
+
+        {offer && status !== "booked" && (
+          <form className="mt-6 space-y-5" onSubmit={submitOrder}>
+            <div className="grid gap-3 rounded-lg border border-white/10 bg-black/20 p-4 sm:grid-cols-3">
+              <Info icon={<Plane size={16} />} label="Airline" value={offer.airline} />
+              <Info icon={<Wallet size={16} />} label="Livepreis" value={`${offer.totalAmount} ${offer.totalCurrency}`} />
+              <Info icon={<Timer size={16} />} label="Gültig bis" value={offer.expiresAt ? new Intl.DateTimeFormat("de-DE", { dateStyle: "short", timeStyle: "short" }).format(new Date(offer.expiresAt)) : "kurzfristig"} />
+            </div>
+
+            <div className="rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm leading-6 text-amber-50">
+              Im Duffel-Testmodus wird eine Testbuchung erstellt. Im Live-Modus wird über dein Duffel-Balance-Konto bezahlt; dafür muss dein Duffel-Konto live freigeschaltet und gedeckt sein.
+            </div>
+
+            <div className="space-y-4">
+              {passengers.map((passenger, index) => (
+                <div className="rounded-lg border border-white/10 bg-white/[0.04] p-4" key={index}>
+                  <p className="mb-4 text-sm font-semibold text-cyan-200">Reisender {index + 1}</p>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <label className="text-sm text-slate-300">
+                      Anrede
+                      <select className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={passenger.title} onChange={(event) => updatePassenger(index, "title", event.target.value as DuffelPassengerInput["title"])}>
+                        <option value="mr">Herr</option>
+                        <option value="mrs">Frau</option>
+                      </select>
+                    </label>
+                    <label className="text-sm text-slate-300">
+                      Geburtsdatum
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" type="date" value={passenger.bornOn} onChange={(event) => updatePassenger(index, "bornOn", event.target.value)} />
+                    </label>
+                    <label className="text-sm text-slate-300">
+                      Vorname laut Ausweis
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={passenger.givenName} onChange={(event) => updatePassenger(index, "givenName", event.target.value)} />
+                    </label>
+                    <label className="text-sm text-slate-300">
+                      Nachname laut Ausweis
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={passenger.familyName} onChange={(event) => updatePassenger(index, "familyName", event.target.value)} />
+                    </label>
+                    <label className="text-sm text-slate-300">
+                      E-Mail
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" type="email" value={passenger.email} onChange={(event) => updatePassenger(index, "email", event.target.value)} />
+                    </label>
+                    <label className="text-sm text-slate-300">
+                      Telefon
+                      <input required className="mt-2 h-11 w-full rounded-md border border-white/10 bg-black/30 px-3 text-white" value={passenger.phoneNumber} onChange={(event) => updatePassenger(index, "phoneNumber", event.target.value)} />
+                    </label>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {error && <p className="rounded-lg border border-rose-300/30 bg-rose-300/10 p-3 text-sm text-rose-100">{error}</p>}
+
+            <button className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-300 px-4 py-3 text-sm font-bold text-emerald-950 hover:bg-emerald-200 disabled:cursor-not-allowed disabled:opacity-60" disabled={status === "booking"} type="submit">
+              {status === "booking" ? "Buchung wird erstellt..." : `Ausgewählten Flug für ${offer.totalAmount} ${offer.totalCurrency} verbindlich buchen`}
+            </button>
+          </form>
+        )}
+      </article>
+    </div>
+  );
+}
+
 function FlightsPanel({
   flights,
   people,
@@ -813,7 +940,7 @@ function FlightsPanel({
               <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis aus Duffel; Buchung öffnet einen Duffel-Checkout." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
               {flight.isLive ? (
                 <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
-                  Bei Duffel buchen <ExternalLink size={16} />
+                  Direkt buchen <ExternalLink size={16} />
                 </button>
               ) : (
                 <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
@@ -935,7 +1062,7 @@ function FlightHotelPanel({
                       <div className="mt-3 flex flex-wrap gap-2">
                         {flight.isLive ? (
                           <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
-                            Bei Duffel buchen <ExternalLink size={16} />
+                            Direkt buchen <ExternalLink size={16} />
                           </button>
                         ) : (
                           <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">

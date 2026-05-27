@@ -89,7 +89,7 @@ In GitHub Actions bzw. beim GitHub-Pages-Build muss gesetzt werden:
 VITE_DEAL_API_URL=https://dein-vercel-projekt.vercel.app/api/deals
 ```
 
-Danach ruft die App echte Flugangebote über Duffel ab. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
+Danach ruft die App echte Flugangebote über Duffel ab. Live-Flüge können über `api/duffel-order.js` als exakte Duffel Order gebucht werden: Die App lädt das ausgewählte Offer neu, nimmt die Reisendendaten auf und erstellt mit `selected_offers` genau für diese Offer-ID eine Buchung. Im Testmodus entstehen nur Testbuchungen; im Live-Modus braucht das Duffel-Konto Live-Freischaltung und eine gedeckte Balance. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
 
 ### 4. Hotels als nächster Schritt
 
