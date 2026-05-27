@@ -89,7 +89,7 @@ In GitHub Actions bzw. beim GitHub-Pages-Build muss gesetzt werden:
 VITE_DEAL_API_URL=https://dein-vercel-projekt.vercel.app/api/deals
 ```
 
-Danach ruft die App echte Flugangebote über Duffel ab. Der Button `Privat buchen` öffnet passende Anbieter-Suchen bei Google Flights, Skyscanner und der Airline-Suche. Zahlung, Buchungsnummer, Gepäckbestätigung und Check-in-Infos kommen danach direkt vom Anbieter oder der Airline. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
+Danach ruft die App echte Flugangebote über Duffel ab. Diese Preise sind Live-Marktpreise zur Orientierung, aber keine garantierten Checkout-Preise bei Google Flights, Skyscanner oder Airline-Websites. Der Button `Preis beim Anbieter prüfen` öffnet passende Anbieter-Suchen; verbindlich ist der Preis erst beim Anbieter. Zahlung, Buchungsnummer, Gepäckbestätigung und Check-in-Infos kommen danach direkt vom Anbieter oder der Airline. Wenn der Vercel-Endpunkt nicht erreichbar ist oder keine Credentials gesetzt sind, fällt die App weiter auf Richtpreise zurück.
 
 ### 4. Hotels als nächster Schritt
 

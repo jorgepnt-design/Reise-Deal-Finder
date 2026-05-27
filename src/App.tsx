@@ -73,6 +73,10 @@ function formatDisplayPrice(value: number, isLive: boolean) {
   return isLive ? currency.format(value) : formatApproxPrice(value);
 }
 
+function formatFlightPrice(value: number, isLive?: boolean) {
+  return isLive ? `${currency.format(value)} Marktpreis` : formatApproxPrice(value);
+}
+
 function scoreLabel(score: number) {
   if (score >= 92) return "Top-Deal";
   if (score >= 86) return "Sehr stark";
@@ -739,11 +743,11 @@ function PrivateBookingModal({ flight, people, onClose }: { flight: FlightOption
           <Info icon={<Plane size={16} />} label="Route" value={`${flight.originAirport} → ${flight.destinationAirport}`} />
           <Info icon={<CalendarDays size={16} />} label="Hinflug" value={`${formatShortDate(flight.outboundDate)} · ${flight.outboundDeparture} - ${flight.outboundArrival}`} />
           <Info icon={<Timer size={16} />} label="Rückflug" value={flight.returnDate && flight.returnDeparture ? `${formatShortDate(flight.returnDate)} · ${flight.returnDeparture} - ${flight.returnArrival}` : "nicht benötigt"} />
-          <Info icon={<Wallet size={16} />} label="Preis aus Live-Suche" value={`${formatDisplayPrice(flight.pricePerPerson, Boolean(flight.isLive))} p. P.`} />
+          <Info icon={<Wallet size={16} />} label={flight.isLive ? "Preisindikator" : "Richtpreis"} value={`${formatFlightPrice(flight.pricePerPerson, flight.isLive)} p. P.`} />
         </div>
 
         <div className="mt-5 rounded-lg border border-amber-300/30 bg-amber-300/10 p-4 text-sm leading-6 text-amber-50">
-          Die App kann dich zum passenden Anbieter führen, aber private Airline-Buchungen nicht selbst abschließen. Nach der Buchung bekommst du Booking Reference, Zahlung, Gepäck und Check-in direkt vom Anbieter per E-Mail.
+          Der angezeigte Preis kommt aus der Live-Preissuche und ist kein garantierter Checkout-Preis beim Anbieter. Der endgültige Preis zählt erst auf der geöffneten Anbieter-Seite.
         </div>
 
         <div className="mt-5 grid gap-3 sm:grid-cols-3">
@@ -761,7 +765,7 @@ function PrivateBookingModal({ flight, people, onClose }: { flight: FlightOption
         <div className="mt-5 rounded-lg border border-white/10 bg-white/[0.04] p-4">
           <p className="text-sm font-semibold text-cyan-200">So nutzt du es privat</p>
           <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-6 text-slate-300">
-            <li>Öffne einen Anbieter und prüfe den angezeigten Preis nochmal.</li>
+            <li>Öffne einen Anbieter und prüfe dort den endgültigen Preis.</li>
             <li>Buche dort direkt mit deinen persönlichen Zahlungsdaten.</li>
             <li>Die echte Buchungsnummer und Rechnung kommen danach vom Anbieter oder der Airline.</li>
           </ol>
@@ -903,7 +907,7 @@ function FlightsPanel({
             <Plane size={18} /> Flüge
           </p>
           <h2 className="mt-2 text-2xl font-semibold text-white">{flights.length} Optionen für deine Suche</h2>
-          <p className="mt-2 text-sm text-slate-400">Livepreise erscheinen ohne ca.; Fallback-Richtpreise sind entsprechend markiert.</p>
+          <p className="mt-2 text-sm text-slate-400">Preise aus Duffel sind Live-Marktpreise zur Orientierung. Der verbindliche Privatpreis steht erst beim Anbieter.</p>
         </div>
         <label className="block min-w-64 text-sm font-medium text-slate-300" htmlFor="flight-sort">
           Sortierung
@@ -930,8 +934,8 @@ function FlightsPanel({
                 </p>
               </div>
               <div className="text-left sm:text-right">
-                <p className="text-3xl font-semibold text-white">{formatDisplayPrice(flight.pricePerPerson, Boolean(flight.isLive))} p. P.</p>
-                <p className="mt-1 text-sm text-slate-400">{formatDisplayPrice(flight.totalPrice, Boolean(flight.isLive))} gesamt</p>
+                <p className="text-3xl font-semibold text-white">{formatFlightPrice(flight.pricePerPerson, flight.isLive)} p. P.</p>
+                <p className="mt-1 text-sm text-slate-400">{formatFlightPrice(flight.totalPrice, flight.isLive)} gesamt</p>
                 <button className={`mt-3 inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-2 text-sm font-semibold ${savedFlightIds.includes(flight.id) ? "bg-cyan-300 text-slate-950" : "bg-white/[0.04] text-slate-200 hover:bg-white/10"}`} onClick={() => onToggleSave(flight.id)} type="button">
                   {savedFlightIds.includes(flight.id) ? <BookmarkCheck size={16} /> : <Bookmark size={16} />}
                   {compact && savedFlightIds.includes(flight.id) ? "Entfernen" : savedFlightIds.includes(flight.id) ? "Gespeichert" : "Merken"}
@@ -951,10 +955,10 @@ function FlightsPanel({
             </div>
 
             <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-4">
-              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Livepreis aus Duffel; Buchung öffnet einen Duffel-Checkout." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
+              <p className="text-sm text-slate-400">Quelle: {flight.source}. {flight.isLive ? "Preisindikator aus Duffel; endgültiger Privatpreis wird beim Anbieter geprüft." : "Anbieter-Suche öffnet sich in einem neuen Tab; Preis dort prüfen."}</p>
               {flight.isLive ? (
                 <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
-                  Privat buchen <ExternalLink size={16} />
+                  Preis beim Anbieter prüfen <ExternalLink size={16} />
                 </button>
               ) : (
                 <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
@@ -1076,7 +1080,7 @@ function FlightHotelPanel({
                       <div className="mt-3 flex flex-wrap gap-2">
                         {flight.isLive ? (
                           <button className="inline-flex items-center gap-2 rounded-lg bg-emerald-300 px-4 py-2 text-sm font-bold text-emerald-950 hover:bg-emerald-200" onClick={() => onBookLiveFlight(flight)} type="button">
-                            Privat buchen <ExternalLink size={16} />
+                            Preis beim Anbieter prüfen <ExternalLink size={16} />
                           </button>
                         ) : (
                           <a className="inline-flex items-center gap-2 rounded-lg bg-cyan-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-cyan-200" href={flight.bookingUrl} rel="noreferrer" target="_blank">
