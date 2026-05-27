@@ -793,7 +793,7 @@ function PrivateBookingModal({ flight, people, onClose }: { flight: FlightOption
 }
 
 function buildGoogleFlightsSearchUrl(flight: FlightOption, people: number) {
-  const route = flight.flightType === "oneWay" ? `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} nur Hinflug` : `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} ${flight.returnDate ?? flight.outboundDate} Hin und zurück`;
+  const route = flight.flightType === "oneWay" ? `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} ${flight.outboundDeparture} nur Hinflug` : `${flight.originAirport} nach ${flight.destinationAirport} ${flight.outboundDate} ${flight.outboundDeparture} ${flight.returnDate ?? flight.outboundDate} ${flight.returnDeparture ?? ""} Hin und zurück`;
   return `https://www.google.com/travel/flights?q=${encodeURIComponent(`${route} ${people} Personen ${flight.airline}`)}`;
 }
 

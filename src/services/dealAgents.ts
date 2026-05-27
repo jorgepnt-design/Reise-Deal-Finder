@@ -232,6 +232,7 @@ export async function loadLiveTravelData(search: SearchState): Promise<LiveTrave
     budget: String(search.budget),
     mode: search.tripMode,
     flightType: search.flightType,
+    dateFlexDays: String(search.dateFlexDays),
   });
 
   const response = await fetch(`${endpoint}?${params.toString()}`);
