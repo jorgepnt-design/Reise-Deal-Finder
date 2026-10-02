@@ -1,0 +1,1 @@
+{ "name": "limit-bar", "version": "0.1.0", "description": "Balken über dem Eingabefeld: 5-Stunden-Limit in Prozent mit Reset-Uhrzeit", "types": "./types/index.d.ts" }
