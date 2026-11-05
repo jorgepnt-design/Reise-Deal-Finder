@@ -96,7 +96,8 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   kompletten Einrichtungstext; sonst „So geht’s in ChatGPT“ + **alle Prompts vollständig**.
 - Ehrlichkeitshinweis (KI-Interpretation / KI-generierte Personen / „keine professionelle Beratung“).
 - CTA: „📌 Speicher dir das …“, „💬 Kommentiere PROMPT und folge @jorge.ai.studio“, „📤 Schick das jemandem, der …“.
-- 8–12 Hashtags **mit echtem `#`** (niemals `%23`).
+- **Genau 5 Hashtags** mit echtem `#` (niemals `%23`). Instagram übernimmt beim Posten in der App nur
+  5 Hashtags – ab dem 6. verschwindet das `#` (bei 053, 054 und 057 passiert). Die 5 wichtigsten zuerst.
 - **Max. 2.200 Zeichen** – vorher zählen; sonst Text rund um die Prompts kürzen, Prompts bleiben vollständig.
 
 ### 8. Google Doc + Bibliothek
@@ -139,7 +140,7 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - [ ] Stimme vollständig, ≤ 30 s, „George“ und „Prompt“ korrekt
 - [ ] Keine Overlays über Gesichtern, Untertitel synchron
 - [ ] Cover: alle Bilder + Vorher, nur ChatGPT-Icon, Hook als Headline, Raster-Vorschau ok
-- [ ] Beschreibung ≤ 2.200 Zeichen, echte `#`
+- [ ] Beschreibung ≤ 2.200 Zeichen, genau 5 Hashtags mit echtem `#`
 - [ ] Doc mit freier Nummer, Freigabe geprüft, Bibliothek
 - [ ] Übergabe: Video, Beschreibung, Cover, Doc – dann Frage „Testreel oder normal?“
 - [ ] Nach Veröffentlichung: Bibliothek, Prompt-Seite, ManyChat
