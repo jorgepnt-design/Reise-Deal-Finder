@@ -120,8 +120,8 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - Dann fragen: **„Soll ich es als Testreel oder normal veröffentlichen?“**
 
 ### 10. Veröffentlichen (erst nach Jorges Antwort)
-- **Normal:** Composio Instagram, Konto `instagram_savin-tee` (@jorge.ai.studio), ig_user_id
-  `17841458432692282`: `INSTAGRAM_POST_IG_USER_MEDIA` (media_type REELS, share_to_feed true,
+- **Normal:** Composio Instagram, Konto `instagram_heresy-kmet` (@jorge.ai.studio, Alias „jorge.ai.studio-neu“),
+  ig_user_id `29351312031139837` (alte Verbindung `instagram_savin-tee` seit 10.11.2026 abgelaufen): `INSTAGRAM_POST_IG_USER_MEDIA` (media_type REELS, share_to_feed true,
   video_url + cover_url als cloudfront-Links, caption mit echtem `#`) → `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH`
   (max_wait_seconds 240) → `INSTAGRAM_GET_IG_MEDIA` prüfen (Caption, Permalink). Niemals auf @jorgepnt.
 - **Testreel:** Die Schnittstelle kann keine Probe-Reels. Jorge postet selbst in der App: Video und Cover
@@ -130,6 +130,9 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - Danach: Bibliothekseintrag mit Instagram-Link ergänzen; Prompt-Seite **jorge-prompts.vercel.app**
   (Vercel-Projekt `jorge-prompts`, Team `team_1o75Rq6lTNMfbc9zjkkpvFDI`) aktualisieren: gelber „NEU“-Knopf
   auf das neue Doc, Eintrag in passende Kategorie, Anzahl hochzählen, neu deployen und online prüfen.
+  Quelltext holen mit Vercel `web_fetch_vercel_url` (Datei `src/index.html`). Beim Deploy per
+  `create_deployment` mit `files` IMMER `projectSettings: {framework: null, outputDirectory: "src"}`
+  mitgeben – sonst 404. Danach jorge-prompts.vercel.app abrufen und Status 200 + neuen Eintrag prüfen.
 
 ### 11. ManyChat (direkt nach Veröffentlichung)
 - Mit Claude in Chrome (falls verbunden) wie in v4 Punkt 30 einrichten. Sonst fertige Texte liefern:
