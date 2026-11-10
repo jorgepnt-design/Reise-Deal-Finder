@@ -11,7 +11,7 @@ Wenn ich einen dieser Codes schreibe, erledige die Aufgabe mit dem Foto, das ich
 
 So geht’s: Foto abfotografieren → in ChatGPT hochladen → Code tippen (z. B. „/jahrestag 1968“).
 
-ℹ️ Das Paar im Video ist KI-generiert. ChatGPT interpretiert alte Fotos – Gesichter können sich leicht verändern, also vorher mit dem Original vergleichen.
+ℹ️ Im Video siehst du ein echtes altes Hochzeitsfoto. Die späteren Lebensphasen in der Collage hat die KI aus diesem einen Foto erfunden – mit echten Fotos aus jedem Jahrzehnt wird sie echt. ChatGPT interpretiert alte Fotos, Gesichter können sich leicht verändern, also immer mit dem Original vergleichen.
 
 📌 Speicher dir das für Weihnachten
 💬 Kommentiere PROMPT und folge @jorge.ai.studio – ich schick dir alle 3 Codes
