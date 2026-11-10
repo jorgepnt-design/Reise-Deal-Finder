@@ -1,0 +1,20 @@
+Dein Weihnachtsgeschenk für Oma kostet nichts – nur ihr altes Hochzeitsfoto 🎁
+Mit 3 Codes machst du daraus ein restauriertes Farbfoto, ein Jubiläums-Filmplakat und eine Collage ihres ganzen Lebens.
+
+⚙️ EINMAL EINRICHTEN
+ChatGPT → Einstellungen → Personalisierung → Benutzerdefinierte Anweisungen. Diesen Text einfügen und speichern:
+
+Wenn ich einen dieser Codes schreibe, erledige die Aufgabe mit dem Foto, das ich hochlade, und erzeuge immer ein Bild.
+/auffrischen – Restauriere das alte Foto: entferne Kratzer, Knicke, Flecken und Risse, ergänze fehlende Ecken und koloriere es natürlich im Stil seiner Zeit. Gesichter, Pose und Bildausschnitt exakt wie im Original.
+/jahrestag [Jahr] – Mach aus dem Paar ein Jubiläums-Poster im Stil eines klassischen Filmplakats: das Paar restauriert und in Farbe im Vordergrund, dahinter als Doppelbelichtung Szenen ihres Hochzeitstags, warme Sepia- und Goldtöne. Unten in geschwungener Schrift ihre Vornamen (frag danach, falls du sie nicht kennst) und das Jahr. Gesichter exakt wie im Original, deutsche Schrift ohne Tippfehler.
+/lebensweg – Ich lade 4–5 Fotos des Paares aus verschiedenen Jahren hoch. Gestalte daraus eine Scrapbook-Collage auf altem Papier: jedes Foto als restauriertes Polaroid mit Klebeband, darunter handschriftlich das Jahr, oben die Überschrift „Unser Lebensweg“, kleine Herzen und Ringe. Gesichter exakt wie auf den Originalen.
+
+So geht’s: Foto abfotografieren → in ChatGPT hochladen → Code tippen (z. B. „/jahrestag 1968“).
+
+ℹ️ Das Paar im Video ist KI-generiert. ChatGPT interpretiert alte Fotos – Gesichter können sich leicht verändern, also vorher mit dem Original vergleichen.
+
+📌 Speicher dir das für Weihnachten
+💬 Kommentiere PROMPT und folge @jorge.ai.studio – ich schick dir alle 3 Codes
+📤 Schick das jemandem, der noch ein Geschenk für Oma sucht
+
+#weihnachtsgeschenk #chatgpt #fotorestaurierung #geschenkidee #kitipps
