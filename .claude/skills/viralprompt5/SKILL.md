@@ -34,7 +34,10 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - Eigene **deutsche** Codes/Varianten (nicht die Namen des Originals kopieren), gleiche Anzahl.
 - Hook nach v4-Regeln: „Du/Dein“ vorne, max. 12 Wörter, kein Toolname im ersten Satz, 1 Emoji am Ende.
 - Sprechertext ca. 45–60 Wörter: Hook → „X Codes, einmal in ChatGPT gespeichert.“ (bei Codes) →
-  je Code ein Satz → Abschluss „Speicher dir das, kommentiere Prompt und folge George Punkt A I Punkt Studio.“
+  je Code ein Satz → Abschluss „Speicher dir das, kommentiere Prompt und folge Dschordsch Punkt A I Punkt Studio.“
+- **Aussprache Name (Pflicht):** Jorges Name wird englisch „George“ gesprochen. Im Sprechertext für die
+  Stimme **immer „Dschordsch“** schreiben (nie „George“ oder „Jorge“ – die deutsche Stimme spricht das
+  sonst falsch, z. B. „Jorche“). Gilt für jeden Sprechertext, auch in anderen Formaten.
 - „Slash X“ im Sprechertext für Codes; im Bild/Untertitel „/x“.
 - Kurz an Jorge melden: Analyse in 3–4 Zeilen, Codes, genaue Kosten – dann direkt weiterarbeiten.
 
@@ -56,7 +59,8 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   klarem Fehler **einmal** neu erzeugen und Jorge sagen warum.
 - Stimme: `seed_audio`, voice_type `element`, voice_id `292bf8af-9d89-4758-a455-c8c4cd473d97`
   („Jorge (HeyGen)“). Nach Erzeugung transkribieren und prüfen (vollständig, „Prompt“ als Wort,
-  „George.ai.studio“ am Ende).
+  Name am Ende englisch wie „George“ gesprochen – eine Transkription mit language="en" muss „George“ ergeben;
+  klingt es wie „Jorche“, nur den Schlusssatz mit „Dschordsch“ neu erzeugen und ansetzen).
 - **Länge max. 30 s**: Zuerst lange Pausen kürzen (silencedetect, jede Stille > 0,6 s auf ~0,44 s),
   erst danach falls nötig `atempo` bis max. 1,08. Nie gesprochene Wörter schneiden.
 - Animation nur bei Szenen-Bildern (Personen, Orte): Seedance 2.0 Mini, 480p, 5 s, 3:4, ohne Ton,
@@ -137,7 +141,7 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 ## ABSCHLUSSKONTROLLE
 - [ ] Analyse + eigene Codes/Prompts, ehrlich (Einrichtungstext bei Codes)
 - [ ] Kosten genannt, Budget eingehalten
-- [ ] Stimme vollständig, ≤ 30 s, „George“ und „Prompt“ korrekt
+- [ ] Stimme vollständig, ≤ 30 s, Name als „Dschordsch“ geschrieben und wie „George“ gesprochen, „Prompt“ korrekt
 - [ ] Keine Overlays über Gesichtern, Untertitel synchron
 - [ ] Cover: alle Bilder + Vorher, nur ChatGPT-Icon, Hook als Headline, Raster-Vorschau ok
 - [ ] Beschreibung ≤ 2.200 Zeichen, genau 5 Hashtags mit echtem `#`
