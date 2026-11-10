@@ -88,6 +88,10 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
     (ein Ergebnis darf stattdessen auf dem Handy zu sehen sein). Nichts verdeckt Gesicht, Handy oder Text.
   - **Nur das ChatGPT-Icon** (`--tools chatgpt`). Kein Higgsfield-Icon, auch wenn intern Higgsfield genutzt wurde.
   - **Headline = der Hook** (bis 3 Zeilen, Großbuchstaben), darunter türkise Pointe („mit einem Foto“, „mit 4 Codes“).
+  - **Cover-Schrift GROSS (Jorges Vorgabe, 10.11.2026):** Headline mindestens 120 px (Ziel 130–150 px),
+    Text nutzt fast die volle Breite (Script: Textzone 60–1020 px). Zeilen deshalb kurz umbrechen, lange
+    Wörter in eine eigene Zeile (z. B. „DEINE|WEIHNACHTSKARTE|IN 2 MINUTEN“). Gibt das Script
+    „WARNUNG: Headline nur … px“ aus → anders umbrechen. Kurze erste Zeile = ChatGPT-Icon steht rechts daneben.
   - Schnee (`--snow`) nur bei Weihnachtsthemen.
 - Titelbild- und Raster-Vorschau (`*_raster34.jpg`) ansehen; nichts abgeschnitten.
 

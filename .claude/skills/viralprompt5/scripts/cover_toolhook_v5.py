@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageEnhance
 
 W, H = 1080, 1920
 EXTRA = []
-SAFE_L, SAFE_R = 216, 864          # Text-Zone (mittlere 60 %)
+SAFE_L, SAFE_R = 60, 1020          # Text-Zone fast volle Breite (Jorge: Cover-Schrift groß!)
 GRID_TOP, GRID_BOT = 240, 1680     # 3:4-Profilraster
 HERE = os.path.dirname(os.path.abspath(__file__))
 F_HEAD = os.path.join(HERE, "fonts/Anton-Regular.ttf")
@@ -116,9 +116,10 @@ def main():
     maxw = SAFE_R - SAFE_L
     # Textblock unten im Raster-Bereich
     lines = [l for l in o.l1.split("|")] + ([o.l2] if o.l2 else [])
-    size = min(fit_font(F_HEAD, l, maxw, 130).size for l in lines)
+    size = min(fit_font(F_HEAD, l, maxw, 190).size for l in lines)
+    if size < 120: print(f'WARNUNG: Headline nur {size}px – Zeilen kürzer umbrechen (Ziel >= 120px)')
     fh = ImageFont.truetype(F_HEAD, size)
-    fs = fit_font(F_SCRIPT, o.script, maxw, 84, var=700) if o.script else None
+    fs = fit_font(F_SCRIPT, o.script, maxw, 110, var=700) if o.script else None
     hs = fs.getbbox(o.script) if fs else (0, 0, 0, 0)
     y = GRID_BOT - 40 - hs[3] - (14 if fs else 0)
     ys = []
@@ -127,12 +128,18 @@ def main():
     y_script = GRID_BOT - 40 - hs[3]
     x = SAFE_L
     tools = [t.strip() for t in o.tools.split(",") if t.strip()]
-    ts = 116; gap = 20; ty = ys[0][1] + ys[0][2][1] - ts - 26
+    ts = 140; gap = 24
+    l0, y0, b0 = ys[0]
+    w0 = b0[2] - b0[0]; tiles_w = len(tools) * (ts + gap)
+    if x + w0 + 36 + tiles_w <= SAFE_R:      # Icons rechts neben die (kurze) erste Zeile
+        tx = x + w0 + 36; ty = y0 + b0[1] + (b0[3] - b0[1] - ts) // 2
+    else:                                    # sonst über die Headline
+        tx = x; ty = y0 + b0[1] - ts - 26
     for i, tname in enumerate(tools):
         tl = tile(tname, ts)
-        s2 = Image.new("RGBA", (W, H), (0, 0, 0, 0)); s2.paste((0, 0, 0, 120), (x + i*(ts+gap), ty + 10), tl.split()[3])
+        s2 = Image.new("RGBA", (W, H), (0, 0, 0, 0)); s2.paste((0, 0, 0, 120), (tx + i*(ts+gap), ty + 10), tl.split()[3])
         img.alpha_composite(s2.filter(ImageFilter.GaussianBlur(12)))
-        img.alpha_composite(tl, (x + i*(ts+gap), ty))
+        img.alpha_composite(tl, (tx + i*(ts+gap), ty))
     for l, yy, bb in ys:
         shadow_text(img, (x - bb[0], yy), l, fh, (255, 255, 255))
     if fs: shadow_text(img, (x - hs[0], y_script), o.script, fs, hexrgb(o.script_color) + (255,), blur=8, off=(0, 4))
