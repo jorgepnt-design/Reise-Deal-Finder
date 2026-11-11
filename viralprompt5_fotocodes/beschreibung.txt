@@ -1,0 +1,21 @@
+Du machst ein Foto und bekommst sofort eine perfekte Erklärgrafik 🤯
+4 Codes für ChatGPT: Funktionsbild, Pro & Contra, Schritt-für-Schritt-Anleitung und Spickzettel, aus einem einzigen Foto.
+
+⚙️ EINMAL EINRICHTEN
+ChatGPT → Einstellungen → Personalisierung → Benutzerdefinierte Anweisungen. Diesen Text einfügen und speichern:
+
+„Wenn ich ein Foto hochlade und einen dieser Codes schreibe, erkenne das Objekt auf dem Foto und erstelle dazu eine Infografik im Hochformat. Das Objekt ist darin als Illustration zu sehen. Klares Design, kurze Texte, fehlerfreie deutsche Schrift, nur korrekte Fakten.
+/erklärbild: Titel „So funktioniert …“, 4–6 nummerierte Schritte mit Pfeilen und Icons, die zeigen, wie es funktioniert.
+/procontra: Name des Objekts als Titel, darunter zwei Spalten: links grün „Pro“, rechts rot „Contra“, je 4–5 kurze Punkte mit Icon.
+/schritte: Titel „… in X Schritten“, 6 nummerierte Kästchen mit kleinen Bildern, verbunden mit Pfeilen, unten das Ergebnis.
+/spickzettel: Titel „… Spickzettel“, 6–8 farbige Kacheln mit Icon und den wichtigsten Infos auf einen Blick.“
+
+Danach: neuen Chat öffnen, Foto hochladen (Gerät, Pflanze, Gericht, Auto …) und z. B. /erklärbild schreiben.
+
+ℹ️ Die Codes sind keine eingebaute ChatGPT-Funktion, sie laufen über deine gespeicherten Anweisungen. Fotos und Grafiken im Video sind KI-generiert. KI-Grafiken können Fehler enthalten: Zahlen und Fakten kurz gegenchecken, keine professionelle Beratung.
+
+📌 Speicher dir das, damit du die Codes wiederfindest.
+💬 Kommentiere PROMPT und folge @jorge.ai.studio
+📤 Schick das jemandem, der sich alles gern erklären lässt.
+
+#chatgpt #kitipps #infografik #chatgpttipps #künstlicheintelligenz
