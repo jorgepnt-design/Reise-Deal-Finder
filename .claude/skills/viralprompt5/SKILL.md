@@ -4,7 +4,7 @@ description: >-
   Masterprompt /viralprompt5 für Jorge.ai.studio: Jorge lädt ein fremdes Reel-Video hoch, und daraus
   entsteht vollautomatisch eine eigene, ehrliche Version (Remake) mit Jorges Stimme, eigenen Bildern,
   Untertiteln, Cover (nur ChatGPT-Icon), Beschreibung und Google Doc. Alles wird selbst erledigt;
-  nur vor dem Veröffentlichen wird gefragt: Testreel oder normal. Danach ManyChat. Nutzen, wenn
+  veröffentlicht wird immer als Testreel (Probe-Reel), ohne Rückfrage. Danach ManyChat. Nutzen, wenn
   Jorge /viralprompt5 schreibt oder ein Video schickt und es „auf die gleiche Weise neu“ haben will.
 ---
 
@@ -17,8 +17,9 @@ Datenschutz und Bibliothek gelten weiter, soweit hier nichts anderes steht).
 
 Jorge lädt ein Video hoch (meist ein fremdes Reel). Du analysierst es und baust eine **eigene Version**:
 gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, Jorges Fotos und Stimme.
-**Du machst alles selbst bis zum Ende**, ohne Zwischenfreigaben. Einzige Pflicht-Rückfrage:
-**vor dem Veröffentlichen** (Testreel oder normal). Am Ende bekommt Jorge: **Video, Beschreibung, Cover, Doc**.
+**Du machst alles selbst bis zum Ende**, ohne Zwischenfreigaben. **Veröffentlicht wird IMMER als Testreel
+(Probe-Reel)** – Jorges feste Vorgabe seit 11.11.2026, nicht mehr nachfragen. Normal nur, wenn Jorge es
+ausdrücklich für dieses Reel verlangt. Am Ende bekommt Jorge: **Video, Beschreibung, Cover, Doc**.
 
 ## ABLAUF
 
@@ -113,16 +114,19 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - Video und Cover per `media_upload` zu Higgsfield hochladen → direkte cloudfront-Links (fürs Handy),
   zusätzlich `SendUserFile` mit Video, Cover, Beschreibung (.txt).
 - Liefern: **Video-Link, Cover-Link, Beschreibung, Doc-Link**, Kosten gesamt, Auffälligkeiten.
-- Dann fragen: **„Soll ich es als Testreel oder normal veröffentlichen?“**
+- Dann direkt als **Testreel** veröffentlichen (Punkt 10), nicht nachfragen.
 
-### 10. Veröffentlichen (erst nach Jorges Antwort)
+### 10. Veröffentlichen (Standard: Testreel)
 - **Normal:** Composio Instagram, Konto `instagram_savin-tee` (@jorge.ai.studio), ig_user_id
   `17841458432692282`: `INSTAGRAM_POST_IG_USER_MEDIA` (media_type REELS, share_to_feed true,
   video_url + cover_url als cloudfront-Links, caption mit echtem `#`) → `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH`
   (max_wait_seconds 240) → `INSTAGRAM_GET_IG_MEDIA` prüfen (Caption, Permalink). Niemals auf @jorgepnt.
-- **Testreel:** Die Schnittstelle kann keine Probe-Reels. Jorge postet selbst in der App: Video und Cover
-  speichern → + → Reel → Titelbild aus Galerie → Beschreibung einfügen → „Probe-Reel“ einschalten → Teilen.
-  Danach den Link über `INSTAGRAM_GET_IG_USER_MEDIA` suchen.
+- **Testreel (Standard):** Per `COMPOSIO_PROXY_EXECUTE` (toolkit `instagram`, Konto @jorge.ai.studio):
+  `POST /17841458432692282/media` mit Body `{"media_type":"REELS","video_url":…,"cover_url":…,"caption":…,
+  "trial_params":{"graduation_strategy":"MANUAL"}}` (das Composio-Tool kennt `trial_params` nicht) →
+  `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH` (creation_id, max_wait_seconds 240) → `GET /{media_id}?fields=permalink,caption`
+  prüfen. Vorher `GET /me?fields=user_id,username` = jorge.ai.studio. Fallback, falls die API ablehnt: Jorge postet
+  selbst in der App mit „Probe-Reel“.
 - Danach: Bibliothekseintrag mit Instagram-Link ergänzen; Prompt-Seite **jorge-prompts.vercel.app**
   (Vercel-Projekt `jorge-prompts`, Team `team_1o75Rq6lTNMfbc9zjkkpvFDI`) aktualisieren: gelber „NEU“-Knopf
   auf das neue Doc, Eintrag in passende Kategorie, Anzahl hochzählen, neu deployen und online prüfen.
@@ -142,5 +146,5 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
 - [ ] Cover: alle Bilder + Vorher, nur ChatGPT-Icon, Hook als Headline, Raster-Vorschau ok
 - [ ] Beschreibung ≤ 2.200 Zeichen, genau 5 Hashtags mit echtem `#`
 - [ ] Doc mit freier Nummer, Freigabe geprüft, Bibliothek
-- [ ] Übergabe: Video, Beschreibung, Cover, Doc – dann Frage „Testreel oder normal?“
+- [ ] Übergabe: Video, Beschreibung, Cover, Doc – dann als Testreel veröffentlichen
 - [ ] Nach Veröffentlichung: Bibliothek, Prompt-Seite, ManyChat
