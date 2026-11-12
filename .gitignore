@@ -7,3 +7,6 @@ dist/
 *.log
 *.tsbuildinfo
 .claude/skills/*/.claude-plugin/types/
+
+# Lokale Ausgaben (Reels, Cover, Beschreibungen)
+outputs/
