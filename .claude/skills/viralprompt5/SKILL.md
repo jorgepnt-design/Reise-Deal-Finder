@@ -63,13 +63,15 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   ruhige Bewegung (2,5 Credits/Clip). Raster/Karten/Infografiken **nicht** animieren.
 
 ### 5. Schnitt (lokal, ffmpeg)
-- Format 480×854: Bild 480×650 oben, Untertitelstreifen 480×204 (0x111111) unten, ASS DejaVu Sans Bold 30.
+- Format 480×854: Bild 480×650 oben, Untertitelstreifen 480×204 (0x111111) unten, ASS DejaVu Sans Bold **38** (MarginL/R 16, MarginV 30).
+- **GROSSE SCHRIFT – IMMER (Jorges feste Vorgabe, 13.11.2026):** Untertitel 38, Bild-Overlays 32, Code-Eingabezeile 34,
+  Code-Karte 34. Nie wieder 30/23. Hook-Overlay in kurze Zeilen umbrechen (max. ~22 Zeichen pro Zeile).
 - Vorlagen: `scripts/build_codes_reel_example.py` (Codes-Format mit Eingabezeile „+ /code“ und
   Vorher→Nachher-Wisch) und `scripts/build_variants_reel_example.py` (Varianten-Format mit Clips).
   Zeiten, Texte und Dateien anpassen; Grenzen aus den Wort-Zeitstempeln.
-- Sekunde 0: fertiges Ergebnis + Hook-Overlay (DejaVu Sans Bold 23, Box schwarz 55 %).
+- Sekunde 0: fertiges Ergebnis + Hook-Overlay (DejaVu Sans Bold 32, Box schwarz 55 %).
 - **Keine Overlays über Gesichtern.** Bei Rastern mit Gesichtern oben (Hook, CTA) das Bild mit einem
-  84 px Streifen oben in Nachtblau einrücken und den Text dort platzieren. „Nachher“-Schild weglassen,
+  142 px Streifen oben in Nachtblau einrücken und den Text dort platzieren. „Nachher“-Schild weglassen,
   wenn es ein Gesicht verdecken würde.
 - Ende: „Kommentiere PROMPT“ + „@jorge.ai.studio“. Lautstärke `loudnorm=I=-15:TP=-1.5`.
 - Prüfen: Dauer, 8–12 Einzelbilder als Kontaktbogen ansehen, Lautstärke.
@@ -87,7 +89,8 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   - **ALLE Ergebnisbilder** als schräge Polaroids + **ein Vorher-Foto** mit Beschriftung „vorher“
     (ein Ergebnis darf stattdessen auf dem Handy zu sehen sein). Nichts verdeckt Gesicht, Handy oder Text.
   - **Nur das ChatGPT-Icon** (`--tools chatgpt`). Kein Higgsfield-Icon, auch wenn intern Higgsfield genutzt wurde.
-  - **Headline = der Hook** (bis 3 Zeilen, Großbuchstaben), darunter türkise Pointe („mit einem Foto“, „mit 4 Codes“).
+  - **Headline = der Hook** (bis 4 kurze Zeilen, Großbuchstaben), **mindestens 90 px** – lieber mehr, kürzere
+    Zeilen als kleine Schrift (Ausgabe „Headline NN px“ prüfen; unter 90 px Zeilen kürzer umbrechen), darunter türkise Pointe („mit einem Foto“, „mit 4 Codes“).
   - Schnee (`--snow`) nur bei Weihnachtsthemen.
 - Titelbild- und Raster-Vorschau (`*_raster34.jpg`) ansehen; nichts abgeschnitten.
 
