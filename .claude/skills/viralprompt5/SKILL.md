@@ -89,8 +89,10 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   - **ALLE Ergebnisbilder** als schräge Polaroids + **ein Vorher-Foto** mit Beschriftung „vorher“
     (ein Ergebnis darf stattdessen auf dem Handy zu sehen sein). Nichts verdeckt Gesicht, Handy oder Text.
   - **Nur das ChatGPT-Icon** (`--tools chatgpt`). Kein Higgsfield-Icon, auch wenn intern Higgsfield genutzt wurde.
-  - **Headline = der Hook** (bis 4 kurze Zeilen, Großbuchstaben), **mindestens 90 px** – lieber mehr, kürzere
-    Zeilen als kleine Schrift (Ausgabe „Headline NN px“ prüfen; unter 90 px Zeilen kürzer umbrechen), darunter türkise Pointe („mit einem Foto“, „mit 4 Codes“).
+  - **COVER-SCHRIFT GROSS – IMMER (Jorges feste Vorgabe):** Headline **mindestens 115 px** (Ausgabe „Headline NN px“
+    prüfen). Dafür den Hook auf die Kernwörter kürzen: max. 3 Zeilen à max. ~12 Zeichen (z. B. „DEIN FOTO|OHNE FREMDE|
+    ODER MIT DIR?“ = 120 px). Lange Hooks NIE vollständig aufs Cover – Rest steht im Video/der Beschreibung.
+  - **Headline = Kurzform des Hooks** (Großbuchstaben), darunter türkise Pointe („mit einem Foto“, „mit 4 Codes“).
   - Schnee (`--snow`) nur bei Weihnachtsthemen.
 - Titelbild- und Raster-Vorschau (`*_raster34.jpg`) ansehen; nichts abgeschnitten.
 
