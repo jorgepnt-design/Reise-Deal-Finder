@@ -63,8 +63,8 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   ruhige Bewegung (2,5 Credits/Clip). Raster/Karten/Infografiken **nicht** animieren.
 
 ### 5. Schnitt (lokal, ffmpeg)
-- Format 480×854: Bild 480×650 oben, Untertitelstreifen 480×204 (0x111111) unten, ASS DejaVu Sans Bold **38** (MarginL/R 16, MarginV 30).
-- **GROSSE SCHRIFT – IMMER (Jorges feste Vorgabe, 13.11.2026):** Untertitel 38, Bild-Overlays 32, Code-Eingabezeile 34,
+- Format 480×854: Bild 480×650 oben, Untertitelstreifen 480×204 (0x111111) unten, ASS DejaVu Sans Bold **34** (MarginL/R 16, MarginV 34).
+- **GROSSE SCHRIFT – IMMER (Jorges feste Vorgabe, 13.11.2026):** Untertitel 34 (38 war Jorge zu groß, 30 zu klein), Bild-Overlays 32, Code-Eingabezeile 34,
   Code-Karte 34. Nie wieder 30/23. Hook-Overlay in kurze Zeilen umbrechen (max. ~22 Zeichen pro Zeile).
 - Vorlagen: `scripts/build_codes_reel_example.py` (Codes-Format mit Eingabezeile „+ /code“ und
   Vorher→Nachher-Wisch) und `scripts/build_variants_reel_example.py` (Varianten-Format mit Clips).
