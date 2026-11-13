@@ -125,9 +125,11 @@ gleiche Idee und Dramaturgie, aber eigene Codes/Prompts, eigener Sprechertext, J
   `17841458432692282`: `INSTAGRAM_POST_IG_USER_MEDIA` (media_type REELS, share_to_feed true,
   video_url + cover_url als cloudfront-Links, caption mit echtem `#`) → `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH`
   (max_wait_seconds 240) → `INSTAGRAM_GET_IG_MEDIA` prüfen (Caption, Permalink). Niemals auf @jorgepnt.
-- **Testreel:** Die Schnittstelle kann keine Probe-Reels. Jorge postet selbst in der App: Video und Cover
-  speichern → + → Reel → Titelbild aus Galerie → Beschreibung einfügen → „Probe-Reel“ einschalten → Teilen.
-  Danach den Link über `INSTAGRAM_GET_IG_USER_MEDIA` suchen.
+- **Testreel (Probe-Reel) – IMMER selbst per API, Jorge postet NICHT selbst:** Composio `COMPOSIO_PROXY_EXECUTE`
+  (toolkit instagram, Konto @jorge.ai.studio) POST `https://graph.instagram.com/v21.0/17841458432692282/media` mit
+  JSON `{media_type: REELS, video_url, cover_url, share_to_feed: true, trial_params: {graduation_strategy: "MANUAL"}, caption}`
+  (Hashtags mit echtem `#`) → `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH` (creation_id, max_wait_seconds 240) →
+  `INSTAGRAM_GET_IG_MEDIA` prüfen: `is_shared_to_feed` = false = Probe-Reel, Permalink notieren. (So erstmals bei 084, 090.)
 - Danach: Bibliothekseintrag mit Instagram-Link ergänzen; Prompt-Seite **jorge-prompts.vercel.app**
   (Vercel-Projekt `jorge-prompts`, Team `team_1o75Rq6lTNMfbc9zjkkpvFDI`) aktualisieren: gelber „NEU“-Knopf
   auf das neue Doc, Eintrag in passende Kategorie, Anzahl hochzählen, neu deployen und online prüfen.
