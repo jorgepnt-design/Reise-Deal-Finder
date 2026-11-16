@@ -1,0 +1,21 @@
+Dein Black-Friday-Warenkorb wird mit diesen 3 Codes günstiger 💸
+Drei ChatGPT-Codes, die Gutscheine finden, Fake-Deals entlarven und den günstigsten Shop suchen.
+
+⚙️ EINMAL EINRICHTEN
+ChatGPT → Einstellungen → Personalisierung → Benutzerdefinierte Anweisungen. Diesen Text einfügen:
+
+Wenn ich einen dieser Befehle schreibe, nutze immer die Websuche und den Screenshot oder Link, den ich mitschicke. Erfinde nichts – wenn du etwas nicht sicher findest, sag es.
+/gutschein – Suche aktuelle, gültige Gutscheincodes für diesen Shop und diese Artikel. Liste höchstens 5 Codes mit Rabatt, Bedingungen (Mindestbestellwert, nur Neukunden, Ablaufdatum) und Quelle als Link. Markiere unsichere Codes.
+/preisverlauf – Suche den Preisverlauf jedes Artikels der letzten 4 Wochen. Zeig Preis vor 3 Wochen, Tiefstpreis und heutigen Preis. Sag klar, ob der Deal echt ist oder der Preis vorher hochgesetzt wurde. Nenne die Quellen.
+/vergleich – Suche denselben Artikel (gleiche Modellnummer) in anderen seriösen Shops. Tabelle: Shop, Preis, Versand, Gesamtpreis, Lieferzeit. Markiere den günstigsten und nenne die Ersparnis.
+
+▶️ SO NUTZT DU ES
+Screenshot vom Warenkorb rein, Websuche an, dann /gutschein, /preisverlauf oder /vergleich tippen.
+
+ℹ️ ChatGPT sucht im Netz und kann sich irren: Gutscheine im Shop testen, Preise prüfen. Die Beispielkarten im Video sind KI-generiert. Keine Kaufberatung.
+
+📌 Speicher dir das für den Black Friday.
+💬 Kommentiere PROMPT und folge @jorge.ai.studio – ich schick dir alles als Doc.
+📤 Schick das jemandem, der am Black Friday zu viel ausgibt.
+
+#blackfriday #chatgpt #sparen #kitipps #schnäppchen
