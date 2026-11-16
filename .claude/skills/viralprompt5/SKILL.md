@@ -168,7 +168,7 @@ Varianten, kurzes „So geht’s“, CTA. Ziel: Abbruch 0–3 s < 55 %, Ø geseh
 
 ## 11. VERÖFFENTLICHEN (immer selbst, erst nach Jorges Antwort)
 
-Konto @jorge.ai.studio (Composio `instagram_heresy-kmet`, ig_user_id `17841458432692282`). Niemals auf @jorgepnt.
+Konto @jorge.ai.studio (Composio-Konto `jorge.ai.studio-neu` – bei Composio-Tools im Feld `account` angeben; die alte Verbindung `jorge.ai.studio` ist abgelaufen –, ig_user_id `17841458432692282`). Niemals auf @jorgepnt.
 - **Testreel (Probe-Reel):** Composio `COMPOSIO_PROXY_EXECUTE` (toolkit instagram) POST
   `https://graph.instagram.com/v21.0/17841458432692282/media` mit JSON `{media_type: REELS, video_url, cover_url,
   share_to_feed: true, trial_params: {graduation_strategy: "MANUAL"}, caption}` → `INSTAGRAM_POST_IG_USER_MEDIA_PUBLISH`
